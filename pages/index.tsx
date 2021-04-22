@@ -13,11 +13,7 @@ const Blog: React.FC<Props> = props => {
       <div className="page">
         <h1>My Blog</h1>
         <main>
-          {props.feed.map(post => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
-          ))}
+          {JSON.stringify(props)}
         </main>
       </div>
       <style jsx>{`
@@ -36,14 +32,6 @@ const Blog: React.FC<Props> = props => {
       `}</style>
     </Layout>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/api/feed')
-  const feed = await res.json()
-  return {
-    props: { feed },
-  }
 }
 
 export default Blog

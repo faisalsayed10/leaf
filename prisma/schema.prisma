@@ -30,8 +30,8 @@ model List {
 }
 
 model Book {
-  id String @id @default(uuid())
-  List   List?   @relation(fields: [listId], references: [id])
-  listId String?
+  id    String @id @default(uuid())
+  lists List[]
+
   @@map("books")
 }
