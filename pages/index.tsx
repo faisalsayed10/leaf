@@ -8,7 +8,7 @@ const Blog: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>My Blog</h1>
+        {/* <h1>My Blog</h1> */}
       </div>
     </Layout>
   );

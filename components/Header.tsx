@@ -1,69 +1,40 @@
-import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { Box, Flex, Text } from "@chakra-ui/layout";
+import { Avatar } from "@chakra-ui/avatar";
+import { useUser } from "@auth0/nextjs-auth0";
+import SearchInput from "./SearchInput";
 
 const Header: React.FC = () => {
-  const router = useRouter()
-  const isActive: (pathname: string) => boolean =
-    pathname => router.pathname === pathname
+  const { user, error, isLoading } = useUser();
+  const router = useRouter();
 
-  return(
-    <nav>
-      <div className="left">
-        <Link href="/">
-          <a className="bold" data-active={isActive('/')}>
-            Blog
-          </a>
+  if (error) console.log(error);
+
+  return (
+    <Flex alignItems="center" justifyContent="space-between" p="2" mx="6">
+      <Link href="/">
+        <Text className="bold">Libook</Text>
+      </Link>
+      <Text>Browse</Text>
+      <SearchInput />
+      {!isLoading && user ? (
+        <>
+          <Link href="/profile">
+            <Avatar />
+          </Link>
+          <Link href="/api/auth/logout">
+            <a>Log Out</a>
+          </Link>
+        </>
+      ) : (
+        <Link href="/api/auth/login">
+          <Text>Log&nbsp;In</Text>
         </Link>
-        <Link href="/drafts">
-          <a data-active={isActive('/drafts')}>Drafts</a>
-        </Link>
-      </div>
-      <div className="right">
-        <Link href="/signup">
-          <a data-active={isActive('/signup')}>Signup</a>
-        </Link>
-        <Link href="/create">
-          <a data-active={isActive('/create')}>+ Create draft</a>
-        </Link>
-      </div>
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
+      )}
+    </Flex>
+  );
+};
 
-        .bold {
-          font-weight: bold;
-        }
-
-        a {
-          text-decoration: none;
-          color: #000;
-          display: inline-block;
-        }
-
-        .left a[data-active='true'] {
-          color: gray;
-        }
-
-        a + a {
-          margin-left: 1rem;
-        }
-
-        .right {
-          margin-left: auto;
-        }
-
-        .right a {
-          border: 1px solid black;
-          padding: 0.5rem 1rem;
-          border-radius: 3px;
-        }
-      `}</style>
-    </nav>
-  )
-}
-
-export default Header
+export default Header;

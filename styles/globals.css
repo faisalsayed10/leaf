@@ -1,5 +1,7 @@
 html {
   box-sizing: border-box;
+  background-color: rgb(237, 242, 247);
+  border-top: 5px solid #0af558;
 }
 
 *,
