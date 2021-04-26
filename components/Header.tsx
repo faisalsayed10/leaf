@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   return (
     <Flex alignItems="center" justifyContent="space-between" p="2" mx="6">
       <Link href="/">
-        <Text className="bold">Libook</Text>
+        <Text>Libook</Text>
       </Link>
       <Text>Browse</Text>
       <SearchInput />
