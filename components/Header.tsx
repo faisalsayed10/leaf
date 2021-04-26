@@ -20,14 +20,12 @@ import { GiCardRandom } from "react-icons/gi";
 
 const Header: React.FC = () => {
   const { user, error, isLoading } = useUser();
-  const router = useRouter();
-
   if (error) console.log(error);
 
   console.log(user);
 
   return (
-    <Flex alignItems="center" justifyContent="space-around" p="2" mx="6">
+    <Flex bgColor="white" alignItems="center" justifyContent="space-around" p="2" px="6">
       <Link href="/">
         <Text fontFamily="semibold" fontSize="2xl">
           Libook
