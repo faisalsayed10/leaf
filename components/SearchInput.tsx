@@ -8,9 +8,11 @@ interface Props {}
 const SearchInput: React.FC<Props> = (props) => {
   return (
     <>
-      <InputGroup>
+      <InputGroup maxW="700px">
         <Input placeholder="Search books" />
-        <InputRightElement><IconButton aria-label="Search" icon={<SearchIcon />} /></InputRightElement>
+        <InputRightElement>
+          <IconButton aria-label="Search" icon={<SearchIcon />} />
+        </InputRightElement>
       </InputGroup>
     </>
   );
