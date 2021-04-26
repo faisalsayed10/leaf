@@ -2,28 +2,33 @@ import { Box } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { SUBJECTS } from "@lib/constants";
 import { getRandom } from "@util/helpers";
+import { Subject, SubjectsData } from "@util/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import SubjectSection from "./SubjectSection";
 
 interface Props {}
 
 const Main: React.FC<Props> = (props) => {
-  const [data, setData] = useState<any>({});
+  const [randomSubjects, setRandomSubjects] = useState(getRandom(SUBJECTS, 5));
+  const [subjectData, setSubjectData] = useState<SubjectsData[]>([]);
   const [loading, setLoading] = useState(false);
-  const randomSubjects = getRandom(SUBJECTS, 5);
 
   const fetchBooks = () => {
     setLoading(true);
     randomSubjects.forEach(async (subject) => {
-      const res = await axios.get(
+      const res = await axios.get<Subject>(
         `https://openlibrary.org/subjects/${subject}.json?limit=20`
       );
-      data[subject] = await res.data;
+      setSubjectData((prev) => {
+        return [...prev, { name: subject, value: res.data }];
+      });
     });
     setLoading(false);
   };
 
   useEffect(() => {
+    setSubjectData([]);
     fetchBooks();
   }, []);
 
@@ -32,8 +37,9 @@ const Main: React.FC<Props> = (props) => {
       <Box>
         {loading && <Skeleton />}
         {/* {data !== {} && Object.keys(data).map((key) => (
-          <p key={key}>{JSON.stringify(data[key])}</p>
+          <SubjectSection title={data[key].name} />
         ))} */}
+        hello??
       </Box>
     </>
   );
