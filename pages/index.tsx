@@ -4,7 +4,7 @@ import Main from "@components/Main";
 
 type Props = {};
 
-const Blog: React.FC<Props> = (props) => {
+const Home: React.FC<Props> = (props) => {
   return (
     <Layout>
         <Main />
@@ -12,4 +12,4 @@ const Blog: React.FC<Props> = (props) => {
   );
 };
 
-export default Blog;
+export default Home;
