@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { SUBJECTS } from "@lib/constants";
 import { getRandom } from "@util/helpers";
@@ -18,7 +18,7 @@ const Main: React.FC<Props> = (props) => {
     setLoading(true);
     randomSubjects.forEach(async (subject) => {
       const res = await axios.get<Subject>(
-        `https://openlibrary.org/subjects/${subject}.json?limit=20`
+        `https://openlibrary.org/subjects/${subject}.json?limit=5`
       );
       setSubjectData((prev) => {
         return [...prev, { name: subject, value: res.data }];
@@ -34,13 +34,11 @@ const Main: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Box>
-        {loading && <Skeleton />}
-        {/* {data !== {} && Object.keys(data).map((key) => (
-          <SubjectSection title={data[key].name} />
-        ))} */}
-        hello??
-      </Box>
+      <Flex alignItems="center" flexDir="column" justify="center">
+        {subjectData.map(subject => (
+          <SubjectSection key={subject.name} link={subject.name} title={subject.value.name} books={subject.value.works} />
+        ))}
+      </Flex>
     </>
   );
 };
