@@ -23,9 +23,15 @@ const Header: React.FC = () => {
   if (error) console.log(error);
 
   return (
-    <Flex bgColor="white" alignItems="center" justifyContent="space-around" p="2" px="6">
+    <Flex
+      bgColor="white"
+      alignItems="center"
+      justifyContent="space-around"
+      p="2"
+      px="6"
+    >
       <Link href="/">
-        <Text fontFamily="semibold" fontSize="2xl">
+        <Text cursor="pointer" fontFamily="semibold" fontSize="2xl">
           Libook
         </Text>
       </Link>
@@ -85,7 +91,9 @@ const Header: React.FC = () => {
         </Menu>
       ) : (
         <Link href="/api/auth/login">
-          <Button fontWeight="400" variant="ghost">Log in</Button>
+          <Button fontWeight="400" variant="ghost">
+            Log in
+          </Button>
         </Link>
       )}
     </Flex>

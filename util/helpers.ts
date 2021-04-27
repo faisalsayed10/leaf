@@ -11,3 +11,10 @@ export function getRandom(arr: string[], n: number) {
   }
   return result;
 }
+
+export function upperCaseTitle(title: string) {
+  return title
+    ?.split(" ")
+    ?.map((elem) => elem[0]?.toUpperCase() + elem.slice(1))
+    .join(" ");
+}
