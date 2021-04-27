@@ -22,8 +22,6 @@ const Header: React.FC = () => {
   const { user, error, isLoading } = useUser();
   if (error) console.log(error);
 
-  console.log(user);
-
   return (
     <Flex bgColor="white" alignItems="center" justifyContent="space-around" p="2" px="6">
       <Link href="/">
@@ -87,7 +85,7 @@ const Header: React.FC = () => {
         </Menu>
       ) : (
         <Link href="/api/auth/login">
-          <Button>Log In</Button>
+          <Button fontWeight="400" variant="ghost">Log in</Button>
         </Link>
       )}
     </Flex>
