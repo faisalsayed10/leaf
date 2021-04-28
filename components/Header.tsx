@@ -26,7 +26,7 @@ const Header: React.FC = () => {
     <Flex
       bgColor="white"
       alignItems="center"
-      justifyContent="space-around"
+      justifyContent="space-evenly"
       p="2"
       px="6"
     >

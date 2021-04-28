@@ -7,10 +7,14 @@ export type Subject = {
   ebook_count: number;
 };
 
+export type SubjectExtended = Subject & {
+  authors: Author[];
+};
+
 export type SubjectsData = {
   name: string;
-  value: Subject
-}
+  value: Subject;
+};
 
 export type Work = {
   key: string;
@@ -25,7 +29,7 @@ export type Work = {
   lending_edition: string;
   lending_identifier: string;
   authors: Author[];
-  first_publish_year: number|null;
+  first_publish_year: number | null;
   ia: string;
   public_scan: boolean;
   has_fulltext: boolean;
@@ -36,4 +40,5 @@ export type Work = {
 export type Author = {
   key: string;
   name: string;
+  count?: number;
 };

@@ -18,3 +18,7 @@ export function upperCaseTitle(title: string) {
     ?.map((elem) => elem[0]?.toUpperCase() + elem.slice(1))
     .join(" ");
 }
+
+export function readableSubject(subject: string) {
+  return upperCaseTitle(subject?.replace(/__/gi, " & ").replace(/_/gi, " "));
+}
