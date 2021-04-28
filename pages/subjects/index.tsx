@@ -31,7 +31,7 @@ const subjects: React.FC<Props> = ({}) => {
                   h="200px"
                 >
                   <GiBookshelf size={100} style={{ margin: "0 auto" }} />
-                  <Text fontSize="md" fontFamily="semibold" align="center">
+                  <Text fontSize="md" fontWeight="500" align="center">
                     {upperCaseTitle(
                       subject.replace(/__/gi, " & ").replace(/_/gi, " ")
                     )}

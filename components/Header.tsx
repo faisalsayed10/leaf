@@ -31,7 +31,7 @@ const Header: React.FC = () => {
       px="6"
     >
       <Link href="/">
-        <Text cursor="pointer" fontFamily="semibold" fontSize="2xl">
+        <Text cursor="pointer" fontWeight="500" fontSize="2xl">
           Libook
         </Text>
       </Link>
@@ -91,7 +91,7 @@ const Header: React.FC = () => {
         </Menu>
       ) : (
         <Link href="/api/auth/login">
-          <Button fontWeight="400" variant="ghost">
+          <Button variant="ghost">
             Log in
           </Button>
         </Link>
