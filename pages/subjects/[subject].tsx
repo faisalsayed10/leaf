@@ -1,4 +1,5 @@
 import {
+  Box,
   Center,
   Container,
   List,
@@ -48,22 +49,24 @@ const SubjectPage: React.FC<Props> = ({ data }) => {
             <Book key={work.key} book={work} />
           ))}
         </SimpleGrid>
-        <Container flexDir="column">
-          <Center>
-            <Text as="h1" fontSize="2xl" textTransform="uppercase">
-              Related Authors
-            </Text>
-            <List mt="8">
-              {data.authors?.map((author) => (
-                <Link href={author.key}>
-                  <ListItem cursor="pointer" color="blue.800" key={author.key}>
-                    {author.name} - {author.count} books
-                  </ListItem>
-                </Link>
-              ))}
-            </List>
-          </Center>
-        </Container>
+        <Box mx="8">
+          <Text as="h1" fontSize="2xl" textTransform="uppercase">
+            Related Authors
+          </Text>
+          <List mt="8">
+            {data.authors?.map((author) => (
+              <Link href={author.key}>
+                <ListItem
+                  cursor="pointer"
+                  color="blue.800"
+                  key={author.key}
+                >
+                  {author.name} - {author.count} books
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </Box>
       </Layout>
     </>
   );
