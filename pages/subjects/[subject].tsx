@@ -1,7 +1,5 @@
 import {
   Box,
-  Center,
-  Container,
   List,
   ListItem,
   SimpleGrid,
