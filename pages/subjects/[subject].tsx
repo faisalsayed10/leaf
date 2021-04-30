@@ -53,12 +53,8 @@ const SubjectPage: React.FC<Props> = ({ data }) => {
           </Text>
           <List mt="8">
             {data.authors?.map((author) => (
-              <Link href={author.key}>
-                <ListItem
-                  cursor="pointer"
-                  color="blue.800"
-                  key={author.key}
-                >
+              <Link href={author.key} key={author.key}>
+                <ListItem cursor="pointer" color="blue.800">
                   {author.name} - {author.count} books
                 </ListItem>
               </Link>

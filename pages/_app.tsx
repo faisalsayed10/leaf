@@ -16,6 +16,9 @@ const GlobalStyle: React.FC = ({ children }) => {
             background-color: rgb(237, 242, 247);
             border-top: 5px solid #2ff8bc;
             box-sizing: border-box;
+          }
+
+          * {
             font-family: "Karla", sans-serif;
           }
 

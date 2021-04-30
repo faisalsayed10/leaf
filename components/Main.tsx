@@ -1,5 +1,4 @@
-import { Box, Flex } from "@chakra-ui/layout";
-import { Skeleton } from "@chakra-ui/skeleton";
+import { Flex } from "@chakra-ui/layout";
 import { SUBJECTS } from "@lib/constants";
 import { getRandom } from "@util/helpers";
 import { Subject, SubjectsData } from "@util/types";
