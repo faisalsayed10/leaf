@@ -1,4 +1,12 @@
-import { Box, SimpleGrid, Text } from "@chakra-ui/layout";
+import {
+  Box,
+  Container,
+  Flex,
+  SimpleGrid,
+  Text,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/layout";
 import Layout from "@components/Layout";
 import { SUBJECTS } from "@lib/constants";
 import { readableSubject } from "@util/helpers";
@@ -16,39 +24,42 @@ const subjects: React.FC<Props> = ({}) => {
         <title>Subjects</title>
       </Head>
       <Layout>
-        <Text
-          fontSize="3xl"
-          mt="8"
-          textTransform="uppercase"
-          letterSpacing="wide"
-          fontWeight="500"
-          align="center"
-        >
-          All Subjects
-        </Text>
-        <SimpleGrid columns={5} my="8" spacing={6} placeItems="center">
-          {SUBJECTS.map((subject, i) => {
-            return (
-              <Link key={i} href={`/subjects/${subject}`}>
-                <Box
-                  borderRadius="md"
-                  boxShadow="lg"
-                  _hover={{ transform: "scale(1.05)" }}
-                  transitionDuration="300ms"
-                  cursor="pointer"
-                  bgColor="white"
-                  w="130px"
-                  h="150px"
-                >
-                  <ImBooks size={72} style={{ margin: "0 auto" }} />
-                  <Text fontSize="md" fontWeight="500" px="1" align="center">
-                    {readableSubject(subject)}
-                  </Text>
-                </Box>
-              </Link>
-            );
-          })}
-        </SimpleGrid>
+        <Container backgroundColor="white" borderRadius="lg" boxShadow="lg">
+          <Text
+            fontSize="3xl"
+            mt="8"
+            textTransform="uppercase"
+            letterSpacing="wide"
+            fontWeight="500"
+            align="center"
+          >
+            All Subjects
+          </Text>
+          <Wrap my="8" spacing={6} align="center" justify="center">
+            {SUBJECTS.map((subject, i) => {
+              return (
+                <WrapItem as={Link} href={`/subjects/${subject}`} key={i}>
+                  <Flex
+                    borderRadius="md"
+                    _hover={{ transform: "scale(1.05)" }}
+                    transitionDuration="300ms"
+                    cursor="pointer"
+                    border="2px solid rgb(237, 242, 247)"
+                    p="3"
+                  >
+                    <ImBooks
+                      size={24}
+                      style={{ margin: "0 auto", display: "inline" }}
+                    />
+                    <Text fontSize="md" fontWeight="500" px="1" align="center">
+                      {readableSubject(subject)}
+                    </Text>
+                  </Flex>
+                </WrapItem>
+              );
+            })}
+          </Wrap>
+        </Container>
       </Layout>
     </>
   );
