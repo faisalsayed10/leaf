@@ -9,7 +9,7 @@ import {
   MenuDivider,
   MenuGroup,
   MenuItem,
-  MenuList
+  MenuList,
 } from "@chakra-ui/menu";
 import Link from "next/link";
 import React from "react";
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
           Browse
         </MenuButton>
         <MenuList>
-          <Link href="/genres">
+          <Link href="/genre">
             <MenuItem icon={<ImBooks size={20} />}>Genres</MenuItem>
           </Link>
           <Link href="/random">
@@ -90,9 +90,7 @@ const Header: React.FC = () => {
         </Menu>
       ) : (
         <Link href="/api/auth/login">
-          <Button variant="ghost">
-            Log in
-          </Button>
+          <Button variant="ghost">Log in</Button>
         </Link>
       )}
     </Flex>

@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image";
-import { Box, List, ListItem, SimpleGrid, Text } from "@chakra-ui/layout";
+import { Box, Container, List, ListItem, SimpleGrid, Text } from "@chakra-ui/layout";
 import Layout from "@components/Layout";
 import { upperCaseTitle } from "@util/helpers";
 import { Book } from "@util/types";
@@ -24,7 +24,7 @@ const WorkPage: React.FC<Props> = ({ data }) => {
         <title>{upperCaseTitle(data.title)}</title>
       </Head>
       <Layout>
-        <Box>
+        <Container>
           <Image
             src={`https://covers.openlibrary.org/b/id/${data.covers[0]}.jpg`}
             width="356px"
@@ -43,7 +43,7 @@ const WorkPage: React.FC<Props> = ({ data }) => {
               {/* {data.work_count} books */}
             </Text>
           </Text>
-        </Box>
+        </Container>
         {/* <Text
           fontSize="3xl"
           mt="8"

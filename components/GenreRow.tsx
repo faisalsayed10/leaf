@@ -11,10 +11,10 @@ interface Props {
   books: Work[];
 }
 
-const SubjectSection: React.FC<Props> = ({ title, link, books }) => {
+const GenreRow: React.FC<Props> = ({ title, link, books }) => {
   return (
     <Box my="8">
-      <Link href={`/subjects/${link}`}>
+      <Link href={`/genre/${link}`}>
         <Text
           display="inline"
           cursor="pointer"
@@ -33,4 +33,4 @@ const SubjectSection: React.FC<Props> = ({ title, link, books }) => {
   );
 };
 
-export default SubjectSection;
+export default GenreRow;

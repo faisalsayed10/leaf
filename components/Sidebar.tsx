@@ -34,10 +34,9 @@ const Sidebar: React.FC<Props> = () => {
     <Flex
       flexDir="column"
       alignItems="start"
-      top="20%"
-      left="5"
+      // top="20%"
+      // left="5"
       w="fit-content"
-      pos="fixed"
     >
       <Link href="/">
         <Text {...ButtonProps("/")}>
@@ -52,8 +51,8 @@ const Sidebar: React.FC<Props> = () => {
         </Text>
       </Link>
       <br />
-      <Link href="/genres">
-        <Text {...ButtonProps("/genres")}>
+      <Link href="/genre">
+        <Text {...ButtonProps("/genre")}>
           <Icon as={MdLibraryBooks} {...IconProps} />
           Genres
         </Text>

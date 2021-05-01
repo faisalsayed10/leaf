@@ -1,18 +1,16 @@
 import {
-  Box,
   Container,
   Flex,
-  SimpleGrid,
   Text,
   Wrap,
-  WrapItem,
+  WrapItem
 } from "@chakra-ui/layout";
 import Layout from "@components/Layout";
 import { GENRES } from "@lib/constants";
 import { readableTitle } from "@util/helpers";
-import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import React from "react";
 import { ImBooks } from "react-icons/im";
 
 interface Props {}
@@ -24,7 +22,12 @@ const genres: React.FC<Props> = ({}) => {
         <title>All Genres</title>
       </Head>
       <Layout>
-        <Container backgroundColor="white" borderRadius="lg" boxShadow="lg">
+        <Container
+          maxW="container.md"
+          backgroundColor="white"
+          borderRadius="lg"
+          boxShadow="lg"
+        >
           <Text
             fontSize="3xl"
             mt="8"
@@ -38,13 +41,13 @@ const genres: React.FC<Props> = ({}) => {
           <Wrap my="8" spacing={6} align="center" justify="center">
             {GENRES.map((genre, i) => {
               return (
-                <WrapItem as={Link} href={`/genres/${genre}`} key={i}>
+                <WrapItem as={Link} href={`/genre/${genre}`} key={i}>
                   <Flex
                     borderRadius="md"
                     _hover={{ transform: "scale(1.05)" }}
                     transitionDuration="300ms"
                     cursor="pointer"
-                    border="2px solid rgb(237, 242, 247)"
+                    border="1px solid rgb(237, 242, 247)"
                     p="3"
                   >
                     <ImBooks
