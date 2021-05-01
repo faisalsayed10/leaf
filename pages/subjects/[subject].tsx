@@ -21,8 +21,6 @@ interface Props {
 }
 
 const SubjectPage: React.FC<Props> = ({ data }) => {
-  console.log(data);
-
   return (
     <>
       <Head>

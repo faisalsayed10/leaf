@@ -18,8 +18,6 @@ const IconProps = {
 
 const Sidebar: React.FC<Props> = () => {
   const router = useRouter();
-  console.log(router.route);
-
   const ButtonProps = (href: string) => ({
     fontSize: "lg",
     cursor: "pointer",
