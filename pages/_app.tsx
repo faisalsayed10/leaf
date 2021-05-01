@@ -25,6 +25,12 @@ const GlobalStyle: React.FC = ({ children }) => {
           body {
             background: transparent;
           }
+
+          .active__sidebar {
+            background-color: var(--chakra-colors-gray-200);
+            border-radius: var(--chakra-radii-2xl);
+            font-weight: 600
+          }
         `}
       />
       {children}
