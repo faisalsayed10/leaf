@@ -8,7 +8,7 @@ type Props = {};
 const Test: React.FC<Props> = (props) => {
   return (
     <Layout>
-      <Sidebar />
+      {/* <Sidebar /> */}
     </Layout>
   );
 };

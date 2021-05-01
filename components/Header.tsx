@@ -1,22 +1,21 @@
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { Box, Flex, Text } from "@chakra-ui/layout";
-import { Avatar } from "@chakra-ui/avatar";
 import { useUser } from "@auth0/nextjs-auth0";
-import SearchInput from "./SearchInput";
+import { Avatar } from "@chakra-ui/avatar";
+import { Button } from "@chakra-ui/button";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Flex, Text } from "@chakra-ui/layout";
 import {
   Menu,
   MenuButton,
   MenuDivider,
   MenuGroup,
   MenuItem,
-  MenuList,
+  MenuList
 } from "@chakra-ui/menu";
-import { Button } from "@chakra-ui/button";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { ImBooks } from "react-icons/im";
+import Link from "next/link";
+import React from "react";
 import { GiCardRandom } from "react-icons/gi";
+import { ImBooks } from "react-icons/im";
+import SearchInput from "./SearchInput";
 
 const Header: React.FC = () => {
   const { user, error, isLoading } = useUser();
