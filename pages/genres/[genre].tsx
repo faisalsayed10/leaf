@@ -8,7 +8,7 @@ import {
 import Book from "@components/Book";
 import Layout from "@components/Layout";
 import { upperCaseTitle } from "@util/helpers";
-import { SubjectExtended } from "@util/types";
+import { GenreExtended } from "@util/types";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -17,10 +17,10 @@ import { useRouter } from "next/router";
 import React from "react";
 
 interface Props {
-  data: SubjectExtended;
+  data: GenreExtended;
 }
 
-const SubjectPage: React.FC<Props> = ({ data }) => {
+const Genre: React.FC<Props> = ({ data }) => {
   return (
     <>
       <Head>
@@ -64,11 +64,11 @@ const SubjectPage: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default SubjectPage;
+export default Genre;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data } = await axios.get<SubjectExtended>(
-    `https://openlibrary.org/subjects/${context.params.subject}.json?limit=30&details=true`
+  const { data } = await axios.get<GenreExtended>(
+    `https://openlibrary.org/subjects/${context.params.genre}.json?limit=30&details=true`
   );
 
   return {

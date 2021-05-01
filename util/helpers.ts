@@ -19,6 +19,6 @@ export function upperCaseTitle(title: string) {
     .join(" ");
 }
 
-export function readableSubject(subject: string) {
-  return upperCaseTitle(subject?.replace(/__/gi, " & ").replace(/_/gi, " "));
+export function readableTitle(genre: string) {
+  return upperCaseTitle(genre?.replace(/__/gi, " & ").replace(/_/gi, " "));
 }

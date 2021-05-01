@@ -45,8 +45,8 @@ const Header: React.FC = () => {
           Browse
         </MenuButton>
         <MenuList>
-          <Link href="/subjects">
-            <MenuItem icon={<ImBooks size={20} />}>Subjects</MenuItem>
+          <Link href="/genres">
+            <MenuItem icon={<ImBooks size={20} />}>Genres</MenuItem>
           </Link>
           <Link href="/random">
             <MenuItem icon={<GiCardRandom size={20} />}>

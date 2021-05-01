@@ -1,41 +1,41 @@
 import { Flex } from "@chakra-ui/layout";
-import { SUBJECTS } from "@lib/constants";
+import { GENRES } from "@lib/constants";
 import { getRandom } from "@util/helpers";
-import { Subject, SubjectsData } from "@util/types";
+import { Genre, GenresData } from "@util/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import SubjectSection from "./SubjectSection";
+import GenreRow from "./GenreRow";
 
 interface Props {}
 
 const Main: React.FC<Props> = (props) => {
-  const [randomSubjects, setRandomSubjects] = useState(getRandom(SUBJECTS, 5));
-  const [subjectData, setSubjectData] = useState<SubjectsData[]>([]);
+  const [randomGenres, setRandomGenres] = useState(getRandom(GENRES, 5));
+  const [genreData, setGenreData] = useState<GenresData[]>([]);
   const [loading, setLoading] = useState(false);
 
   const fetchBooks = () => {
     setLoading(true);
-    randomSubjects.forEach(async (subject) => {
-      const res = await axios.get<Subject>(
-        `https://openlibrary.org/subjects/${subject}.json?limit=5`
+    randomGenres.forEach(async (genre) => {
+      const res = await axios.get<Genre>(
+        `https://openlibrary.org/subjects/${genre}.json?limit=4`
       );
-      setSubjectData((prev) => {
-        return [...prev, { name: subject, value: res.data }];
+      setGenreData((prev) => {
+        return [...prev, { name: genre, value: res.data }];
       });
     });
     setLoading(false);
   };
 
   useEffect(() => {
-    setSubjectData([]);
+    setGenreData([]);
     fetchBooks();
   }, []);
 
   return (
     <>
       <Flex alignItems="center" flexDir="column" justify="center">
-        {subjectData.map(subject => (
-          <SubjectSection key={subject.name} link={subject.name} title={subject.value.name} books={subject.value.works} />
+        {genreData.map(genre => (
+          <GenreRow key={genre.name} link={genre.name} title={genre.value.name} books={genre.value.works} />
         ))}
       </Flex>
     </>

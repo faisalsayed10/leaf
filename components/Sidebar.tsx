@@ -52,8 +52,8 @@ const Sidebar: React.FC<Props> = () => {
         </Text>
       </Link>
       <br />
-      <Link href="/subjects">
-        <Text {...ButtonProps("/subjects")}>
+      <Link href="/genres">
+        <Text {...ButtonProps("/genres")}>
           <Icon as={MdLibraryBooks} {...IconProps} />
           Genres
         </Text>

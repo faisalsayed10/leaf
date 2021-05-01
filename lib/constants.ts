@@ -1,4 +1,4 @@
-export const SUBJECTS = [
+export const GENRES = [
   "algebra",
   "ancient_civilization",
   "animals",

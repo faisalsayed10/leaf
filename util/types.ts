@@ -1,4 +1,4 @@
-export type Subject = {
+export type Genre = {
   key: string;
   name: string;
   subject_type: string;
@@ -7,13 +7,13 @@ export type Subject = {
   ebook_count: number;
 };
 
-export type SubjectExtended = Subject & {
+export type GenreExtended = Genre & {
   authors: Author[];
 };
 
-export type SubjectsData = {
+export type GenresData = {
   name: string;
-  value: Subject;
+  value: Genre;
 };
 
 export type Work = {

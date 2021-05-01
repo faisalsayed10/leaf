@@ -8,8 +8,8 @@ import {
   WrapItem,
 } from "@chakra-ui/layout";
 import Layout from "@components/Layout";
-import { SUBJECTS } from "@lib/constants";
-import { readableSubject } from "@util/helpers";
+import { GENRES } from "@lib/constants";
+import { readableTitle } from "@util/helpers";
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -17,11 +17,11 @@ import { ImBooks } from "react-icons/im";
 
 interface Props {}
 
-const subjects: React.FC<Props> = ({}) => {
+const genres: React.FC<Props> = ({}) => {
   return (
     <>
       <Head>
-        <title>Subjects</title>
+        <title>All Genres</title>
       </Head>
       <Layout>
         <Container backgroundColor="white" borderRadius="lg" boxShadow="lg">
@@ -33,12 +33,12 @@ const subjects: React.FC<Props> = ({}) => {
             fontWeight="500"
             align="center"
           >
-            All Subjects
+            Genres
           </Text>
           <Wrap my="8" spacing={6} align="center" justify="center">
-            {SUBJECTS.map((subject, i) => {
+            {GENRES.map((genre, i) => {
               return (
-                <WrapItem as={Link} href={`/subjects/${subject}`} key={i}>
+                <WrapItem as={Link} href={`/genres/${genre}`} key={i}>
                   <Flex
                     borderRadius="md"
                     _hover={{ transform: "scale(1.05)" }}
@@ -52,7 +52,7 @@ const subjects: React.FC<Props> = ({}) => {
                       style={{ margin: "0 auto", display: "inline" }}
                     />
                     <Text fontSize="md" fontWeight="500" px="1" align="center">
-                      {readableSubject(subject)}
+                      {readableTitle(genre)}
                     </Text>
                   </Flex>
                 </WrapItem>
@@ -65,4 +65,4 @@ const subjects: React.FC<Props> = ({}) => {
   );
 };
 
-export default subjects;
+export default genres;
