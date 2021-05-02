@@ -1,5 +1,5 @@
 import Icon from "@chakra-ui/icon";
-import { Flex, Text } from "@chakra-ui/layout";
+import { Box, Flex, Text } from "@chakra-ui/layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -31,58 +31,63 @@ const Sidebar: React.FC<Props> = () => {
   });
 
   return (
-    <Flex
-      flexDir="column"
-      alignItems="start"
-      // top="20%"
-      // left="5"
-      w="fit-content"
-    >
-      <Link href="/">
-        <Text {...ButtonProps("/")}>
-          <HomeIcon {...IconProps} />
-          Home
-        </Text>
-      </Link>
-      <Link href="/search">
-        <Text {...ButtonProps("/search")}>
-          <SearchIcon {...IconProps} />
-          Search
-        </Text>
-      </Link>
-      <br />
-      <Link href="/genre">
-        <Text {...ButtonProps("/genre")}>
-          <Icon as={MdLibraryBooks} {...IconProps} />
-          Genres
-        </Text>
-      </Link>
-      <Link href="/random">
-        <Text {...ButtonProps("/random")}>
-          <Icon as={BiBookContent} {...IconProps} />
-          Random Book
-        </Text>
-      </Link>
-      <br />
-      <Link href="/future">
-        <Text {...ButtonProps("/future")}>
-          <Icon as={BiBookAlt} {...IconProps} />
-          Want To Read
-        </Text>
-      </Link>
-      <Link href="/present">
-        <Text {...ButtonProps("/present")}>
-          <Icon as={BsBookmark} {...IconProps} />
-          Currently Reading
-        </Text>
-      </Link>
-      <Link href="/past">
-        <Text {...ButtonProps("/past")}>
-          <Icon as={BiBook} {...IconProps} />
-          Already Read
-        </Text>
-      </Link>
-    </Flex>
+    <Box pos="relative" w="20%" h="100vh">
+      <Box pos="absolute">
+        <Flex
+          flexDir="column"
+          alignItems="start"
+          top="20%"
+          left="5"
+          w="inherit"
+          pos="fixed"
+        >
+          <Link href="/">
+            <Text {...ButtonProps("/")}>
+              <HomeIcon {...IconProps} />
+              Home
+            </Text>
+          </Link>
+          <Link href="/search">
+            <Text {...ButtonProps("/search")}>
+              <SearchIcon {...IconProps} />
+              Search
+            </Text>
+          </Link>
+          <br />
+          <Link href="/genre">
+            <Text {...ButtonProps("/genre")}>
+              <Icon as={MdLibraryBooks} {...IconProps} />
+              Genres
+            </Text>
+          </Link>
+          <Link href="/random">
+            <Text {...ButtonProps("/random")}>
+              <Icon as={BiBookContent} {...IconProps} />
+              Random Book
+            </Text>
+          </Link>
+          <br />
+          <Link href="/future">
+            <Text {...ButtonProps("/future")}>
+              <Icon as={BiBookAlt} {...IconProps} />
+              Want To Read
+            </Text>
+          </Link>
+          <Link href="/present">
+            <Text {...ButtonProps("/present")}>
+              <Icon as={BsBookmark} {...IconProps} />
+              Currently Reading
+            </Text>
+          </Link>
+          <Link href="/past">
+            <Text {...ButtonProps("/past")}>
+              <Icon as={BiBook} {...IconProps} />
+              Already Read
+            </Text>
+          </Link>
+        </Flex>
+      </Box>
+    </Box>
   );
 };
 
