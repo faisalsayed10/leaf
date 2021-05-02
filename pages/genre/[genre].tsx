@@ -4,7 +4,7 @@ import {
   List,
   ListItem,
   SimpleGrid,
-  Text
+  Text,
 } from "@chakra-ui/layout";
 import Book from "@components/Book";
 import Layout from "@components/Layout";
@@ -27,21 +27,29 @@ const Genre: React.FC<Props> = ({ data }) => {
         <title>{upperCaseTitle(data.name)}</title>
       </Head>
       <Layout>
-        <Text
-          fontSize="3xl"
-          mt="8"
-          textTransform="uppercase"
-          letterSpacing="wide"
-          fontWeight="500"
-          align="center"
+        <Container
+          maxW="container.sm"
+          backgroundColor="white"
+          borderRadius="lg"
+          boxShadow="lg"
+          my="4"
+          px="4"
         >
-          {upperCaseTitle(data.name)} -{" "}
-          <Text as="span" display="inline" fontSize="xl">
-            {data.work_count} books
+          <Text
+            fontSize="3xl"
+            mt="8"
+            textTransform="uppercase"
+            letterSpacing="wide"
+            fontWeight="500"
+            align="center"
+          >
+            {upperCaseTitle(data.name)} -{" "}
+            <Text as="span" display="inline" fontSize="xl">
+              {data.work_count} books
+            </Text>
           </Text>
-        </Text>
-        <Container my="8">
-          <SimpleGrid columns={4} mx="4" spacing={6} placeItems="center">
+          {/* <Container my="8"> */}
+          <SimpleGrid columns={4} m="4" spacing={6} placeItems="center">
             {data.works.map((work) => (
               <Book key={work.key} book={work} />
             ))}
@@ -60,6 +68,7 @@ const Genre: React.FC<Props> = ({ data }) => {
               ))}
             </List>
           </Box>
+          {/* </Container> */}
         </Container>
       </Layout>
     </>
