@@ -21,7 +21,7 @@ const WorkPage: React.FC<Props> = ({ data }) => {
   return (
     <>
       <Head>
-        <title>{upperCaseTitle(data.title)}</title>
+        <title>{data.title}</title>
       </Head>
       <Layout>
         <Container>
@@ -38,10 +38,7 @@ const WorkPage: React.FC<Props> = ({ data }) => {
             fontWeight="500"
             align="center"
           >
-            {upperCaseTitle(data.title)}
-            <Text as="span" display="inline" fontSize="xl">
-              {/* {data.work_count} books */}
-            </Text>
+            {data.title}
           </Text>
         </Container>
         {/* <Text
