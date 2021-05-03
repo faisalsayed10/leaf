@@ -8,7 +8,11 @@ import GenreRow from "./GenreRow";
 interface Props {}
 
 const Main: React.FC<Props> = (props) => {
-  const { data, error } = useSWR<FeedData[]>("/api/feed", fetcher);
+  const { data, error } = useSWR<FeedData[]>("/api/feed", fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnMount: false,
+    revalidateOnReconnect: false,
+  });
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
