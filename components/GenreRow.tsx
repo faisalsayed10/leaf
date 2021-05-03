@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import { upperCaseTitle } from "@util/helpers";
-import { Work } from "@util/types";
+import { readableTitle } from "@util/helpers";
+import { SearchItem } from "@util/types";
 import Link from "next/link";
 import React from "react";
 import Book from "./Book";
@@ -8,7 +8,7 @@ import Book from "./Book";
 interface Props {
   title: string;
   link: string;
-  books: Work[];
+  books: SearchItem[];
 }
 
 const GenreRow: React.FC<Props> = ({ title, link, books }) => {
@@ -21,12 +21,12 @@ const GenreRow: React.FC<Props> = ({ title, link, books }) => {
           _hover={{ textDecoration: "underline" }}
           fontSize="2xl"
         >
-          {upperCaseTitle(title)}
+          {readableTitle(title)}
         </Text>
       </Link>
       <Flex mt="4">
-        {books.map((book) => (
-          <Book key={book.key} book={book} />
+        {books?.map((book) => (
+          <Book key={book.id} book={book} />
         ))}
       </Flex>
     </Box>
