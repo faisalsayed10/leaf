@@ -28,7 +28,7 @@ const GlobalStyle: React.FC = ({ children }) => {
 
           .active__sidebar {
             background-color: var(--chakra-colors-gray-200);
-            border-radius: var(--chakra-radii-2xl);
+            border-radius: var(--chakra-radii-lg);
             font-weight: 600
           }
         `}

@@ -1,19 +1,15 @@
 import {
-  Box,
   Container,
-  List,
-  ListItem,
   SimpleGrid,
-  Text,
+  Text
 } from "@chakra-ui/layout";
 import Book from "@components/Book";
 import Layout from "@components/Layout";
-import { readableTitle, upperCaseTitle } from "@util/helpers";
+import { readableTitle } from "@util/helpers";
 import { SearchResponse } from "@util/types";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -24,6 +20,8 @@ interface Props {
 const Genre: React.FC<Props> = ({ data }) => {
   const router = useRouter();
   const genre = router.query.genre as string;
+
+  console.log(data)
 
   return (
     <>
@@ -54,7 +52,7 @@ const Genre: React.FC<Props> = ({ data }) => {
           </Text>
           {/* <Container my="8"> */}
           <SimpleGrid columns={4} m="4" spacing={6} placeItems="center">
-            {data.items.map((book) => (
+            {data.items.filter(item => item.volumeInfo.hasOwnProperty("imageLinks")).map((book) => (
               <Book key={book.id} book={book} />
             ))}
           </SimpleGrid>

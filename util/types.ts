@@ -16,6 +16,7 @@ export type SearchItem = {
 
 export type VolumeInfo = {
   title: string;
+  subtitle: string;
   authors: string[];
   publisher: string;
   publishedDate: string;
