@@ -8,23 +8,27 @@ import {
 } from "@chakra-ui/layout";
 import Book from "@components/Book";
 import Layout from "@components/Layout";
-import { upperCaseTitle } from "@util/helpers";
-import { GenreExtended } from "@util/types";
+import { readableTitle, upperCaseTitle } from "@util/helpers";
+import { SearchResponse } from "@util/types";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface Props {
-  data: GenreExtended;
+  data: SearchResponse;
 }
 
 const Genre: React.FC<Props> = ({ data }) => {
+  const router = useRouter();
+  const genre = router.query.genre as string;
+
   return (
     <>
       <Head>
-        <title>{upperCaseTitle(data.name)}</title>
+        <title>{readableTitle(genre)}</title>
       </Head>
       <Layout>
         <Container
@@ -43,31 +47,17 @@ const Genre: React.FC<Props> = ({ data }) => {
             fontWeight="500"
             align="center"
           >
-            {upperCaseTitle(data.name)} -{" "}
+            {readableTitle(genre)} -{" "}
             <Text as="span" display="inline" fontSize="xl">
-              {data.work_count} books
+              {data.totalItems} results
             </Text>
           </Text>
           {/* <Container my="8"> */}
           <SimpleGrid columns={4} m="4" spacing={6} placeItems="center">
-            {data.works.map((work) => (
-              <Book key={work.key} book={work} />
+            {data.items.map((book) => (
+              <Book key={book.id} book={book} />
             ))}
           </SimpleGrid>
-          <Box>
-            <Text as="h1" my="5" fontSize="2xl" textTransform="uppercase">
-              Related Authors
-            </Text>
-            <List>
-              {data.authors?.map((author) => (
-                <Link href={author.key} key={author.key}>
-                  <ListItem cursor="pointer" color="blue.800">
-                    {author.name} - {author.count} books
-                  </ListItem>
-                </Link>
-              ))}
-            </List>
-          </Box>
           {/* </Container> */}
         </Container>
       </Layout>
@@ -78,8 +68,8 @@ const Genre: React.FC<Props> = ({ data }) => {
 export default Genre;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data } = await axios.get<GenreExtended>(
-    `https://openlibrary.org/subjects/${context.params.genre}.json?limit=30&details=true`
+  const { data } = await axios.get<SearchResponse>(
+    `https://www.googleapis.com/books/v1/volumes?q=subject:${context.params.genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=30`
   );
 
   return {

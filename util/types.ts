@@ -27,7 +27,7 @@ export type VolumeInfo = {
   allowAnonLogging: boolean;
   contentVersion: string;
   panelizationSummary: object;
-  imageLinks: { thumbnail: string };
+  imageLinks: ImageLinks
   language: string;
   previewLink: string;
   infoLink: string;
@@ -60,3 +60,11 @@ export type FeedData = {
   name: string;
   value: SearchResponse;
 };
+
+export type ImageLinks = {
+  thumbnail: string
+  extraLarge?: string
+  large?: string
+  medium?: string
+  small?: string
+}

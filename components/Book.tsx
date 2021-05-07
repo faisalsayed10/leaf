@@ -9,8 +9,6 @@ interface Props {
 }
 
 const Book: React.FC<Props> = ({ book }) => {
-  console.log(book);
-
   return (
     <Link href={`/book/${book.id}`}>
       <Box maxW="130px" mr="8" cursor="pointer">

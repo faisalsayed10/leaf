@@ -2,7 +2,7 @@ import { Image } from "@chakra-ui/image";
 import { Box, Container, List, ListItem, SimpleGrid, Text } from "@chakra-ui/layout";
 import Layout from "@components/Layout";
 import { upperCaseTitle } from "@util/helpers";
-import { Book } from "@util/types";
+import { SearchItem } from "@util/types";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 
 interface Props {
-  data: Book;
+  data: SearchItem;
 }
 
 const WorkPage: React.FC<Props> = ({ data }) => {
@@ -21,12 +21,12 @@ const WorkPage: React.FC<Props> = ({ data }) => {
   return (
     <>
       <Head>
-        <title>{data.title}</title>
+        <title>{data.volumeInfo.title}</title>
       </Head>
       <Layout>
         <Container>
           <Image
-            src={`https://covers.openlibrary.org/b/id/${data.covers[0]}.jpg`}
+            src={data.volumeInfo.imageLinks.extraLarge}
             width="356px"
             height="500px"
           />
@@ -38,7 +38,7 @@ const WorkPage: React.FC<Props> = ({ data }) => {
             fontWeight="500"
             align="center"
           >
-            {data.title}
+            {data.volumeInfo.title}
           </Text>
         </Container>
         {/* <Text
@@ -81,8 +81,8 @@ const WorkPage: React.FC<Props> = ({ data }) => {
 export default WorkPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data } = await axios.get<Book>(
-    `https://openlibrary.org/books/${context.params.work_id}.json`
+  const { data } = await axios.get<SearchItem>(
+    `https://www.googleapis.com/books/v1/volumes/${context.params.book_id}?key=${process.env.GOOGLE_BOOKS_API_KEY}`
   );
 
   return {
