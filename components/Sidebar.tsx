@@ -12,8 +12,8 @@ import SearchIcon from "./icons/SearchIcon";
 interface Props {}
 
 const IconProps = {
-  boxSize: 7,
-  mr: "5",
+  boxSize: 5,
+  mr: "3",
 };
 
 const Sidebar: React.FC<Props> = () => {
@@ -22,16 +22,17 @@ const Sidebar: React.FC<Props> = () => {
     fontSize: "lg",
     cursor: "pointer",
     mb: "1",
-    ml: "2",
     py: "2",
-    px: "6",
-    _hover: { bgColor: "gray.200", borderRadius: "2xl" },
+    pl: "2",
+    pr: "6",
+    w: "100%",
+    _hover: { bgColor: "gray.200", borderRadius: "lg" },
     transitionDuration: "100ms",
     className: router.route === href ? "active__sidebar" : null,
   });
 
   return (
-    <Box pos="relative" w="20%" h="100vh">
+    <Box pos="relative" w="250px" h="100vh">
       <Box pos="absolute">
         <Flex
           flexDir="column"
