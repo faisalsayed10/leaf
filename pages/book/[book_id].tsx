@@ -1,6 +1,7 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Container, Flex, Text } from "@chakra-ui/layout";
 import AddToList from "@components/AddToList";
+import BookPageInfo from "@components/BookPageInfo";
 import BuyOptions from "@components/BuyOptions";
 import Categories from "@components/Categories";
 import Layout from "@components/Layout";
@@ -10,6 +11,8 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import React, { useState } from "react";
+import ReadMoreLess from "react-read-more-read-less";
+import striptags from "striptags";
 
 interface Props {
   data: SearchItem;
@@ -29,9 +32,9 @@ const BoxProps = {
 
 const BookPage: React.FC<Props> = ({ data }) => {
   const [thumbnail] = useState(
-    data.volumeInfo.imageLinks.medium ||
-      data.volumeInfo.imageLinks.small ||
-      data.volumeInfo.imageLinks.thumbnail
+    // data.volumeInfo.imageLinks.medium ||
+    //   data.volumeInfo.imageLinks.small ||
+    data.volumeInfo.imageLinks.thumbnail
   );
 
   console.log(data);
@@ -44,33 +47,26 @@ const BookPage: React.FC<Props> = ({ data }) => {
       <Layout>
         <Container mt="8" borderRadius="lg">
           <Flex {...BoxProps} justify="space-evenly" align="center">
-            <Image src={thumbnail} maxW="100px" />
-            <Box>
-              <Text fontSize="2xl" fontWeight="500" align="center">
+            <Image src={thumbnail} maxW="100px" mx="4" />
+            <Box w="50%">
+              <Text fontSize="xl" fontWeight="500" align="center">
                 {data.volumeInfo.title}
               </Text>
               {data.volumeInfo.subtitle && (
-                <Text
-                  fontSize="lg"
-                  mt="8"
-                  textTransform="uppercase"
-                  letterSpacing="wide"
-                  color="gray.600"
-                  align="left"
-                >
+                <Text fontSize="md" color="gray.700" align="center">
                   {data.volumeInfo.subtitle}
                 </Text>
               )}
               <Text
                 fontSize="md"
                 fontWeight="400"
-                color="gray.600"
-                align="left"
+                color="gray.500"
+                align="center"
               >
-                {data.volumeInfo.authors.map(
-                  (author) =>
-                    author + (data.volumeInfo.authors.length > 1 ? ", " : "")
-                )}
+                {data.volumeInfo.authors.map((author, i) => {
+                  const length = data.volumeInfo.authors.length;
+                  return author + (length > 1 && i !== length - 1 ? ", " : "");
+                })}
               </Text>
             </Box>
           </Flex>
@@ -80,42 +76,30 @@ const BookPage: React.FC<Props> = ({ data }) => {
           <Box {...BoxProps}>
             <Text px="4">
               <strong>Description:</strong>{" "}
-              {`${data.volumeInfo.description}...` ||
-                `No description available`}
+              {data.volumeInfo.description ? (
+                <ReadMoreLess
+                  charLimit={250}
+                  readMoreText={"Read more ▼"}
+                  readLessText={"Read less ▲"}
+                  readMoreClassName="readmoreless"
+                  readLessClassName="readmoreless"
+                >
+                  {striptags(data.volumeInfo.description, null, " ")}
+                </ReadMoreLess>
+              ) : (
+                `No description available`
+              )}
             </Text>
           </Box>
           <Box px="4" {...BoxProps}>
-            {data.volumeInfo.language && (
-              <Text>
-                <strong>Language:</strong>{" "}
-                {upperCaseTitle(data.volumeInfo.language)}
-              </Text>
-            )}
-            {data.volumeInfo.pageCount && (
-              <Text>
-                <strong>No. of pages:</strong> {data.volumeInfo.pageCount}
-              </Text>
-            )}
-            {data.volumeInfo.publisher && (
-              <Text>
-                <strong>Publisher:</strong> {data.volumeInfo.publisher}
-              </Text>
-            )}
-            {data.volumeInfo.publishedDate && (
-              <Text>
-                <strong>Published Date:</strong> {data.volumeInfo.publishedDate}
-              </Text>
-            )}
-            {data.volumeInfo.industryIdentifiers.length > 0 &&
-              data.volumeInfo.industryIdentifiers.map((identifier) => (
-                <Text>
-                  <strong>{readableTitle(identifier.type)}:</strong>{" "}
-                  {identifier.identifier}
-                </Text>
-              ))}
+            <BookPageInfo volumeInfo={data.volumeInfo} />
           </Box>
           <Box {...BoxProps}>
-            <BuyOptions />
+            <BuyOptions
+              previewLink={`${data.volumeInfo.previewLink}&kptab=getbook`}
+              searchStringWithAuthor={`${data.volumeInfo.title} ${data.volumeInfo.authors[0]}`}
+              searchString={`${data.volumeInfo.title}`}
+            />
           </Box>
           {data.volumeInfo.categories && (
             <Box {...BoxProps}>
