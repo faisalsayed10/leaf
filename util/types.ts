@@ -33,6 +33,8 @@ export type VolumeInfo = {
   previewLink: string;
   infoLink: string;
   canonicalVolumeLink: string;
+  pageCount?: string;
+  categories?: string[];
 };
 export type SaleInfo = {
   country: string;
