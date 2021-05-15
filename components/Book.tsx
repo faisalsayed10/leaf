@@ -2,7 +2,7 @@ import { Image } from "@chakra-ui/image";
 import { Box, Text } from "@chakra-ui/layout";
 import { SearchItem } from "@util/types";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 
 interface Props {
   book: SearchItem;
@@ -11,7 +11,7 @@ interface Props {
 const Book: React.FC<Props> = ({ book }) => {
   return (
     <Link href={`/book/${book.id}`}>
-      <Box maxW="130px" mr="8" cursor="pointer">
+      <Box maxW="130px" cursor="pointer">
         <Image
           src={book.volumeInfo?.imageLinks?.thumbnail || ""}
           alt={book.volumeInfo.title}

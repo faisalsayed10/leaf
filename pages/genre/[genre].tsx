@@ -1,8 +1,4 @@
-import {
-  Container,
-  SimpleGrid,
-  Text
-} from "@chakra-ui/layout";
+import { Container, SimpleGrid, Text } from "@chakra-ui/layout";
 import Book from "@components/Book";
 import Layout from "@components/Layout";
 import { readableTitle } from "@util/helpers";
@@ -17,11 +13,23 @@ interface Props {
   data: SearchResponse;
 }
 
+const ContainerProps = {
+  py: "3",
+  mb: "5",
+  background: "rgba(255,255,255,0.25)",
+  boxShadow: "10px 5px 40px -10px rgba(0,0,0,0.2)",
+  borderRadius: "5px",
+  style: {
+    backdropFilter: "blur(5px)",
+    WebkitBackdropFilter: "blur(5px)",
+  },
+};
+
 const Genre: React.FC<Props> = ({ data }) => {
   const router = useRouter();
   const genre = router.query.genre as string;
 
-  console.log(data)
+  console.log(data);
 
   return (
     <>
@@ -29,17 +37,10 @@ const Genre: React.FC<Props> = ({ data }) => {
         <title>{readableTitle(genre)}</title>
       </Head>
       <Layout>
-        <Container
-          maxW="container.sm"
-          backgroundColor="white"
-          borderRadius="lg"
-          boxShadow="lg"
-          my="4"
-          px="4"
-        >
+        <Container maxW="container.sm" {...ContainerProps} my="4" px="4">
           <Text
             fontSize="3xl"
-            mt="8"
+            mt="4"
             textTransform="uppercase"
             letterSpacing="wide"
             fontWeight="500"
@@ -50,13 +51,13 @@ const Genre: React.FC<Props> = ({ data }) => {
               {data.totalItems} results
             </Text>
           </Text>
-          {/* <Container my="8"> */}
-          <SimpleGrid columns={4} m="4" spacing={6} placeItems="center">
-            {data.items.filter(item => item.volumeInfo.hasOwnProperty("imageLinks")).map((book) => (
-              <Book key={book.id} book={book} />
-            ))}
+          <SimpleGrid columns={4} spacing={6} placeItems="center">
+            {data.items
+              .filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
+              .map((book) => (
+                <Book key={book.id} book={book} />
+              ))}
           </SimpleGrid>
-          {/* </Container> */}
         </Container>
       </Layout>
     </>
