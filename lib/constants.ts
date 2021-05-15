@@ -1,6 +1,5 @@
 export const GENRES = [
   "algebra",
-  "ancient_civilization",
   "animals",
   "anthropology",
   "archaeology",

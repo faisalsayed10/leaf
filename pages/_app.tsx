@@ -29,7 +29,16 @@ const GlobalStyle: React.FC = ({ children }) => {
           .active__sidebar {
             background-color: var(--chakra-colors-gray-200);
             border-radius: var(--chakra-radii-lg);
-            font-weight: 600
+            font-weight: 600;
+          }
+
+          .readmoreless {
+            color: var(--chakra-colors-gray-500);
+            margin-left: 2px;
+          }
+
+          .readmoreless:hover {
+            text-decoration: underline;
           }
         `}
       />

@@ -25,6 +25,8 @@
     "react-dom": "^17.0.0",
     "react-icons": "^4.2.0",
     "react-markdown": "^5.0.0",
+    "react-read-more-read-less": "^1.0.7",
+    "striptags": "^3.1.1",
     "swr": "^0.5.5"
   },
   "devDependencies": {
