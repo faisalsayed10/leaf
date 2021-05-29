@@ -22,3 +22,7 @@ export function upperCaseTitle(title: string) {
 export function readableTitle(genre: string) {
   return upperCaseTitle(genre?.replace(/__/gi, " & ").replace(/_/gi, " "));
 }
+
+export function sliceText(text: string, limit: number) {
+  return text.split("").slice(0, limit).join("") + "...";
+}
