@@ -5,7 +5,7 @@ import BookPageInfo from "@components/BookPageInfo";
 import BuyOptions from "@components/BuyOptions";
 import Categories from "@components/Categories";
 import Layout from "@components/Layout";
-import { readableTitle, upperCaseTitle } from "@util/helpers";
+import { sliceText } from "@util/helpers";
 import { SearchItem } from "@util/types";
 import axios from "axios";
 import { GetServerSideProps } from "next";
@@ -34,7 +34,7 @@ const BookPage: React.FC<Props> = ({ data }) => {
   const [thumbnail] = useState(
     // data.volumeInfo.imageLinks.medium ||
     //   data.volumeInfo.imageLinks.small ||
-    data.volumeInfo.imageLinks.thumbnail
+    data.volumeInfo.imageLinks?.thumbnail
   );
 
   console.log(data);
@@ -47,14 +47,14 @@ const BookPage: React.FC<Props> = ({ data }) => {
       <Layout>
         <Container mt="8" borderRadius="lg">
           <Flex {...BoxProps} justify="space-evenly" align="center">
-            <Image src={thumbnail} maxW="100px" mx="4" />
+            <Image src={thumbnail} maxW="100px" mx="4" alt={sliceText(data.volumeInfo.title, 50)} />
             <Box w="50%">
               <Text fontSize="xl" fontWeight="500" align="center">
-                {data.volumeInfo.title}
+                {sliceText(data.volumeInfo.title, 100)}
               </Text>
               {data.volumeInfo.subtitle && (
                 <Text fontSize="md" color="gray.700" align="center">
-                  {data.volumeInfo.subtitle}
+                  {sliceText(data.volumeInfo.subtitle, 200)}
                 </Text>
               )}
               <Text
