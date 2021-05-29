@@ -34,27 +34,6 @@ const Header: React.FC = () => {
           Libook
         </Text>
       </Link>
-      <Menu>
-        <MenuButton
-          as={Button}
-          aria-label="Options"
-          rightIcon={<ChevronDownIcon />}
-          variant="ghost"
-          fontWeight="normal"
-        >
-          Browse
-        </MenuButton>
-        <MenuList>
-          <Link href="/genre">
-            <MenuItem icon={<ImBooks size={20} />}>Genres</MenuItem>
-          </Link>
-          <Link href="/random">
-            <MenuItem icon={<GiCardRandom size={20} />}>
-              Random Book For You
-            </MenuItem>
-          </Link>
-        </MenuList>
-      </Menu>
       <SearchInput />
       {!isLoading && user ? (
         <Menu placement="bottom">
