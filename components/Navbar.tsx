@@ -1,7 +1,6 @@
 import { useUser } from "@auth0/nextjs-auth0";
 import { Avatar } from "@chakra-ui/avatar";
 import { Button } from "@chakra-ui/button";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Flex, Text } from "@chakra-ui/layout";
 import {
   Menu,
@@ -13,8 +12,6 @@ import {
 } from "@chakra-ui/menu";
 import Link from "next/link";
 import React from "react";
-import { GiCardRandom } from "react-icons/gi";
-import { ImBooks } from "react-icons/im";
 import SearchInput from "./SearchInput";
 
 const Header: React.FC = () => {
@@ -25,7 +22,10 @@ const Header: React.FC = () => {
     <Flex
       bgColor="white"
       alignItems="center"
-      justifyContent="space-evenly"
+      justifyContent="space-between"
+      boxShadow="md"
+      pos="sticky"
+      top="0"
       p="2"
       px="6"
     >
@@ -34,7 +34,6 @@ const Header: React.FC = () => {
           Libook
         </Text>
       </Link>
-      <SearchInput />
       {!isLoading && user ? (
         <Menu placement="bottom">
           <MenuButton
@@ -69,7 +68,7 @@ const Header: React.FC = () => {
         </Menu>
       ) : (
         <Link href="/api/auth/login">
-          <Button variant="ghost">Log in</Button>
+          <Button variant="outline" colorScheme="gray">Login</Button>
         </Link>
       )}
     </Flex>
