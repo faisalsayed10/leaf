@@ -30,7 +30,7 @@ const BookPageInfo: React.FC<Props> = ({ volumeInfo }) => {
           <strong>Published Date:</strong> {volumeInfo.publishedDate}
         </Text>
       )}
-      {volumeInfo.industryIdentifiers.length > 0 &&
+      {volumeInfo?.industryIdentifiers?.length > 0 &&
         volumeInfo.industryIdentifiers.map(({ type, identifier }) => (
           <Text key={type}>
             <strong>{readableTitle(type)}:</strong> {identifier}
