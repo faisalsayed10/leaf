@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/layout";
 import React, { ReactNode } from "react";
-import Header from "./Header";
+import Header from "./Navbar";
 import Sidebar from "./Sidebar";
 
 type Props = {
