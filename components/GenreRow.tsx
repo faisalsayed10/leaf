@@ -19,16 +19,16 @@ const GenreRow: React.FC<Props> = ({ title, link, books }) => {
           display="inline"
           cursor="pointer"
           _hover={{ textDecoration: "underline" }}
-          fontSize="2xl"
+          fontSize="xl"
         >
           {readableTitle(title)}
         </Text>
       </Link>
-      <Flex mt="4">
-        {books?.map((book) => (
-          <Book key={book.id} book={book} />
-        ))}
-      </Flex>
+        <Flex mt="4" justify="space-evenly" w="container.md">
+          {books?.map((book) => (
+            <Book key={book.id} book={book} />
+          ))}
+        </Flex>
     </Box>
   );
 };

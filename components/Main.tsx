@@ -21,7 +21,12 @@ const Main: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Flex alignItems="center" flexDir="column" justify="center">
+      <Flex
+        alignItems="center"
+        flexDir="column"
+        justify="center"
+        m="0 auto"
+      >
         {data.map((genre) => (
           <GenreRow
             key={genre.name}
