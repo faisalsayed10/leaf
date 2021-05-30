@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/menu";
 import Link from "next/link";
 import React from "react";
-import SearchInput from "./SearchInput";
 
 const Header: React.FC = () => {
   const { user, error, isLoading } = useUser();

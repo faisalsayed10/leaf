@@ -1,5 +1,6 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Text } from "@chakra-ui/layout";
+import { sliceText } from "@util/helpers";
 import { SearchItem } from "@util/types";
 import Link from "next/link";
 import React from "react";
@@ -14,7 +15,7 @@ const Book: React.FC<Props> = ({ book }) => {
       <Box maxW="130px" cursor="pointer">
         <Image
           src={book.volumeInfo?.imageLinks?.thumbnail || ""}
-          alt={book.volumeInfo.title}
+          alt={sliceText(book.volumeInfo.title, 50)}
           objectFit="cover"
           minW="130px"
           h="200px"
