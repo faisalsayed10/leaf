@@ -1,6 +1,7 @@
 import { Container, SimpleGrid, Text } from "@chakra-ui/layout";
 import Book from "@components/Book";
 import Layout from "@components/Layout";
+import { BASE_URL } from "@lib/constants";
 import { readableTitle } from "@util/helpers";
 import { SearchResponse } from "@util/types";
 import axios from "axios";
@@ -68,7 +69,7 @@ export default Genre;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data } = await axios.get<SearchResponse>(
-    `https://www.googleapis.com/books/v1/volumes?q=subject:${context.params.genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=30`
+    `${BASE_URL}/volumes?q=subject:${context.params.genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=30`
   );
 
   return {

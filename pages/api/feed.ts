@@ -1,4 +1,4 @@
-import { GENRES } from "@lib/constants";
+import { BASE_URL, GENRES } from "@lib/constants";
 import { getRandom } from "@util/helpers";
 import { FeedData, SearchResponse } from "@util/types";
 import axios from "axios";
@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const data: FeedData[] = [];
 
   for (const genre of randomGenres) {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=5`;
+    const url = `${BASE_URL}/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=5`;
     const response = await axios.get<SearchResponse>(url);
     data.push({ name: genre, value: response.data });
   }

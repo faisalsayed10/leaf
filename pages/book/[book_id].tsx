@@ -5,6 +5,7 @@ import BookPageInfo from "@components/BookPageInfo";
 import BuyOptions from "@components/BuyOptions";
 import Categories from "@components/Categories";
 import Layout from "@components/Layout";
+import { BASE_URL } from "@lib/constants";
 import { sliceText } from "@util/helpers";
 import { SearchItem } from "@util/types";
 import axios from "axios";
@@ -116,7 +117,7 @@ export default BookPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data } = await axios.get<SearchItem>(
-    `https://www.googleapis.com/books/v1/volumes/${context.params.book_id}?key=${process.env.GOOGLE_BOOKS_API_KEY}`
+    `${BASE_URL}/volumes/${context.params.book_id}?key=${process.env.GOOGLE_BOOKS_API_KEY}`
   );
 
   return {
