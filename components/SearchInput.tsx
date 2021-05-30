@@ -1,35 +1,29 @@
 import { IconButton } from "@chakra-ui/button";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { readableTitle, upperCaseTitle } from "@util/helpers";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
 
-interface Props {}
+interface Props {
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const SearchInput: React.FC<Props> = (props) => {
-  const router = useRouter();
-  const { genre, author } = router.query;
-  const [placeholder, setPlaceholder] = useState("Search books");
-
-  useEffect(() => {
-    if (genre) {
-      // @ts-ignore
-      setPlaceholder(`Search books in ${readableTitle(genre)}`);
-    } else if (author) {
-      setPlaceholder(`Search books from ${author}`);
-    }
-  }, [router.query]);
-
+const SearchInput: React.FC<Props> = ({ value, setValue }) => {
   return (
-    <>
-      <InputGroup maxW="700px">
-        <Input placeholder={placeholder} />
-        <InputRightElement>
-          <IconButton aria-label="Search" icon={<SearchIcon />} />
-        </InputRightElement>
-      </InputGroup>
-    </>
+    <InputGroup maxW="700px">
+      <Input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        variant="outline"
+        placeholder={"Search Books"}
+      />
+      <InputRightElement>
+        <IconButton
+          variant="outline"
+          aria-label="Search"
+          icon={<SearchIcon />}
+        />
+      </InputRightElement>
+    </InputGroup>
   );
 };
 
