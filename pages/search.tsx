@@ -74,61 +74,67 @@ const Search: React.FC<Props> = () => {
       </Head>
       <Layout>
         <Container my="4" maxW="container.sm">
-          <SearchInput value={value} setValue={setValue} />
-          {/* ____________________ */}
+          {/* <Box as="form"> */}
+            <SearchInput value={value} setValue={setValue} />
+            {/* ____________________ */}
 
-          <Accordion allowMultiple mt={2}>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    Advanced Fields:
+            <Accordion allowMultiple mt={2}>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      Advanced Fields:
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel>
+                  <Box>
+                    <Input
+                      ref={authorRef}
+                      variant="flushed"
+                      placeholder="Author"
+                    />
+                    <Input
+                      ref={publisherRef}
+                      variant="flushed"
+                      placeholder="Publisher"
+                    />
+                    <Input
+                      ref={genreRef}
+                      variant="flushed"
+                      placeholder="Genre"
+                    />
+                    <Input ref={isbnRef} variant="flushed" placeholder="ISBN" />
                   </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel>
-                <Box>
-                  <Input
-                    ref={authorRef}
-                    variant="flushed"
-                    placeholder="Author"
-                  />
-                  <Input
-                    ref={publisherRef}
-                    variant="flushed"
-                    placeholder="Publisher"
-                  />
-                  <Input ref={genreRef} variant="flushed" placeholder="Genre" />
-                  <Input ref={isbnRef} variant="flushed" placeholder="ISBN" />
-                </Box>
-              </AccordionPanel>
-            </AccordionItem>
-          </Accordion>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
 
-          {/* ____________________ */}
+            {/* ____________________ */}
 
-          <Flex justify="space-between" align="center" mt={2}>
-            <Select
-              icon={<MdArrowDropDown />}
-              placeholder="Filter By:"
-              cursor="pointer"
-            >
-              <option value="&printType=books">Books</option>
-              <option value="&printType=magazines">Magazines</option>
-              <option value="&filter=ebooks">Ebooks</option>
-              <option value="&filter=free-ebooks">Free Ebooks</option>
-              <option value="&filter=paid-ebooks">Paid Ebooks</option>
-            </Select>
-            <Select
-              icon={<MdArrowDropDown />}
-              placeholder="Sort By:"
-              cursor="pointer"
-            >
-              <option value="&orderBy=relevance">Relevance</option>
-              <option value="&orderBy=newest">Newest</option>
-            </Select>
-          </Flex>
+            <Flex justify="space-between" align="center" mt={2}>
+              <Select
+                icon={<MdArrowDropDown />}
+                placeholder="Filter By:"
+                cursor="pointer"
+              >
+                <option value="&printType=books">Books</option>
+                <option value="&printType=magazines">Magazines</option>
+                <option value="&filter=ebooks">Ebooks</option>
+                <option value="&filter=free-ebooks">Free Ebooks</option>
+                <option value="&filter=paid-ebooks">Paid Ebooks</option>
+              </Select>
+              <Select
+                icon={<MdArrowDropDown />}
+                placeholder="Sort By:"
+                cursor="pointer"
+              >
+                <option value="&orderBy=relevance">Relevance</option>
+                <option value="&orderBy=newest">Newest</option>
+              </Select>
+            </Flex>
+          {/* </Box> */}
 
           {/* ____________________ */}
           <SearchResults results={searchData && searchData.items} />
