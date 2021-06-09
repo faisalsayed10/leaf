@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionPanel,
 } from "@chakra-ui/accordion";
-import { Button } from "@chakra-ui/button";
 import { Input } from "@chakra-ui/input";
 import { Box, Container, Flex } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
@@ -16,8 +15,8 @@ import { BASE_URL } from "@lib/constants";
 import { SearchResponse } from "@util/types";
 import axios from "axios";
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
 import _ from "underscore";
 
@@ -57,9 +56,8 @@ type Inputs = {
 const Search: React.FC<Props> = () => {
   const [value, setValue] = useState("");
   const [searchData, setSearchData] = useState<SearchResponse>();
-  const { register, handleSubmit, getValues, formState } = useForm<Inputs>();
-  const { isDirty, dirtyFields, touchedFields } = formState;
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const { register, getValues, watch } = useForm<Inputs>();
+  const { author, publisher, subject, isbn, filter, sort } = watch();
 
   useEffect(() => {
     fetchData();
@@ -67,15 +65,66 @@ const Search: React.FC<Props> = () => {
     return () => {
       fetchData.cancel();
     };
-  }, [value]);
+  }, [value, author, publisher, subject, isbn, filter, sort]);
 
   const fetchData = _.debounce(async () => {
     if (value.trim() === "") return;
-    const extraOptions = getValues();
-    const url = `${BASE_URL}/volumes?q=${encodeURIComponent(value)}`;
+    const { author, publisher, isbn, subject, filter, sort } = getValues();
+    let url = `${BASE_URL}/volumes?q=${encodeURIComponent(value)}`;
 
-    const { data } = await axios.post<SearchResponse>("/api/search", { url });
-    setSearchData(data);
+    if (author.trim() !== "") {
+      url += `+inauthor:${encodeURIComponent(author)}`;
+    }
+
+    if (publisher.trim() !== "") {
+      url += `+inpublisher:${encodeURIComponent(publisher)}`;
+    }
+
+    if (isbn.trim() !== "") {
+      url += `+isbn:${isbn}`;
+    }
+
+    if (subject.trim() !== "") {
+      url += `+subject:${encodeURIComponent(subject)}`;
+    }
+
+    switch (filter) {
+      case "&printType=books":
+        url += "&printType=books";
+        break;
+      case "&printType=magazines":
+        url += "&printType=magazines";
+        break;
+      case "&filter=ebooks":
+        url += "&filter=ebooks";
+        break;
+      case "&filter=free-ebooks":
+        url += "&filter=free-ebooks";
+        break;
+      case "&filter=paid-ebooks":
+        url += "&filter=paid-ebooks";
+        break;
+      default:
+        break;
+    }
+
+    switch (sort) {
+      case "&orderBy=relevance":
+        url += "&orderBy=relevance";
+        break;
+      case "&orderBy=newest":
+        url += "&orderBy=newest";
+        break;
+      default:
+        break;
+    }
+
+    try {
+      const { data } = await axios.post<SearchResponse>("/api/search", { url });
+      setSearchData(data);
+    } catch (err) {
+      console.error(err);
+    }
   }, 1000);
 
   return (
@@ -85,7 +134,7 @@ const Search: React.FC<Props> = () => {
       </Head>
       <Layout>
         <Container my="4" maxW="container.sm">
-          <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+          <Box as="form">
             <SearchInput value={value} setValue={setValue} />
             {/* ____________________ */}
 
@@ -151,7 +200,6 @@ const Search: React.FC<Props> = () => {
                 <option value="&orderBy=newest">Newest</option>
               </Select>
             </Flex>
-            <Button type="submit">Submit</Button>
           </Box>
 
           {/* ____________________ */}
