@@ -27,6 +27,7 @@ const Header: React.FC = () => {
       top="0"
       p="2"
       px="6"
+      zIndex='100'
     >
       <Link href="/">
         <Text cursor="pointer" fontWeight="500" fontSize="2xl">
