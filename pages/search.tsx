@@ -11,6 +11,7 @@ import { Select } from "@chakra-ui/select";
 import Layout from "@components/Layout";
 import SearchInput from "@components/SearchInput";
 import SearchResults from "@components/SearchResults";
+import Switch from "@components/Switch";
 import { BASE_URL } from "@lib/constants";
 import { SearchResponse } from "@util/types";
 import axios from "axios";
@@ -22,23 +23,7 @@ import _ from "underscore";
 
 interface Props {}
 
-// intitle: Returns results where the text following this keyword is found in the title. ✅
-// inauthor: Returns results where the text following this keyword is found in the author. ✅
-// inpublisher: Returns results where the text following this keyword is found in the publisher. ✅
-// subject: Returns results where the text following this keyword is listed in the category list of the volume. ✅
-// isbn: Returns results where the text following this keyword is the ISBN number. ✅
-
-// Filter By: (&filter=)
-// free-ebooks ✅
-// paid-ebooks ✅
-// ebooks ✅
-// (&printType=) books - Returns only results that are books. ✅
-// (&printType=) magazines - Returns results that are magazines. ✅
 // &langRestrict= two-letter ISO-639-1 code (en, fr)
-
-// Sort By: (&orderBy=)
-// relevance - Returns results in order of the relevance of search terms (this is the default). ✅
-// newest - Returns results in order of most recently to least recently published. ✅
 
 // Pagination:
 // &startIndex= - The position in the collection at which to start. The index of the first item is 0.
@@ -56,6 +41,8 @@ type Inputs = {
 const Search: React.FC<Props> = () => {
   const [value, setValue] = useState("");
   const [searchData, setSearchData] = useState<SearchResponse>();
+  const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState(false);
   const { register, getValues, watch } = useForm<Inputs>();
   const { author, publisher, subject, isbn, filter, sort } = watch();
 
@@ -69,6 +56,7 @@ const Search: React.FC<Props> = () => {
 
   const fetchData = _.debounce(async () => {
     if (value.trim() === "") return;
+    setLoading(true);
     const { author, publisher, isbn, subject, filter, sort } = getValues();
     let url = `${BASE_URL}/volumes?q=${encodeURIComponent(value)}`;
 
@@ -124,8 +112,14 @@ const Search: React.FC<Props> = () => {
       setSearchData(data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   }, 1000);
+
+  const handleChange = (nextChecked: boolean) => {
+    setChecked(nextChecked);
+  };
 
   return (
     <>
@@ -200,10 +194,11 @@ const Search: React.FC<Props> = () => {
                 <option value="&orderBy=newest">Newest</option>
               </Select>
             </Flex>
+            <Switch checked={checked} handleChange={handleChange} />
           </Box>
 
           {/* ____________________ */}
-          <SearchResults results={searchData && searchData.items} />
+          <SearchResults results={searchData} loading={loading} />
         </Container>
       </Layout>
     </>
