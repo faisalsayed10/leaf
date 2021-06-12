@@ -3,7 +3,7 @@ import { readableTitle } from "@util/helpers";
 import { SearchItem } from "@util/types";
 import Link from "next/link";
 import React from "react";
-import Book from "./Book";
+import Book from "./GridViewBook";
 
 interface Props {
   title: string;

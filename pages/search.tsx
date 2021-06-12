@@ -11,7 +11,7 @@ import { Select } from "@chakra-ui/select";
 import Layout from "@components/Layout";
 import SearchInput from "@components/SearchInput";
 import SearchResults from "@components/SearchResults";
-import Switch from "@components/Switch";
+import Switch from "@components/GridListSwitch";
 import { BASE_URL } from "@lib/constants";
 import { SearchResponse } from "@util/types";
 import axios from "axios";
@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
 import _ from "underscore";
+import { useRouter } from "next/router";
 
 interface Props {}
 
@@ -42,9 +43,28 @@ const Search: React.FC<Props> = () => {
   const [value, setValue] = useState("");
   const [searchData, setSearchData] = useState<SearchResponse>();
   const [loading, setLoading] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const { register, getValues, watch } = useForm<Inputs>();
   const { author, publisher, subject, isbn, filter, sort } = watch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.asPath.split("url=")[1] || searchData) return;
+
+    (async () => {
+      const url = router.asPath.split("url=")[1];
+      try {
+        const { data } = await axios.post<SearchResponse>("/api/search", {
+          url,
+        });
+        setSearchData(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -110,6 +130,7 @@ const Search: React.FC<Props> = () => {
     try {
       const { data } = await axios.post<SearchResponse>("/api/search", { url });
       setSearchData(data);
+      router.push(`/search?url=${url}`, undefined, { shallow: true });
     } catch (err) {
       console.error(err);
     } finally {
@@ -128,10 +149,8 @@ const Search: React.FC<Props> = () => {
       </Head>
       <Layout>
         <Container my="4" maxW="container.sm">
-          <Box as="form">
+          <Box as="form" pos="relative">
             <SearchInput value={value} setValue={setValue} />
-            {/* ____________________ */}
-
             <Accordion allowMultiple mt={2}>
               <AccordionItem>
                 <h2>
@@ -168,10 +187,7 @@ const Search: React.FC<Props> = () => {
                 </AccordionPanel>
               </AccordionItem>
             </Accordion>
-
-            {/* ____________________ */}
-
-            <Flex justify="space-between" align="center" mt={2}>
+            <Flex justify="space-between" align="center" my={2}>
               <Select
                 icon={<MdArrowDropDown />}
                 placeholder="Filter By:"
@@ -194,11 +210,15 @@ const Search: React.FC<Props> = () => {
                 <option value="&orderBy=newest">Newest</option>
               </Select>
             </Flex>
-            <Switch checked={checked} handleChange={handleChange} />
+            <Box pos="absolute" right="0">
+              <Switch checked={checked} handleChange={handleChange} />
+            </Box>
           </Box>
-
-          {/* ____________________ */}
-          <SearchResults results={searchData} loading={loading} />
+          <SearchResults
+            results={searchData}
+            loading={loading}
+            type={checked ? "GRID" : "LIST"}
+          />
         </Container>
       </Layout>
     </>
