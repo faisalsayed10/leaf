@@ -17,6 +17,7 @@ const SearchInput: React.FC<Props> = ({ value, setValue }) => {
         placeholder={"Search Books"}
       />
       <InputRightElement>
+      {/* TODO: REPLACE WITH RELOAD */}
         <IconButton
           variant="outline"
           aria-label="Search"
