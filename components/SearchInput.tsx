@@ -28,7 +28,7 @@ const SearchInput: React.FC<Props> = ({ value, setValue }) => {
           <IconButton
             variant="outline"
             aria-label="Refetch Search Results"
-            icon={<IoReloadSharp />} // OR IoReloadSharp
+            icon={<IoReloadSharp />}
           />
         </Tooltip>
       </InputRightElement>
