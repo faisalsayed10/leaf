@@ -3,6 +3,7 @@ import { SearchResponse } from "@util/types";
 import React from "react";
 import GridViewBook from "./GridViewBook";
 import ListViewBook from "./ListViewBook";
+import { RotateSpinner } from "react-spinners-kit";
 
 interface Props {
   results?: SearchResponse;
@@ -14,7 +15,7 @@ const SearchResults: React.FC<Props> = ({ results, loading, type }) => {
   if (loading)
     return (
       <SimpleGrid placeItems="center" h="60vh">
-        <p>loading</p>
+        <RotateSpinner size={60} color="#5befbd" />
       </SimpleGrid>
     );
   if ((results && !results.items) || results?.items.length < 1)
