@@ -1,6 +1,7 @@
 import { IconButton } from "@chakra-ui/button";
-import { SearchIcon } from "@chakra-ui/icons";
+import { IoReloadCircleSharp } from "react-icons/io5";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
+import { Tooltip } from "@chakra-ui/tooltip";
 
 interface Props {
   value: string;
@@ -17,12 +18,19 @@ const SearchInput: React.FC<Props> = ({ value, setValue }) => {
         placeholder={"Search Books"}
       />
       <InputRightElement>
-      {/* TODO: REPLACE WITH RELOAD */}
-        <IconButton
-          variant="outline"
-          aria-label="Search"
-          icon={<SearchIcon />}
-        />
+        <Tooltip
+          hasArrow
+          label="Refetch Search Results"
+          bg="gray.300"
+          color="black"
+          openDelay={300}
+        >
+          <IconButton
+            variant="outline"
+            aria-label="Refetch Search Results"
+            icon={<IoReloadCircleSharp />} // OR IoReloadSharp
+          />
+        </Tooltip>
       </InputRightElement>
     </InputGroup>
   );

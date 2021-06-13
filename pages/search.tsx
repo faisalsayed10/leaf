@@ -29,7 +29,6 @@ interface Props {}
 
 // Pagination:
 // &startIndex= - The position in the collection at which to start. The index of the first item is 0.
-// &maxResults= - The maximum number of results to return. The default is 10, and the maximum allowable value is 40.
 
 const Search: React.FC<Props> = () => {
   const [query, setQuery] = useState("");
@@ -152,6 +151,7 @@ const Search: React.FC<Props> = () => {
             loading={isValidating}
             type={checked ? "GRID" : "LIST"}
           />
+          {/* Do Pagination Here */}
         </Container>
       </Layout>
     </>

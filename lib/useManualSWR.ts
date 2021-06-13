@@ -8,7 +8,7 @@ function useManualSWR<Type>(key: string, fetcher, options?: SWRConfiguration) {
     error,
     isValidating,
   } = useSWR<Type>(!cachedData ? key : null, fetcher, {
-    ...options, // options is before the other keys so you can't overwrite them
+    ...options,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     shouldRetryOnError: false

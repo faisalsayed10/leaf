@@ -10,8 +10,6 @@ interface Props {
   type: string;
 }
 
-// Change View - Grid | List
-
 const SearchResults: React.FC<Props> = ({ results, loading, type }) => {
   if (loading)
     return (
