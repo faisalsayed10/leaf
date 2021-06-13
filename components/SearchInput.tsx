@@ -1,5 +1,5 @@
 import { IconButton } from "@chakra-ui/button";
-import { IoReloadCircleSharp } from "react-icons/io5";
+import { IoReloadSharp } from "react-icons/io5";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Tooltip } from "@chakra-ui/tooltip";
 
@@ -28,7 +28,7 @@ const SearchInput: React.FC<Props> = ({ value, setValue }) => {
           <IconButton
             variant="outline"
             aria-label="Refetch Search Results"
-            icon={<IoReloadCircleSharp />} // OR IoReloadSharp
+            icon={<IoReloadSharp />} // OR IoReloadSharp
           />
         </Tooltip>
       </InputRightElement>
