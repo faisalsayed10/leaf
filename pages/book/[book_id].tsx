@@ -97,7 +97,7 @@ const BookPage: React.FC<Props> = ({ data }) => {
           </Box>
           <Box {...BoxProps}>
             <BuyOptions
-              previewLink={`${data.volumeInfo.previewLink}&kptab=getbook`}
+              previewLink={`${data.saleInfo.buyLink || data.volumeInfo.previewLink}&kptab=getbook`}
               searchStringWithAuthor={`${data.volumeInfo.title} ${data.volumeInfo.authors[0]}`}
               searchString={`${data.volumeInfo.title}`}
             />

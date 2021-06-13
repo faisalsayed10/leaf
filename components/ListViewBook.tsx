@@ -1,8 +1,9 @@
 import React from "react";
-import { Heading, Image, Text, Flex, Button } from "@chakra-ui/react";
+import { Heading, Image, Text, Flex, IconButton } from "@chakra-ui/react";
 import Link from "next/link";
 import { SearchItem } from "@util/types";
 import { sliceText } from "@util/helpers";
+import { FiMoreVertical } from "react-icons/fi"
 
 interface Props {
   book: SearchItem;
@@ -10,9 +11,9 @@ interface Props {
 
 const ListViewBook: React.FC<Props> = ({ book }) => {
   return (
-    <Link href={`/book/${book.id}`}>
-      <Flex justify="space-between" width="100%">
-        <Flex align="center">
+    <Flex justify="space-between" width="100%">
+      <Link href={`/book/${book.id}`}>
+        <Flex cursor="pointer">
           <Image
             src={book.volumeInfo?.imageLinks?.thumbnail || ""}
             alt={sliceText(book.volumeInfo.title, 50)}
@@ -22,12 +23,14 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
             h="200px"
             mr="6"
           />
-          <Flex direction="column">
+          <Flex direction="column" mt="3">
             <Heading as="h4" size="md">
               {sliceText(book.volumeInfo.title, 50)}
             </Heading>
             <Text color="gray.700" fontSize="md">
-              {book.volumeInfo.authors?.length > 1 ? sliceText(book.volumeInfo.authors[0], 75) : "Anonymous"}
+              {book.volumeInfo.authors?.length > 0
+                ? sliceText(book.volumeInfo.authors[0], 75)
+                : "Anonymous"}
             </Text>
             <Text fontSize="sm" color="gray.500">
               {book.volumeInfo.description
@@ -36,9 +39,9 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
             </Text>
           </Flex>
         </Flex>
-        <Button>HAM</Button>
-      </Flex>
-    </Link>
+      </Link>
+      <IconButton aria-label="more-options" icon={<FiMoreVertical />} />
+    </Flex>
   );
 };
 
