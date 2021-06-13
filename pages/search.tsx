@@ -8,19 +8,20 @@ import {
 import { Input } from "@chakra-ui/input";
 import { Box, Container, Flex } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
+import Switch from "@components/GridListSwitch";
 import Layout from "@components/Layout";
 import SearchInput from "@components/SearchInput";
 import SearchResults from "@components/SearchResults";
-import Switch from "@components/GridListSwitch";
-import { BASE_URL } from "@lib/constants";
-import { SearchResponse } from "@util/types";
-import axios from "axios";
+import { fetcher } from "@lib/fetcher";
+import useManualSWR from "@lib/useManualSWR";
+import { buildSearchURL, refillInputs } from "@util/helpers";
+import { SearchFormInputs, SearchResponse } from "@util/types";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
 import _ from "underscore";
-import { useRouter } from "next/router";
 
 interface Props {}
 
@@ -30,40 +31,28 @@ interface Props {}
 // &startIndex= - The position in the collection at which to start. The index of the first item is 0.
 // &maxResults= - The maximum number of results to return. The default is 10, and the maximum allowable value is 40.
 
-type Inputs = {
-  author: string;
-  publisher: string;
-  subject: string;
-  isbn: string;
-  filter: string;
-  sort: string;
-};
-
 const Search: React.FC<Props> = () => {
-  const [value, setValue] = useState("");
-  const [searchData, setSearchData] = useState<SearchResponse>();
-  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
   const [checked, setChecked] = useState(true);
-  const { register, getValues, watch } = useForm<Inputs>();
+  const { register, getValues, watch, setValue, formState } =
+    useForm<SearchFormInputs>();
   const { author, publisher, subject, isbn, filter, sort } = watch();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!router.asPath.split("url=")[1] || searchData) return;
+  const [url, setUrl] = useState("");
+  const { data, mutate, isValidating, error } = useManualSWR<SearchResponse>(
+    url ? "/api/search" + `/${url}` : null,
+    fetcher
+  );
 
-    (async () => {
-      const url = router.asPath.split("url=")[1];
-      try {
-        const { data } = await axios.post<SearchResponse>("/api/search", {
-          url,
-        });
-        setSearchData(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    })();
+  if (error) console.error(error);
+
+  useEffect(() => {
+    const url = router.asPath.split("url=")[1];
+    if (!router.asPath.split("url=")[1]) return;
+
+    setUrl(url);
+    refillInputs(url, setQuery, setValue);
   }, []);
 
   useEffect(() => {
@@ -72,75 +61,16 @@ const Search: React.FC<Props> = () => {
     return () => {
       fetchData.cancel();
     };
-  }, [value, author, publisher, subject, isbn, filter, sort]);
+  }, [query, author, publisher, subject, isbn, filter, sort]);
 
   const fetchData = _.debounce(async () => {
-    if (value.trim() === "") return;
-    setLoading(true);
-    const { author, publisher, isbn, subject, filter, sort } = getValues();
-    let url = `${BASE_URL}/volumes?q=${encodeURIComponent(value)}`;
+    if (query.trim() === "") return;
 
-    if (author.trim() !== "") {
-      url += `+inauthor:${encodeURIComponent(author)}`;
-    }
+    const url = buildSearchURL(`q=${encodeURIComponent(query)}`, getValues());
+    setUrl(url);
 
-    if (publisher.trim() !== "") {
-      url += `+inpublisher:${encodeURIComponent(publisher)}`;
-    }
-
-    if (isbn.trim() !== "") {
-      url += `+isbn:${isbn}`;
-    }
-
-    if (subject.trim() !== "") {
-      url += `+subject:${encodeURIComponent(subject)}`;
-    }
-
-    switch (filter) {
-      case "&printType=books":
-        url += "&printType=books";
-        break;
-      case "&printType=magazines":
-        url += "&printType=magazines";
-        break;
-      case "&filter=ebooks":
-        url += "&filter=ebooks";
-        break;
-      case "&filter=free-ebooks":
-        url += "&filter=free-ebooks";
-        break;
-      case "&filter=paid-ebooks":
-        url += "&filter=paid-ebooks";
-        break;
-      default:
-        break;
-    }
-
-    switch (sort) {
-      case "&orderBy=relevance":
-        url += "&orderBy=relevance";
-        break;
-      case "&orderBy=newest":
-        url += "&orderBy=newest";
-        break;
-      default:
-        break;
-    }
-
-    try {
-      const { data } = await axios.post<SearchResponse>("/api/search", { url });
-      setSearchData(data);
-      router.push(`/search?url=${url}`, undefined, { shallow: true });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    router.push(`/search?url=${url}`, undefined, { shallow: true });
   }, 1000);
-
-  const handleChange = (nextChecked: boolean) => {
-    setChecked(nextChecked);
-  };
 
   return (
     <>
@@ -150,7 +80,7 @@ const Search: React.FC<Props> = () => {
       <Layout>
         <Container my="4" maxW="container.sm">
           <Box as="form" pos="relative">
-            <SearchInput value={value} setValue={setValue} />
+            <SearchInput value={query} setValue={setQuery} />
             <Accordion allowMultiple mt={2}>
               <AccordionItem>
                 <h2>
@@ -211,12 +141,15 @@ const Search: React.FC<Props> = () => {
               </Select>
             </Flex>
             <Box pos="absolute" right="0">
-              <Switch checked={checked} handleChange={handleChange} />
+              <Switch
+                checked={checked}
+                handleChange={(bool) => setChecked(bool)}
+              />
             </Box>
           </Box>
           <SearchResults
-            results={searchData}
-            loading={loading}
+            results={data}
+            loading={isValidating}
             type={checked ? "GRID" : "LIST"}
           />
         </Container>
