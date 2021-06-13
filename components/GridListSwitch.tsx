@@ -33,8 +33,8 @@ const GridListSwitch: React.FC<Props> = ({ checked, handleChange }) => {
     <ReactSwitch
       checked={checked}
       onChange={handleChange}
-      offColor="#86d3ff"
-      onColor="#86d3ff"
+      offColor="#5befbd"
+      onColor="#5befbd"
       borderRadius={2}
       uncheckedIcon={<GridIcon fontSize={15} />}
       checkedIcon={<ListIcon fontSize={15} />}
