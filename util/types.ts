@@ -71,3 +71,12 @@ export type ImageLinks = {
   medium?: string
   small?: string
 }
+
+export type SearchFormInputs = {
+  author: string;
+  publisher: string;
+  subject: string;
+  isbn: string;
+  filter: string;
+  sort: string;
+};
