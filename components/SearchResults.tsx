@@ -1,9 +1,9 @@
 import { SimpleGrid } from "@chakra-ui/layout";
 import { SearchResponse } from "@util/types";
 import React from "react";
+import { RotateSpinner } from "react-spinners-kit";
 import GridViewBook from "./GridViewBook";
 import ListViewBook from "./ListViewBook";
-import { RotateSpinner } from "react-spinners-kit";
 
 interface Props {
   results?: SearchResponse;
