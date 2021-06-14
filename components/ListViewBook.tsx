@@ -1,9 +1,23 @@
 import React from "react";
-import { Heading, Image, Text, Flex, IconButton } from "@chakra-ui/react";
+import {
+  Heading,
+  Image,
+  Text,
+  Flex,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { SearchItem } from "@util/types";
 import { sliceText } from "@util/helpers";
-import { FiMoreVertical } from "react-icons/fi"
+import { FiMoreVertical } from "react-icons/fi";
+import { BiBookAlt, BiBook, BiCopy } from "react-icons/bi";
+import { BsBookmark } from "react-icons/bs";
+import { MdPlaylistAdd } from "react-icons/md";
 
 interface Props {
   book: SearchItem;
@@ -40,7 +54,22 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
           </Flex>
         </Flex>
       </Link>
-      <IconButton aria-label="more-options" icon={<FiMoreVertical />} />
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="more-options"
+          icon={<FiMoreVertical />}
+        />
+        <MenuList>
+          <MenuItem icon={<BiBookAlt size="18" />}>Want To Read</MenuItem>
+          <MenuItem icon={<BsBookmark size="18" />}>Currently Reading</MenuItem>
+          <MenuItem icon={<BiBook size="18" />}>Already Read</MenuItem>
+          <MenuDivider />
+          <MenuItem icon={<MdPlaylistAdd size="18" />}>Add To Playlist</MenuItem>
+          <MenuDivider />
+          <MenuItem icon={<BiCopy size="18" />}>Copy Link</MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   );
 };
