@@ -37,7 +37,7 @@ export function refillInputs(
   setQuery: React.Dispatch<React.SetStateAction<String>>,
   setValue: UseFormSetValue<SearchFormInputs>
 ) {
-  const segmentedUrl = url.split("+").map((child) => child.split(/:|=/));
+  const segmentedUrl = url.split("+").map((child) => child.split(/:|=|&/));
 
   for (let i = 0; i < segmentedUrl.length; i++) {
     switch (segmentedUrl[i][0]) {

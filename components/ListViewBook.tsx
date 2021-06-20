@@ -25,7 +25,7 @@ interface Props {
 
 const ListViewBook: React.FC<Props> = ({ book }) => {
   return (
-    <Flex justify="space-between" width="100%">
+    <Flex justify="space-between" width="100%" my="4">
       <Link href={`/book/${book.id}`}>
         <Flex cursor="pointer">
           <Image
