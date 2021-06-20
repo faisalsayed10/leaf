@@ -5,6 +5,7 @@ import React from "react";
 import useSWR, { cache } from "swr";
 import GenreRow from "./GenreRow";
 import { RotateSpinner } from "react-spinners-kit";
+import DefaultLoader from "./loader/DefaultLoader";
 
 interface Props {}
 
@@ -23,9 +24,7 @@ const Main: React.FC<Props> = (props) => {
   if (isValidating)
     return (
       <Container my="4" maxW="container.sm">
-        <SimpleGrid placeItems="center" h="80vh">
-          <RotateSpinner size={60} color="#5befbd" />
-        </SimpleGrid>
+        <DefaultLoader />
       </Container>
     );
 
