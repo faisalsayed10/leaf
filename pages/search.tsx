@@ -6,7 +6,8 @@ import {
   AccordionPanel,
 } from "@chakra-ui/accordion";
 import { Input } from "@chakra-ui/input";
-import { Box, Container, Flex } from "@chakra-ui/layout";
+import { Box, Container, Flex, Center } from "@chakra-ui/layout";
+import { Button } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/select";
 import Switch from "@components/GridListSwitch";
 import Layout from "@components/Layout";
@@ -27,14 +28,12 @@ interface Props {}
 
 // &langRestrict= two-letter ISO-639-1 code (en, fr)
 
-// Pagination:
-// &startIndex= - The position in the collection at which to start. The index of the first item is 0.
-
 const Search: React.FC<Props> = () => {
   const [query, setQuery] = useState("");
   const [checked, setChecked] = useState(true);
-  const { register, getValues, watch, setValue, formState } =
-    useForm<SearchFormInputs>();
+  const [startIndex, setStartIndex] = useState(0);
+  const [isSameQuery, setIsSameQuery] = useState(false);
+  const { register, getValues, watch, setValue } = useForm<SearchFormInputs>();
   const { author, publisher, subject, isbn, filter, sort } = watch();
   const router = useRouter();
 
@@ -55,21 +54,26 @@ const Search: React.FC<Props> = () => {
   }, []);
 
   useEffect(() => {
+    setIsSameQuery(false);
+    setStartIndex(0);
+  }, [query]);
+
+  useEffect(() => {
     fetchData();
 
     return () => {
       fetchData.cancel();
     };
-  }, [query, author, publisher, subject, isbn, filter, sort]);
+  }, [query, author, publisher, subject, isbn, filter, sort, startIndex]);
 
   const fetchData = _.debounce(async () => {
     if (query.trim() === "") return;
 
     const url = buildSearchURL(`q=${encodeURIComponent(query)}`, getValues());
-    setUrl(url);
+    setUrl(url + `&startIndex=${startIndex}`);
 
     router.push(`/search?url=${url}`, undefined, { shallow: true });
-  }, 1000);
+  }, 700);
 
   return (
     <>
@@ -150,8 +154,23 @@ const Search: React.FC<Props> = () => {
             results={data}
             loading={isValidating}
             type={checked ? "GRID" : "LIST"}
+            isSameQuery={isSameQuery}
           />
-          {/* Do Pagination Here */}
+          {data?.items?.length > 0 && (
+            <Center my="6">
+              <Button
+                onClick={() => {
+                  setIsSameQuery(true);
+                  setStartIndex((p) => p + 40);
+                }}
+                variant="unstyled"
+                width="60%"
+                bgColor="#5befbd"
+              >
+                Load More
+              </Button>
+            </Center>
+          )}
         </Container>
       </Layout>
     </>
