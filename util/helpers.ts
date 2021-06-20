@@ -27,8 +27,8 @@ export function readableTitle(genre: string) {
 }
 
 export function sliceText(text: string, limit: number) {
-  const l = text.split("").length;
-  const limitedText = text.split("").slice(0, limit).join("");
+  const l = text?.split("").length;
+  const limitedText = text?.split("").slice(0, limit).join("");
   return l > limit ? limitedText + "..." : limitedText;
 }
 
