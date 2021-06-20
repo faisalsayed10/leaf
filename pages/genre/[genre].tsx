@@ -67,9 +67,9 @@ const Genre: React.FC<Props> = ({ data }) => {
               .filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
               .map((book) => {
                 return checked ? (
-                  <GridViewBook key={book.id} book={book} />
+                  <GridViewBook key={book.etag} book={book} />
                 ) : (
-                  <ListViewBook key={book.id} book={book} />
+                  <ListViewBook key={book.etag} book={book} />
                 );
               })}
           </SimpleGrid>

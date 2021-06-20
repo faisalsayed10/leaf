@@ -26,7 +26,7 @@ const GenreRow: React.FC<Props> = ({ title, link, books }) => {
       </Link>
         <Flex mt="4" justify="space-evenly" w="container.md">
           {books?.map((book) => (
-            <Book key={book.id} book={book} />
+            <Book key={book.etag} book={book} />
           ))}
         </Flex>
     </Box>

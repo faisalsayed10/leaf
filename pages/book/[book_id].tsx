@@ -64,10 +64,10 @@ const BookPage: React.FC<Props> = ({ data }) => {
                 color="gray.500"
                 align="center"
               >
-                {data.volumeInfo.authors.map((author, i) => {
+                {data.volumeInfo.authors ? data.volumeInfo.authors.map((author, i) => {
                   const length = data.volumeInfo.authors.length;
                   return author + (length > 1 && i !== length - 1 ? ", " : "");
-                })}
+                }) : "Anonymous"}
               </Text>
             </Box>
           </Flex>
@@ -98,7 +98,7 @@ const BookPage: React.FC<Props> = ({ data }) => {
           <Box {...BoxProps}>
             <BuyOptions
               previewLink={`${data.saleInfo.buyLink || data.volumeInfo.previewLink}&kptab=getbook`}
-              searchStringWithAuthor={`${data.volumeInfo.title} ${data.volumeInfo.authors[0]}`}
+              searchStringWithAuthor={`${data.volumeInfo.title} ${data.volumeInfo.authors ? data.volumeInfo.authors[0] : ""}`}
               searchString={`${data.volumeInfo.title}`}
             />
           </Box>
