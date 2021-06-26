@@ -64,8 +64,8 @@ const Genre: React.FC<Props> = ({ data }) => {
           </Box>
           <SimpleGrid columns={checked ? 4 : 1} spacing={6} placeItems="center" mt="6">
             {data.items
-              .filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
-              .map((book) => {
+              ?.filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
+              ?.map((book) => {
                 return checked ? (
                   <GridViewBook key={book.etag} book={book} />
                 ) : (

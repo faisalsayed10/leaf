@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const data: FeedData[] = [];
 
   for (const genre of randomGenres) {
-    const url = `${BASE_URL}/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=5`;
+    const url = `${BASE_URL}/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=10`;
     const response = await axios.get<SearchResponse>(url);
     data.push({ name: genre, value: response.data });
   }

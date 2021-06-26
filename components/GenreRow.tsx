@@ -16,6 +16,7 @@ const GenreRow: React.FC<Props> = ({ title, link, books }) => {
     <Box my="8">
       <Link href={`/genre/${link}`}>
         <Text
+          ml="4"
           display="inline"
           cursor="pointer"
           _hover={{ textDecoration: "underline" }}
@@ -24,11 +25,14 @@ const GenreRow: React.FC<Props> = ({ title, link, books }) => {
           {readableTitle(title)}
         </Text>
       </Link>
-        <Flex mt="4" justify="space-evenly" w="container.md">
-          {books?.map((book) => (
+      <Flex mt="2" justify="space-evenly" w="container.md">
+        {books
+          ?.filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
+          ?.slice(0, 5)
+          ?.map((book) => (
             <Book key={book.etag} book={book} />
           ))}
-        </Flex>
+      </Flex>
     </Box>
   );
 };

@@ -1,15 +1,15 @@
 import React from "react";
 import Layout from "../components/Layout";
-import Main from "@components/Main";
+import Home from "@components/Home";
 
 type Props = {};
 
-const Home: React.FC<Props> = (props) => {
+const HomePage: React.FC<Props> = (props) => {
   return (
     <Layout>
-      <Main />
+      <Home />
     </Layout>
   );
 };
 
-export default Home;
+export default HomePage;
