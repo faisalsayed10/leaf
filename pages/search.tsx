@@ -45,8 +45,8 @@ const Search: React.FC<Props> = () => {
   const router = useRouter();
 
   const [url, setUrl] = useState("");
-  const { data, mutate, isValidating, error } = useManualSWR<SearchResponse>(
-    url ? "/api/search" + `/${url}` : null,
+  const { data, isValidating, error } = useManualSWR<SearchResponse>(
+    url ? `/api/search/${url}` : null,
     fetcher
   );
 
