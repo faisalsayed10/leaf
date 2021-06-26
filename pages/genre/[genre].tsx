@@ -1,20 +1,18 @@
 import { Box, Container, SimpleGrid, Text } from "@chakra-ui/layout";
+import GridListSwitch from "@components/GridListSwitch";
 import GridViewBook from "@components/GridViewBook";
 import Layout from "@components/Layout";
-import { BASE_URL } from "@lib/constants";
+import ListViewBook from "@components/ListViewBook";
+import DefaultLoader from "@components/loader/DefaultLoader";
+import { fetcher } from "@lib/fetcher";
+import useManualSWR from "@lib/useManualSWR";
 import { readableTitle } from "@util/helpers";
 import { SearchResponse } from "@util/types";
-import axios from "axios";
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import GridListSwitch from "@components/GridListSwitch";
-import ListViewBook from "@components/ListViewBook";
 
-interface Props {
-  data: SearchResponse;
-}
+interface Props {}
 
 const ContainerProps = {
   py: "3",
@@ -28,12 +26,22 @@ const ContainerProps = {
   },
 };
 
-const Genre: React.FC<Props> = ({ data }) => {
+const Genre: React.FC<Props> = () => {
   const router = useRouter();
   const genre = router.query.genre as string;
   const [checked, setChecked] = useState(true);
+  const { data, isValidating, error } = useManualSWR<SearchResponse>(
+    genre ? `/api/genre/${genre}` : null,
+    fetcher
+  );
 
-  console.log(data);
+  if (error) console.error(error);
+  if (isValidating)
+    return (
+      <Layout>
+        <DefaultLoader />
+      </Layout>
+    );
 
   return (
     <>
@@ -52,7 +60,7 @@ const Genre: React.FC<Props> = ({ data }) => {
             >
               {readableTitle(genre)}{" "}
               <Text as="span" display="inline" fontSize="lg">
-                - {data.totalItems} results
+                - {data?.totalItems} results
               </Text>
             </Text>
             <Box pos="absolute" right="0" top="25%">
@@ -62,8 +70,13 @@ const Genre: React.FC<Props> = ({ data }) => {
               />
             </Box>
           </Box>
-          <SimpleGrid columns={checked ? 4 : 1} spacing={6} placeItems="center" mt="6">
-            {data.items
+          <SimpleGrid
+            columns={checked ? 4 : 1}
+            spacing={6}
+            placeItems="center"
+            mt="6"
+          >
+            {data?.items
               ?.filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
               ?.map((book) => {
                 return checked ? (
@@ -80,13 +93,3 @@ const Genre: React.FC<Props> = ({ data }) => {
 };
 
 export default Genre;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data } = await axios.get<SearchResponse>(
-    `${BASE_URL}/volumes?q=subject:${context.params.genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=40`
-  );
-
-  return {
-    props: { data },
-  };
-};
