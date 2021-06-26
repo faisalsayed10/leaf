@@ -75,7 +75,6 @@ export type ImageLinks = {
 export type SearchFormInputs = {
   author: string;
   publisher: string;
-  subject: string;
   isbn: string;
   filter: string;
   sort: string;

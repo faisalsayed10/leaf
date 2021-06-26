@@ -41,7 +41,7 @@ const Search: React.FC<Props> = () => {
   const [suggestions, setSuggestions] = useState([]);
   // form stuff
   const { register, getValues, watch, setValue } = useForm<SearchFormInputs>();
-  const { author, publisher, subject, isbn, filter, sort } = watch();
+  const { author, publisher, isbn, filter, sort } = watch();
   const router = useRouter();
 
   const [url, setUrl] = useState("");
@@ -57,7 +57,7 @@ const Search: React.FC<Props> = () => {
     if (!router.asPath.split("url=")[1]) return;
 
     setUrl(url);
-    refillInputs(url, setQuery, setValue);
+    refillInputs(url, setQuery, setValue, setSuggestionValue);
   }, []);
 
   useEffect(() => {
@@ -71,12 +71,24 @@ const Search: React.FC<Props> = () => {
     return () => {
       fetchData.cancel();
     };
-  }, [query, author, publisher, subject, isbn, filter, sort, startIndex]);
+  }, [
+    query,
+    author,
+    publisher,
+    suggestionValue,
+    isbn,
+    filter,
+    sort,
+    startIndex
+  ]);
 
   const fetchData = _.debounce(async () => {
     if (query.trim() === "") return;
 
-    const url = buildSearchURL(`q=${encodeURIComponent(query)}`, getValues());
+    const url = buildSearchURL(`q=${encodeURIComponent(query)}`, {
+      ...getValues(),
+      subject: suggestionValue,
+    });
     setUrl(url + `&startIndex=${startIndex}`);
 
     router.push(`/search?url=${url}`, undefined, { shallow: true });
@@ -142,7 +154,6 @@ const Search: React.FC<Props> = () => {
                           setSuggestionValue(newValue);
                         },
                         className: "chakra-input css-1hrzp7p",
-                        ...register("subject")
                       }}
                     />
                     <Input
