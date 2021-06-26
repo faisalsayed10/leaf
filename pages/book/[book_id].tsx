@@ -5,19 +5,18 @@ import BookPageInfo from "@components/BookPageInfo";
 import BuyOptions from "@components/BuyOptions";
 import Categories from "@components/Categories";
 import Layout from "@components/Layout";
-import { BASE_URL } from "@lib/constants";
+import DefaultLoader from "@components/loader/DefaultLoader";
+import { fetcher } from "@lib/fetcher";
+import useManualSWR from "@lib/useManualSWR";
 import { sliceText } from "@util/helpers";
 import { SearchItem } from "@util/types";
-import axios from "axios";
-import { GetServerSideProps } from "next";
 import Head from "next/head";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React from "react";
 import ReadMoreLess from "react-read-more-read-less";
 import striptags from "striptags";
 
-interface Props {
-  data: SearchItem;
-}
+interface Props {}
 
 const BoxProps = {
   py: "3",
@@ -31,14 +30,21 @@ const BoxProps = {
   },
 };
 
-const BookPage: React.FC<Props> = ({ data }) => {
-  const [thumbnail] = useState(
-    // data.volumeInfo.imageLinks.medium ||
-    //   data.volumeInfo.imageLinks.small ||
-    data.volumeInfo.imageLinks?.thumbnail
+const BookPage: React.FC<Props> = () => {
+  const router = useRouter();
+  const id = router.query.book_id;
+  const { data, isValidating, error } = useManualSWR<SearchItem>(
+    id ? `/api/book/${id}` : null,
+    fetcher
   );
 
-  console.log(data);
+  if (error) console.error(error);
+  if (isValidating)
+    return (
+      <Layout>
+        <DefaultLoader />
+      </Layout>
+    );
 
   return (
     <>
@@ -48,7 +54,12 @@ const BookPage: React.FC<Props> = ({ data }) => {
       <Layout>
         <Container mt="8" borderRadius="lg">
           <Flex {...BoxProps} justify="space-evenly" align="center">
-            <Image src={thumbnail} maxW="100px" mx="4" alt={sliceText(data.volumeInfo.title, 50)} />
+            <Image
+              src={data.volumeInfo.imageLinks?.thumbnail}
+              maxW="100px"
+              mx="4"
+              alt={sliceText(data.volumeInfo.title, 50)}
+            />
             <Box w="50%">
               <Text fontSize="xl" fontWeight="500" align="center">
                 {sliceText(data.volumeInfo.title, 100)}
@@ -64,10 +75,14 @@ const BookPage: React.FC<Props> = ({ data }) => {
                 color="gray.500"
                 align="center"
               >
-                {data.volumeInfo.authors ? data.volumeInfo.authors.map((author, i) => {
-                  const length = data.volumeInfo.authors.length;
-                  return author + (length > 1 && i !== length - 1 ? ", " : "");
-                }) : "Anonymous"}
+                {data.volumeInfo.authors
+                  ? data.volumeInfo.authors.map((author, i) => {
+                      const length = data.volumeInfo.authors.length;
+                      return (
+                        author + (length > 1 && i !== length - 1 ? ", " : "")
+                      );
+                    })
+                  : "Anonymous"}
               </Text>
             </Box>
           </Flex>
@@ -97,8 +112,12 @@ const BookPage: React.FC<Props> = ({ data }) => {
           </Box>
           <Box {...BoxProps}>
             <BuyOptions
-              previewLink={`${data.saleInfo.buyLink || data.volumeInfo.previewLink}&kptab=getbook`}
-              searchStringWithAuthor={`${data.volumeInfo.title} ${data.volumeInfo.authors ? data.volumeInfo.authors[0] : ""}`}
+              previewLink={`${
+                data.saleInfo.buyLink || data.volumeInfo.previewLink
+              }&kptab=getbook`}
+              searchStringWithAuthor={`${data.volumeInfo.title} ${
+                data.volumeInfo.authors ? data.volumeInfo.authors[0] : ""
+              }`}
               searchString={`${data.volumeInfo.title}`}
             />
           </Box>
@@ -114,13 +133,3 @@ const BookPage: React.FC<Props> = ({ data }) => {
 };
 
 export default BookPage;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data } = await axios.get<SearchItem>(
-    `${BASE_URL}/volumes/${context.params.book_id}?key=${process.env.GOOGLE_BOOKS_API_KEY}`
-  );
-
-  return {
-    props: { data },
-  };
-};
