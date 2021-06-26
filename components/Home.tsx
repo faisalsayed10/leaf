@@ -1,15 +1,14 @@
-import { Flex, SimpleGrid, Container } from "@chakra-ui/layout";
+import { Flex, Container } from "@chakra-ui/layout";
 import { fetcher } from "@lib/fetcher";
 import { FeedData } from "@util/types";
 import React from "react";
 import useSWR, { cache } from "swr";
 import GenreRow from "./GenreRow";
-import { RotateSpinner } from "react-spinners-kit";
 import DefaultLoader from "./loader/DefaultLoader";
 
 interface Props {}
 
-const Main: React.FC<Props> = (props) => {
+const Home: React.FC<Props> = (props) => {
   const { data, error, isValidating } = useSWR<FeedData[]>(
     "/api/feed",
     fetcher,
@@ -33,17 +32,19 @@ const Main: React.FC<Props> = (props) => {
   return (
     <>
       <Flex alignItems="center" flexDir="column" justify="center" m="0 auto">
-        {data.map((genre) => (
-          <GenreRow
-            key={genre.name}
-            link={genre.name}
-            title={genre.name}
-            books={genre.value.items}
-          />
-        ))}
+        {data.map((genre) =>
+          genre.value.items?.length > 0 ? (
+            <GenreRow
+              key={genre.name}
+              link={genre.name}
+              title={genre.name}
+              books={genre.value.items}
+            />
+          ) : null
+        )}
       </Flex>
     </>
   );
 };
 
-export default Main;
+export default Home;
