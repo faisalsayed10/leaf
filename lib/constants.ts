@@ -1,3 +1,5 @@
+import { readableTitle } from "@util/helpers";
+
 export const BASE_URL = "https://www.googleapis.com/books/v1";
 
 export const GENRES = [
@@ -109,3 +111,10 @@ export const GENRES = [
   "world_war",
   "young_adult",
 ];
+
+export const GENRE_SUGGESTIONS = GENRES.map((g) => {
+  return {
+    value: g,
+    name: readableTitle(g)
+  }
+});
