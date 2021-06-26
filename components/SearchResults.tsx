@@ -26,7 +26,7 @@ const SearchResults: React.FC<Props> = ({ results, loading, type, isSameQuery })
     setLocalData(allItems);
   }, [results]);
   
-  if (loading && localData.length < 1) return <DefaultLoader />;
+  if (loading && localData?.length < 1) return <DefaultLoader />;
   if ((results && !results.items) || results?.items.length < 1)
     return (
       <SimpleGrid placeItems="center" h="60vh">

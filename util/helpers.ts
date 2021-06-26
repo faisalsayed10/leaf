@@ -35,7 +35,8 @@ export function sliceText(text: string, limit: number) {
 export function refillInputs(
   url: string,
   setQuery: React.Dispatch<React.SetStateAction<String>>,
-  setValue: UseFormSetValue<SearchFormInputs>
+  setValue: UseFormSetValue<SearchFormInputs>,
+  setSuggestionValue: React.Dispatch<React.SetStateAction<String>>
 ) {
   const segmentedUrl = url.split("+").map((child) => child.split(/:|=|&/));
 
@@ -54,13 +55,13 @@ export function refillInputs(
         setValue("isbn", decodeURIComponent(segmentedUrl[i][1]));
         break;
       case "subject":
-        setValue("subject", decodeURIComponent(segmentedUrl[i][1]));
+        setSuggestionValue(decodeURIComponent(segmentedUrl[i][1]));
         break;
     }
   }
 }
 
-export function buildSearchURL(url: string, inputs: SearchFormInputs) {
+export function buildSearchURL(url: string, inputs: SearchFormInputs & { subject: string }) {
   const { author, publisher, sort, filter, isbn, subject } = inputs;
 
   if (author.trim() !== "") {
