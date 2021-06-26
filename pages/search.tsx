@@ -23,6 +23,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
 import _ from "underscore";
+import { GENRE_SUGGESTIONS } from "@lib/constants";
+import Autosuggest from "react-autosuggest";
+import Fuse from "fuse.js";
 
 interface Props {}
 
@@ -33,6 +36,10 @@ const Search: React.FC<Props> = () => {
   const [checked, setChecked] = useState(true);
   const [startIndex, setStartIndex] = useState(0);
   const [isSameQuery, setIsSameQuery] = useState(false);
+  // Autocomplete states
+  const [suggestionValue, setSuggestionValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  // form stuff
   const { register, getValues, watch, setValue } = useForm<SearchFormInputs>();
   const { author, publisher, subject, isbn, filter, sort } = watch();
   const router = useRouter();
@@ -75,6 +82,16 @@ const Search: React.FC<Props> = () => {
     router.push(`/search?url=${url}`, undefined, { shallow: true });
   }, 700);
 
+  function getSuggestions(value: string) {
+    const fuse = new Fuse(GENRE_SUGGESTIONS, { keys: ["value", "name"] });
+    const results = fuse.search(value);
+
+    return results.map((result) => ({
+      value: result.item.value,
+      name: result.item.name,
+    }));
+  }
+
   return (
     <>
       <Head>
@@ -106,10 +123,27 @@ const Search: React.FC<Props> = () => {
                       variant="flushed"
                       placeholder="Publisher"
                     />
-                    <Input
-                      {...register("subject")}
-                      variant="flushed"
-                      placeholder="Genre"
+                    <Autosuggest
+                      suggestions={suggestions}
+                      highlightFirstSuggestion={true}
+                      onSuggestionsClearRequested={() => setSuggestions([])}
+                      onSuggestionsFetchRequested={({ value }) => {
+                        setSuggestionValue(value);
+                        setSuggestions(getSuggestions(value));
+                      }}
+                      getSuggestionValue={(suggestion) => suggestion.name}
+                      renderSuggestion={(suggestion) => (
+                        <span>{suggestion.name}</span>
+                      )}
+                      inputProps={{
+                        placeholder: "Genre",
+                        value: suggestionValue,
+                        onChange: (_, { newValue }) => {
+                          setSuggestionValue(newValue);
+                        },
+                        className: "chakra-input css-1hrzp7p",
+                        ...register("subject")
+                      }}
                     />
                     <Input
                       {...register("isbn")}
