@@ -1,4 +1,3 @@
-import { useUser } from "@auth0/nextjs-auth0";
 import { Avatar } from "@chakra-ui/avatar";
 import { Button } from "@chakra-ui/button";
 import { Flex, Text } from "@chakra-ui/layout";
@@ -12,10 +11,11 @@ import {
 } from "@chakra-ui/menu";
 import Link from "next/link";
 import React from "react";
+import { useSession } from "next-auth/client";
 
 const Header: React.FC = () => {
-  const { user, error, isLoading } = useUser();
-  if (error) console.log(error);
+  const [session, loading] = useSession();
+  if (loading) return <p>loading</p>
 
   return (
     <Flex
@@ -34,7 +34,7 @@ const Header: React.FC = () => {
           Libook
         </Text>
       </Link>
-      {!isLoading && user ? (
+      {!loading && session ? (
         <Menu placement="bottom">
           <MenuButton
             as={Avatar}
@@ -42,8 +42,8 @@ const Header: React.FC = () => {
             cursor="pointer"
             height="40px"
             width="40px"
-            name={user?.nickname}
-            src={user?.picture}
+            name={session?.user?.name}
+            src={session?.user?.image}
             variant="ghost"
           />
           <MenuList>
@@ -60,14 +60,14 @@ const Header: React.FC = () => {
               <Link href="/faq">
                 <MenuItem>FAQ</MenuItem>
               </Link>
-              <Link href="/api/auth/logout">
+              <Link href="/api/auth/signout">
                 <MenuItem>Log Out</MenuItem>
               </Link>
             </MenuGroup>
           </MenuList>
         </Menu>
       ) : (
-        <Link href="/api/auth/login">
+        <Link href="/api/auth/signin">
           <Button variant="outline" colorScheme="gray">Login</Button>
         </Link>
       )}
