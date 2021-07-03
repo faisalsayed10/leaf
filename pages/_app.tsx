@@ -1,5 +1,5 @@
 import React from "react";
-import { UserProvider } from "@auth0/nextjs-auth0";
+import { Provider } from "next-auth/client";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import { css, Global } from "@emotion/react";
 import theme from "@lib/theme";
@@ -103,11 +103,11 @@ const GlobalStyle: React.FC = ({ children }) => {
 
 export default function App({ Component, pageProps }) {
   return (
-    <UserProvider>
+    <Provider session={pageProps.session}>
       <ChakraProvider theme={theme}>
         <GlobalStyle />
         <Component {...pageProps} />
       </ChakraProvider>
-    </UserProvider>
+    </Provider>
   );
 }
