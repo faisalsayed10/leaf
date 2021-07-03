@@ -24,4 +24,15 @@ export default NextAuth({
 
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
+  session: {
+    jwt: true,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
+  jwt: {
+    secret: "afad0a3d5d08d8f3089023db34a75fead5bfc40a",
+    verificationOptions: {
+      algorithms: ["HS256"],
+    },
+  },
 });
