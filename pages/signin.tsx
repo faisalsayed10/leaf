@@ -130,7 +130,7 @@ const SignInError = ({ error }) => {
       maxW="sm"
       w="full"
       mx="auto"
-      bg="white"
+      bg="gray.800"
       shadow="md"
       rounded="lg"
       overflow="hidden"
@@ -142,10 +142,10 @@ const SignInError = ({ error }) => {
 
       <Box mx={-3} py={2} px={4}>
         <Box mx={3}>
-          <chakra.span color="red.500" fontWeight="bold">
+          <chakra.span color="red.400" fontWeight="bold">
             Error
           </chakra.span>
-          <chakra.p color="gray.600" fontSize="small">
+          <chakra.p color="gray.200" fontSize="small">
             {errorMessage}
           </chakra.p>
         </Box>
