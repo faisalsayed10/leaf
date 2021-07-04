@@ -5,54 +5,96 @@ import {
   getProviders,
   getCsrfToken,
 } from "next-auth/client";
-import { Box, Flex, Text, Button, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  Input,
+  chakra,
+  Image,
+  Icon,
+} from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { BsLightningFill } from "react-icons/bs";
+
+const errors = {
+  Signin: "Try signing with a different account.",
+  OAuthSignin: "Try signing with a different account.",
+  OAuthCallback: "Try signing with a different account.",
+  OAuthCreateAccount: "Try signing with a different account.",
+  EmailCreateAccount: "Try signing with a different account.",
+  Callback: "Try signing with a different account.",
+  OAuthAccountNotLinked: "Email already exists with a different provider.",
+  EmailSignin: "Check your email address.",
+  CredentialsSignin:
+    "Sign in failed. Check the details you provided are correct.",
+  default: "Unable to sign in.",
+};
 
 const SignIn = ({ providers, csrfToken }) => {
-
-  console.log(providers);
+  const { error } = useRouter().query;
 
   return (
     <Flex
       bg="linear-gradient(to left, #8e9eab, #eef2f3)"
-      p={50}
       w="full"
       h="100vh"
       alignItems="center"
       justifyContent="center"
     >
-      <Box
-        mx="auto"
-        px={8}
-        py={4}
+      <Flex
+        flexDir="column"
+        align="stretch"
+        p={8}
+        pb={4}
+        px={10}
         rounded="lg"
         shadow="lg"
         bg="white"
-        maxW="2xl"
+        w="450px"
       >
-        <p>libook logo here</p>
-        <Text>Create an account or log in</Text>
-        <Button my={8} onClick={() => signIn(providers.google.id)}>
+        <Image
+          src="/libook_logo_white.png"
+          alt="Libook™ logo"
+          maxW="250px"
+          display="block"
+          m="0 auto"
+        />
+        <Text fontWeight="bold" align="center" color="gray.700">
+          Create an account or log in
+        </Text>
+        <Button
+          my={6}
+          onClick={() => signIn(providers.google.id)}
+          colorScheme="red"
+        >
           <FaGoogle />
-          Continue with Google
+          <chakra.span ml={2}>Continue with Google</chakra.span>
         </Button>
-        <Text>or continue with email</Text>
+        <Text align="center" fontSize="sm" mb={2}>
+          or continue with email
+        </Text>
         <Box as="form" method="post" action="/api/auth/signin/email">
           <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <Input
             required
-            placeholder="Email Address"
+            placeholder="Email address"
             type="email"
             id="email"
             name="email"
           />
-          <Button my={8} type="submit">Continue</Button>
+          <Button mt={3} mb={8} type="submit" w="100%">
+            Continue
+          </Button>
         </Box>
-        <Text>
+        {error && <SignInError error={error} />}
+        <Text fontSize="x-small" align="center">
           By continuing, you acknowledge that you have read, understood, and
-          agree to our terms and condition
+          agreed to our terms and condition.
         </Text>
-      </Box>
+      </Flex>
     </Flex>
   );
 };
@@ -80,3 +122,34 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+const SignInError = ({ error }) => {
+  const errorMessage = error && (errors[error] ?? errors.default);
+  return (
+    <Flex
+      maxW="sm"
+      w="full"
+      mx="auto"
+      bg="white"
+      shadow="md"
+      rounded="lg"
+      overflow="hidden"
+      mb={8}
+    >
+      <Flex justifyContent="center" alignItems="center" w={12} bg="red.500">
+        <Icon as={BsLightningFill} color="white" boxSize={6} />
+      </Flex>
+
+      <Box mx={-3} py={2} px={4}>
+        <Box mx={3}>
+          <chakra.span color="red.500" fontWeight="bold">
+            Error
+          </chakra.span>
+          <chakra.p color="gray.600" fontSize="small">
+            {errorMessage}
+          </chakra.p>
+        </Box>
+      </Box>
+    </Flex>
+  );
+};
