@@ -49,24 +49,24 @@ const BookPage: React.FC<Props> = () => {
   return (
     <>
       <Head>
-        <title>Libook | {data.volumeInfo.title}</title>
+        <title>Libook | {data?.volumeInfo.title}</title>
       </Head>
       <Layout>
         <Container mt="8" borderRadius="lg">
           <Flex {...BoxProps} justify="space-evenly" align="center">
             <Image
-              src={data.volumeInfo.imageLinks?.thumbnail}
+              src={data?.volumeInfo.imageLinks?.thumbnail}
               maxW="100px"
               mx="4"
-              alt={sliceText(data.volumeInfo.title, 50)}
+              alt={sliceText(data?.volumeInfo.title, 50)}
             />
             <Box w="50%">
               <Text fontSize="xl" fontWeight="500" align="center">
-                {sliceText(data.volumeInfo.title, 100)}
+                {sliceText(data?.volumeInfo.title, 100)}
               </Text>
-              {data.volumeInfo.subtitle && (
+              {data?.volumeInfo.subtitle && (
                 <Text fontSize="md" color="gray.700" align="center">
-                  {sliceText(data.volumeInfo.subtitle, 200)}
+                  {sliceText(data?.volumeInfo.subtitle, 200)}
                 </Text>
               )}
               <Text
@@ -75,9 +75,9 @@ const BookPage: React.FC<Props> = () => {
                 color="gray.500"
                 align="center"
               >
-                {data.volumeInfo.authors
-                  ? data.volumeInfo.authors.map((author, i) => {
-                      const length = data.volumeInfo.authors.length;
+                {data?.volumeInfo.authors
+                  ? data?.volumeInfo.authors.map((author, i) => {
+                      const length = data?.volumeInfo.authors.length;
                       return (
                         author + (length > 1 && i !== length - 1 ? ", " : "")
                       );
@@ -92,7 +92,7 @@ const BookPage: React.FC<Props> = () => {
           <Box {...BoxProps}>
             <Text px="4">
               <strong>Description:</strong>{" "}
-              {data.volumeInfo.description ? (
+              {data?.volumeInfo.description ? (
                 <ReadMoreLess
                   charLimit={250}
                   readMoreText={"Read more ▼"}
@@ -100,7 +100,7 @@ const BookPage: React.FC<Props> = () => {
                   readMoreClassName="readmoreless"
                   readLessClassName="readmoreless"
                 >
-                  {striptags(data.volumeInfo.description, null, " ")}
+                  {striptags(data?.volumeInfo.description, null, " ")}
                 </ReadMoreLess>
               ) : (
                 `No description available`
@@ -108,22 +108,22 @@ const BookPage: React.FC<Props> = () => {
             </Text>
           </Box>
           <Box px="4" {...BoxProps}>
-            <BookPageInfo volumeInfo={data.volumeInfo} />
+            <BookPageInfo volumeInfo={data?.volumeInfo} />
           </Box>
           <Box {...BoxProps}>
             <BuyOptions
               previewLink={`${
-                data.saleInfo.buyLink || data.volumeInfo.previewLink
+                data?.saleInfo.buyLink || data?.volumeInfo.previewLink
               }&kptab=getbook`}
-              searchStringWithAuthor={`${data.volumeInfo.title} ${
-                data.volumeInfo.authors ? data.volumeInfo.authors[0] : ""
+              searchStringWithAuthor={`${data?.volumeInfo.title} ${
+                data?.volumeInfo.authors ? data?.volumeInfo.authors[0] : ""
               }`}
-              searchString={`${data.volumeInfo.title}`}
+              searchString={`${data?.volumeInfo.title}`}
             />
           </Box>
-          {data.volumeInfo.categories && (
+          {data?.volumeInfo.categories && (
             <Box {...BoxProps}>
-              <Categories categories={data.volumeInfo.categories} />
+              <Categories categories={data?.volumeInfo.categories} />
             </Box>
           )}
         </Container>
