@@ -8,8 +8,6 @@ type Props = {};
 const HomePage: React.FC<Props> = (props) => {
   const [session, loading] = useSession();
 
-  console.log(session);
-
   return (
     <Layout>
       <Home />

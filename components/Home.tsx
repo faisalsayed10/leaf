@@ -27,8 +27,6 @@ const Home: React.FC<Props> = (props) => {
       </Container>
     );
 
-  console.log(data);
-
   return (
     <>
       <Flex alignItems="center" flexDir="column" justify="center" m="0 auto">

@@ -67,7 +67,7 @@ const Header: React.FC = () => {
           </MenuList>
         </Menu>
       ) : (
-        <Link href="/api/auth/signin">
+        <Link href="/signin">
           <Button variant="outline" colorScheme="gray">Login</Button>
         </Link>
       )}
