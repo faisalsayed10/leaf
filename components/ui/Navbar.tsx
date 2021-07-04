@@ -15,7 +15,9 @@ import { useSession } from "next-auth/client";
 
 const Header: React.FC = () => {
   const [session, loading] = useSession();
-  if (loading) return <p>loading</p>
+  if (loading) return <p>loading</p>;
+
+  const displayName = session?.user?.name || session?.user?.email.split("@")[0];
 
   return (
     <Flex
@@ -27,7 +29,7 @@ const Header: React.FC = () => {
       top="0"
       p="2"
       px="6"
-      zIndex='100'
+      zIndex="100"
     >
       <Link href="/">
         <Text cursor="pointer" fontWeight="500" fontSize="2xl">
@@ -42,9 +44,11 @@ const Header: React.FC = () => {
             cursor="pointer"
             height="40px"
             width="40px"
-            name={session?.user?.name}
-            src={session?.user?.image}
-            variant="ghost"
+            name={displayName}
+            src={
+              session?.user.image ||
+              `https://source.boringavatars.com/beam/40/${displayName}?colors=92A1C6,146A7C,F0AB3D,C271B4,C20D90`
+            }
           />
           <MenuList>
             <MenuGroup title="Account">
@@ -68,7 +72,9 @@ const Header: React.FC = () => {
         </Menu>
       ) : (
         <Link href="/signin">
-          <Button variant="outline" colorScheme="gray">Login</Button>
+          <Button variant="outline" colorScheme="gray">
+            Login
+          </Button>
         </Link>
       )}
     </Flex>
