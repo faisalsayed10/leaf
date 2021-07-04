@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/ui/Layout";
-import Home from "@components/Home";
+import Home from "@components/home/Home";
 import { useSession } from "next-auth/client";
 
 type Props = {};

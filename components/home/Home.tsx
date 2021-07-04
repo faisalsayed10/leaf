@@ -4,7 +4,7 @@ import { FeedData } from "@util/types";
 import React from "react";
 import useSWR, { cache } from "swr";
 import GenreRow from "./GenreRow";
-import DefaultLoader from "./loader/DefaultLoader";
+import DefaultLoader from "../loader/DefaultLoader";
 
 interface Props {}
 
