@@ -10,28 +10,28 @@ interface Props {
 const BookPageInfo: React.FC<Props> = ({ volumeInfo }) => {
   return (
     <>
-      {volumeInfo.language && (
+      {volumeInfo?.language && (
         <Text>
-          <strong>Language:</strong> {upperCaseTitle(volumeInfo.language)}
+          <strong>Language:</strong> {upperCaseTitle(volumeInfo?.language)}
         </Text>
       )}
-      {volumeInfo.pageCount && (
+      {volumeInfo?.pageCount && (
         <Text>
-          <strong>No. of pages:</strong> {volumeInfo.pageCount}
+          <strong>No. of pages:</strong> {volumeInfo?.pageCount}
         </Text>
       )}
-      {volumeInfo.publisher && (
+      {volumeInfo?.publisher && (
         <Text>
-          <strong>Publisher:</strong> {volumeInfo.publisher}
+          <strong>Publisher:</strong> {volumeInfo?.publisher}
         </Text>
       )}
-      {volumeInfo.publishedDate && (
+      {volumeInfo?.publishedDate && (
         <Text>
-          <strong>Published Date:</strong> {volumeInfo.publishedDate}
+          <strong>Published Date:</strong> {volumeInfo?.publishedDate}
         </Text>
       )}
       {volumeInfo?.industryIdentifiers?.length > 0 &&
-        volumeInfo.industryIdentifiers.map(({ type, identifier }) => (
+        volumeInfo?.industryIdentifiers.map(({ type, identifier }) => (
           <Text key={type}>
             <strong>{readableTitle(type)}:</strong> {identifier}
           </Text>
