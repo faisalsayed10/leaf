@@ -1,10 +1,10 @@
 import { SimpleGrid } from "@chakra-ui/layout";
 import { SearchItem, SearchResponse } from "@util/types";
 import React, { useState } from "react";
-import GridViewBook from "./GridViewBook";
-import ListViewBook from "./ListViewBook";
+import GridViewBook from "../view-modes/GridViewBook";
+import ListViewBook from "../view-modes/ListViewBook";
 import { useEffect } from "react";
-import DefaultLoader from "./loader/DefaultLoader";
+import DefaultLoader from "../loader/DefaultLoader";
 
 interface Props {
   results?: SearchResponse;

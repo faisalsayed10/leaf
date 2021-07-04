@@ -1,8 +1,8 @@
 import { Box, Container, SimpleGrid, Text } from "@chakra-ui/layout";
-import GridListSwitch from "@components/GridListSwitch";
-import GridViewBook from "@components/GridViewBook";
-import Layout from "@components/Layout";
-import ListViewBook from "@components/ListViewBook";
+import GridListSwitch from "@components/ui/GridListSwitch";
+import GridViewBook from "@components/view-modes/GridViewBook";
+import Layout from "@components/ui/Layout";
+import ListViewBook from "@components/view-modes/ListViewBook";
 import DefaultLoader from "@components/loader/DefaultLoader";
 import { fetcher } from "@lib/fetcher";
 import useManualSWR from "@lib/useManualSWR";

@@ -1,10 +1,10 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Container, Flex, Text } from "@chakra-ui/layout";
-import AddToList from "@components/AddToList";
+import AddToList from "@components/book-sections/AddToListButtons";
 import BookPageInfo from "@components/BookPageInfo";
 import BuyOptions from "@components/BuyOptions";
-import Categories from "@components/Categories";
-import Layout from "@components/Layout";
+import Categories from "@components/book-sections/Categories";
+import Layout from "@components/ui/Layout";
 import DefaultLoader from "@components/loader/DefaultLoader";
 import { fetcher } from "@lib/fetcher";
 import useManualSWR from "@lib/useManualSWR";

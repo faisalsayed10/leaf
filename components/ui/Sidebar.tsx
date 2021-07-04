@@ -6,8 +6,8 @@ import React from "react";
 import { BiBook, BiBookAlt, BiBookContent } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { MdLibraryBooks } from "react-icons/md";
-import HomeIcon from "./icons/HomeIcon";
-import SearchIcon from "./icons/SearchIcon";
+import HomeIcon from "../icons/HomeIcon";
+import SearchIcon from "../icons/SearchIcon";
 
 interface Props {}
 

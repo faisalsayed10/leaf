@@ -1,5 +1,5 @@
 import { Container, Flex, Text, Wrap, WrapItem } from "@chakra-ui/layout";
-import Layout from "@components/Layout";
+import Layout from "@components/ui/Layout";
 import { GENRES } from "@lib/constants";
 import { readableTitle } from "@util/helpers";
 import Head from "next/head";
