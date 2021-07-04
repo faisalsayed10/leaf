@@ -42,7 +42,14 @@ const Signout: React.FC = () => {
         >
           Are you sure you want to sign out?
         </Text>
-        <Button onClick={() => signOut()} colorScheme="red" mb={2}>
+        <Button
+          onClick={async () => {
+            await signOut();
+            router.push("/");
+          }}
+          colorScheme="red"
+          mb={2}
+        >
           Yes, Sign Out
         </Button>
         <Button onClick={() => router.push("/")} colorScheme="gray" mb={8}>
