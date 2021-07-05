@@ -11,11 +11,12 @@ import {
 } from "@chakra-ui/menu";
 import Link from "next/link";
 import React from "react";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
+import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
   const [session, loading] = useSession();
-  if (loading) return <p>loading</p>;
+  const router = useRouter();
 
   const displayName = session?.user?.name || session?.user?.email.split("@")[0];
 
@@ -64,18 +65,14 @@ const Header: React.FC = () => {
               <Link href="/faq">
                 <MenuItem>FAQ</MenuItem>
               </Link>
-              <Link href="/api/auth/signout">
-                <MenuItem>Log Out</MenuItem>
-              </Link>
+              <MenuItem onClick={() => router.push('/api/auth/signout')}>Log Out</MenuItem>
             </MenuGroup>
           </MenuList>
         </Menu>
       ) : (
-        <Link href="/signin">
-          <Button variant="outline" colorScheme="gray">
-            Login
-          </Button>
-        </Link>
+        <Button variant="outline" colorScheme="gray" onClick={() => signIn()}>
+          Login
+        </Button>
       )}
     </Flex>
   );
