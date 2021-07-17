@@ -1,6 +1,5 @@
 import { Avatar } from "@chakra-ui/avatar";
-import { Button } from "@chakra-ui/button";
-import { Flex, Text } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import {
   Menu,
   MenuButton,
@@ -9,12 +8,17 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/menu";
+import { Box, chakra, Heading } from "@chakra-ui/react";
+import { useSession } from "next-auth/client";
 import Link from "next/link";
-import React from "react";
-import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import React from "react";
 
-const Header: React.FC = () => {
+interface Props {
+  pageTitle: string;
+}
+
+const Navbar: React.FC<Props> = ({ pageTitle }) => {
   const [session, loading] = useSession();
   const router = useRouter();
 
@@ -27,15 +31,27 @@ const Header: React.FC = () => {
       justifyContent="space-between"
       boxShadow="md"
       pos="sticky"
-      top="0"
-      p="2"
+      top="5px"
+      py="3"
       px="6"
       zIndex="100"
     >
       <Link href="/">
-        <Text cursor="pointer" fontWeight="500" fontSize="2xl">
-          Libook
-        </Text>
+        <Heading
+          textTransform="uppercase"
+          fontWeight="bold"
+          letterSpacing="1px"
+          fontSize="24px"
+        >
+          Libook {pageTitle && "| "}
+          <chakra.span
+            fontSize="16px"
+            textTransform="uppercase"
+            fontWeight="medium"
+          >
+            {pageTitle}
+          </chakra.span>
+        </Heading>
       </Link>
       {!loading && session ? (
         <Menu placement="bottom">
@@ -65,17 +81,17 @@ const Header: React.FC = () => {
               <Link href="/faq">
                 <MenuItem>FAQ</MenuItem>
               </Link>
-              <MenuItem onClick={() => router.push('/api/auth/signout')}>Log Out</MenuItem>
+              <MenuItem onClick={() => router.push("/api/auth/signout")}>
+                Log Out
+              </MenuItem>
             </MenuGroup>
           </MenuList>
         </Menu>
       ) : (
-        <Button variant="outline" colorScheme="gray" onClick={() => signIn()}>
-          Login
-        </Button>
+        <></>
       )}
     </Flex>
   );
 };
 
-export default Header;
+export default Navbar;
