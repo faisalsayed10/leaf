@@ -109,7 +109,7 @@ const Search: React.FC<Props> = () => {
       <Head>
         <title>Libook — Search</title>
       </Head>
-      <Layout>
+      <Layout pageTitle="Search">
         <Container my="4" maxW="container.sm">
           <Box as="form" pos="relative">
             <SearchInput value={query} setValue={setQuery} />

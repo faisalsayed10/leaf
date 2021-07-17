@@ -41,7 +41,7 @@ const BookPage: React.FC<Props> = () => {
   if (error) console.error(error);
   if (isValidating)
     return (
-      <Layout>
+      <Layout pageTitle="">
         <DefaultLoader />
       </Layout>
     );
@@ -51,7 +51,7 @@ const BookPage: React.FC<Props> = () => {
       <Head>
         <title>Libook | {data?.volumeInfo.title}</title>
       </Head>
-      <Layout>
+      <Layout pageTitle="">
         <Container mt="8" borderRadius="lg">
           <Flex {...BoxProps} justify="space-evenly" align="center">
             <Image
