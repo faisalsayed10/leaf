@@ -12,9 +12,9 @@ type Props = {
 
 const Layout: React.FC<Props> = ({ children, pageTitle }) => (
   <>
-    <Box height="5px" bgColor="#2ff8bc" pos="sticky" top="0" />
+    <Box height="5px" bgColor="#2ff8bc" pos="sticky" top="0" zIndex="1000" />
     <Navbar pageTitle={pageTitle} />
-    <Flex>
+    <Flex bgColor="#edf2f7">
       <ProSidebarSection />
       <Box w="100%">{children}</Box>
     </Flex>
