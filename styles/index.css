@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&display=swap");
 
 html {
-  background-color: rgb(237, 242, 247);
+  background-color: #edf2f7;
   box-sizing: border-box;
 }
 
@@ -81,4 +81,67 @@ body {
 
 .highlight {
   font-weight: bold;
+}
+
+/* Sidebar CSS */
+
+.sidebar-parent .pro-sidebar {
+  width: 100%;
+  min-width: 100%;
+}
+
+.sidebar-parent .pro-sidebar.collapsed {
+  width: 80px;
+  min-width: 80px;
+}
+
+.sidebar-parent .pro-sidebar-inner {
+  background-color: white;
+  box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
+}
+.sidebar-parent .pro-sidebar-inner .pro-sidebar-layout {
+  overflow-y: hidden;
+}
+
+.sidebar-parent .pro-sidebar-inner .pro-sidebar-layout ul {
+  padding: 0 5px;
+}
+.sidebar-parent .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
+  color: #1d1d1d;
+  margin: 10px 0px;
+  font-weight: bold;
+}
+.sidebar-parent
+  .pro-sidebar-inner
+  .pro-sidebar-layout
+  ul
+  .pro-inner-item
+  .pro-icon-wrapper {
+  background-color: #fff !important;
+  color: #1d1d1d;
+  border-radius: 3px;
+  box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar-parent
+  .pro-sidebar-inner
+  .pro-sidebar-layout
+  ul
+  .pro-inner-item
+  .pro-icon-wrapper
+  .pro-item-content {
+  color: #1d1d1d;
+}
+.sidebar-parent .pro-sidebar-inner .pro-sidebar-layout .active {
+  background-color: rgb(235, 235, 235);
+  border-left: 5px solid #2ff8bc;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:hover {
+  color: #000;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:focus {
+  outline: none;
+  color: #000;
 }

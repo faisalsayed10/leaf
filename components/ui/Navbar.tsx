@@ -29,7 +29,7 @@ const Navbar: React.FC<Props> = ({ pageTitle }) => {
       bgColor="white"
       alignItems="center"
       justifyContent="space-between"
-      boxShadow="md"
+      borderBottom="1px solid #E2E8F0"
       pos="sticky"
       top="5px"
       py="3"

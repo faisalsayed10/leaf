@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "next-auth/client";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import theme from "@lib/theme";
+import "react-pro-sidebar/dist/css/styles.css";
 import "@styles/index.css"
 
 export default function App({ Component, pageProps }) {

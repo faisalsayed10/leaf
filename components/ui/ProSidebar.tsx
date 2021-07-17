@@ -1,12 +1,13 @@
-import { Button, Flex, Icon } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { BiBook, BiBookAlt } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
+import { FiLogIn } from "react-icons/fi";
 import { MdLibraryBooks } from "react-icons/md";
 import {
   Menu,
-  MenuItem, ProSidebar, SidebarContent
+  MenuItem, ProSidebar, SidebarContent, SidebarFooter
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import useMedia from "use-media";
@@ -41,45 +42,50 @@ const ProSidebarSection = (props: Props) => {
     // Return a sidebar but bottom version of it here
     <></>
   ) : (
-    <ProSidebar
-      collapsed={isLessThan700}
-      style={{
-        position: "sticky",
-        top: "5px",
-        height: "100vh",
-      }}
-    >
-      <SidebarContent>
-        <Menu iconShape="round">
-          <MenuItem
-            active={router.route === "/"}
-            icon={<HomeIcon {...IconProps} />}
-          >
-            Home
-          </MenuItem>
-          <MenuItem icon={<SearchIcon {...IconProps} />}>Search</MenuItem>
-          <MenuItem icon={<Icon as={MdLibraryBooks} {...IconProps} />}>
-            Genres
-          </MenuItem>
-        </Menu>
-        <Menu iconShape="round">
-          <MenuItem icon={<Icon as={BiBookAlt} {...IconProps} />}>
-            Want To Read
-          </MenuItem>
-          <MenuItem icon={<Icon as={BsBookmark} {...IconProps} />}>
-            Currently Reading
-          </MenuItem>
-          <MenuItem icon={<Icon as={BiBook} {...IconProps} />}>
-            Already Read
-          </MenuItem>
-        </Menu>
-        <Flex justify="center" mt="8">
-          <Button variant="outline" width="80%">
-            Log In
-          </Button>
-        </Flex>
-      </SidebarContent>
-    </ProSidebar>
+    <Box className="sidebar-parent">
+      <ProSidebar
+        collapsed={isLessThan700}
+        style={{
+          position: "sticky",
+          top: "57px",
+          height: "calc(100vh - 57px)",
+          zIndex: 10,
+        }}
+      >
+        <SidebarContent>
+          <Menu iconShape="round">
+            <MenuItem
+              active={router.route === "/"}
+              icon={<HomeIcon {...IconProps} />}
+            >
+              Home
+            </MenuItem>
+            <MenuItem icon={<SearchIcon {...IconProps} />}>Search</MenuItem>
+            <MenuItem icon={<Icon as={MdLibraryBooks} {...IconProps} />}>
+              Genres
+            </MenuItem>
+          </Menu>
+          <Menu iconShape="round">
+            <MenuItem icon={<Icon as={BiBookAlt} {...IconProps} />}>
+              Want To Read
+            </MenuItem>
+            <MenuItem icon={<Icon as={BsBookmark} {...IconProps} />}>
+              Currently Reading
+            </MenuItem>
+            <MenuItem icon={<Icon as={BiBook} {...IconProps} />}>
+              Already Read
+            </MenuItem>
+          </Menu>
+        </SidebarContent>
+        <SidebarFooter>
+          <Menu iconShape="round">
+            <MenuItem icon={<Icon as={FiLogIn} {...IconProps} />}>
+              Log In
+            </MenuItem>
+          </Menu>
+        </SidebarFooter>
+      </ProSidebar>
+    </Box>
   );
 };
 
