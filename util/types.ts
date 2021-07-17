@@ -59,11 +59,6 @@ export type AccessInfo = {
   quoteSharingAllowed: boolean;
 };
 
-export type FeedData = {
-  name: string;
-  value: SearchResponse;
-};
-
 export type ImageLinks = {
   thumbnail: string
   extraLarge?: string
