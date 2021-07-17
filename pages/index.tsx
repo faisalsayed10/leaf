@@ -26,7 +26,7 @@ const HomePage: React.FC<Props> = (props) => {
   if (isValidating)
     return (
       <Layout pageTitle="Recommended">
-        <Container my="4" maxW="container.sm">
+        <Container my="4" maxW="container.sm" h="100vh">
           <DefaultLoader />
         </Container>
       </Layout>
@@ -34,7 +34,13 @@ const HomePage: React.FC<Props> = (props) => {
 
   return (
     <Layout pageTitle="Recommended">
-      <SimpleGrid minChildWidth="130px" gap={3} my="8" mx="6" placeItems="center">
+      <SimpleGrid
+        minChildWidth="140px"
+        gap={[1, 2, 6]}
+        my="8"
+        mx={["4", "5", "8"]}
+        placeItems="center"
+      >
         {data
           ?.filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
           ?.map((book) => (

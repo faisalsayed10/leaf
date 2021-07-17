@@ -12,7 +12,7 @@ interface Props {
 const Book: React.FC<Props> = ({ book }) => {
   return (
     <Link href={`/book/${book.id}`}>
-      <Box maxW="130px" cursor="pointer">
+      <Box maxW="140px" cursor="pointer">
         <Image
           src={book.volumeInfo?.imageLinks?.thumbnail || ""}
           alt={sliceText(book.volumeInfo.title, 50)}
