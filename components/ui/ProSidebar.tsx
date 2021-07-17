@@ -11,8 +11,8 @@ import {
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import useMedia from "use-media";
-import HomeIcon from "../icons/HomeIcon";
-import SearchIcon from "../icons/SearchIcon";
+import Home from "../icons/Home";
+import Search from "../icons/Search";
 
 interface Props {}
 
@@ -56,11 +56,11 @@ const ProSidebarSection = (props: Props) => {
           <Menu iconShape="round">
             <MenuItem
               active={router.route === "/"}
-              icon={<HomeIcon {...IconProps} />}
+              icon={<Home {...IconProps} />}
             >
               Home
             </MenuItem>
-            <MenuItem icon={<SearchIcon {...IconProps} />}>Search</MenuItem>
+            <MenuItem icon={<Search {...IconProps} />}>Search</MenuItem>
             <MenuItem icon={<Icon as={MdLibraryBooks} {...IconProps} />}>
               Genres
             </MenuItem>

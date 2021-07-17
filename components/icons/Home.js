@@ -1,7 +1,7 @@
 import Icon from "@chakra-ui/icon";
 import React from "react";
 
-const HomeIcon = (props) => (
+const Home = (props) => (
   <Icon
     viewBox="0 0 24 24"
     fill="none"
@@ -18,4 +18,4 @@ const HomeIcon = (props) => (
   </Icon>
 );
 
-export default HomeIcon;
+export default Home;

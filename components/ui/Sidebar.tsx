@@ -6,8 +6,8 @@ import React from "react";
 import { BiBook, BiBookAlt, BiBookContent } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { MdLibraryBooks } from "react-icons/md";
-import HomeIcon from "../icons/HomeIcon";
-import SearchIcon from "../icons/SearchIcon";
+import Home from "../icons/Home";
+import Search from "../icons/Search";
 
 interface Props {}
 
@@ -44,13 +44,13 @@ const Sidebar: React.FC<Props> = () => {
         >
           <Link href="/">
             <Text {...ButtonProps("/")}>
-              <HomeIcon {...IconProps} />
+              <Home {...IconProps} />
               Home
             </Text>
           </Link>
           <Link href="/search">
             <Text {...ButtonProps("/search")}>
-              <SearchIcon {...IconProps} />
+              <Search {...IconProps} />
               Search
             </Text>
           </Link>
