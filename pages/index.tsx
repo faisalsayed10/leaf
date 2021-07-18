@@ -28,7 +28,7 @@ const HomePage: React.FC<Props> = (props) => {
   if (isValidating)
   return (
     <Layout pageTitle="Recommended">
-      <Container my="4" maxW="container.sm" h="100vh">
+      <Container py="4" maxW="container.sm" h="100vh">
         <DefaultLoader />
       </Container>
     </Layout>
@@ -39,7 +39,8 @@ const HomePage: React.FC<Props> = (props) => {
       <SimpleGrid
         minChildWidth="140px"
         gap={[1, 2, 6]}
-        my="8"
+        rowGap="6"
+        py="4"
         mx={["2", "5", "8"]}
         placeItems="center"
       >

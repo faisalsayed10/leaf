@@ -53,7 +53,7 @@ const Navbar: React.FC<Props> = ({ pageTitle }) => {
           </chakra.span>
         </Heading>
       </Link>
-      {!loading && session ? (
+      {/* {!loading && session ? (
         <Menu placement="bottom">
           <MenuButton
             as={Avatar}
@@ -89,7 +89,7 @@ const Navbar: React.FC<Props> = ({ pageTitle }) => {
         </Menu>
       ) : (
         <></>
-      )}
+      )} */}
     </Flex>
   );
 };
