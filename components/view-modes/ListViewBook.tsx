@@ -31,9 +31,9 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
           <Image
             src={book.volumeInfo?.imageLinks?.thumbnail || ""}
             alt={sliceText(book.volumeInfo.title, 50)}
-            objectFit="cover"
-            minW="130px"
-            maxW="130px"
+            fallbackSrc="/no-thumbnail.png"
+            minW="145px"
+            maxW="145px"
             h="200px"
             mr="6"
           />
@@ -65,7 +65,9 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
           <MenuItem icon={<BsBookmark size="18" />}>Currently Reading</MenuItem>
           <MenuItem icon={<BiBook size="18" />}>Already Read</MenuItem>
           <MenuDivider />
-          <MenuItem icon={<MdPlaylistAdd size="18" />}>Add To Playlist</MenuItem>
+          <MenuItem icon={<MdPlaylistAdd size="18" />}>
+            Add To Playlist
+          </MenuItem>
           <MenuDivider />
           <MenuItem icon={<BiCopy size="18" />}>Copy Link</MenuItem>
         </MenuList>

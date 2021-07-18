@@ -20,7 +20,6 @@ export const GENRES = [
   "biology",
   "brazil",
   "business",
-  "business_&_economics",
   "business_&_finance",
   "business_economics",
   "business_success",

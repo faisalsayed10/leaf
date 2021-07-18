@@ -56,7 +56,8 @@ const BookPage: React.FC<Props> = () => {
           <Flex {...BoxProps} justify="space-evenly" align="center">
             <Image
               src={data?.volumeInfo.imageLinks?.thumbnail}
-              maxW="100px"
+              fallbackSrc="/no-thumbnail.png"
+              maxW="145px"
               mx="4"
               alt={sliceText(data?.volumeInfo.title, 50)}
             />

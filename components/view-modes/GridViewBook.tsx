@@ -16,8 +16,8 @@ const Book: React.FC<Props> = ({ book }) => {
         <Image
           src={book.volumeInfo?.imageLinks?.thumbnail || ""}
           alt={sliceText(book.volumeInfo.title, 50)}
-          objectFit="cover"
-          minW="130px"
+          fallbackSrc="/no-thumbnail.png"
+          minW="145px"
           h="200px"
           m="0 auto"
           mb="4"
