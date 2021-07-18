@@ -11,20 +11,9 @@ import { SearchResponse } from "@util/types";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { Flex } from "@chakra-ui/react";
 
 interface Props {}
-
-const ContainerProps = {
-  py: "3",
-  mb: "5",
-  background: "rgba(255,255,255,0.25)",
-  boxShadow: "10px 5px 40px -10px rgba(0,0,0,0.2)",
-  borderRadius: "5px",
-  style: {
-    backdropFilter: "blur(5px)",
-    WebkitBackdropFilter: "blur(5px)",
-  },
-};
 
 const Genre: React.FC<Props> = () => {
   const router = useRouter();
@@ -38,7 +27,7 @@ const Genre: React.FC<Props> = () => {
   if (error) console.error(error);
   if (isValidating)
     return (
-      <Layout>
+      <Layout pageTitle="Genres">
         <DefaultLoader />
       </Layout>
     );
@@ -48,28 +37,17 @@ const Genre: React.FC<Props> = () => {
       <Head>
         <title>{readableTitle(genre)}</title>
       </Head>
-      <Layout>
-        <Container maxW="container.sm" {...ContainerProps} my="4" px="4">
-          <Box pos="relative">
-            <Text
-              fontSize="3xl"
-              textTransform="uppercase"
-              letterSpacing="wide"
-              fontWeight="500"
-              align="center"
-            >
-              {readableTitle(genre)}{" "}
-              <Text as="span" display="inline" fontSize="lg">
-                - {data?.totalItems} results
-              </Text>
+      <Layout pageTitle={readableTitle(genre)}>
+        <Container maxW="container.sm" my="4" px="4">
+          <Flex align="center" justify="space-between">
+            <Text as="span" display="inline" fontSize="lg">
+              {data?.totalItems} results
             </Text>
-            <Box pos="absolute" right="0" top="25%">
-              <GridListSwitch
-                checked={checked}
-                handleChange={(bool) => setChecked(bool)}
-              />
-            </Box>
-          </Box>
+            <GridListSwitch
+              checked={checked}
+              handleChange={(bool) => setChecked(bool)}
+            />
+          </Flex>
           <SimpleGrid
             columns={checked ? 4 : 1}
             spacing={6}
