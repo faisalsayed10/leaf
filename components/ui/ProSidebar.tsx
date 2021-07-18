@@ -1,17 +1,20 @@
-import { Box, Button, Flex, Icon } from "@chakra-ui/react";
+import { Box, Flex, Icon, IconButton } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { BiBook, BiBookAlt } from "react-icons/bi";
-import { BsBookmark } from "react-icons/bs";
-import { FiLogIn } from "react-icons/fi";
+import { BsBookmark, BsList } from "react-icons/bs";
 import { MdLibraryBooks } from "react-icons/md";
 import {
   Menu,
-  MenuItem, ProSidebar, SidebarContent, SidebarFooter
+  MenuItem,
+  ProSidebar,
+  SidebarContent,
+  SidebarFooter,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import useMedia from "use-media";
 import Home from "../icons/Home";
+import Login from "../icons/Login";
 import Search from "../icons/Search";
 
 interface Props {}
@@ -22,26 +25,9 @@ const IconProps = {
 
 const ProSidebarSection = (props: Props) => {
   const router = useRouter();
-  const ButtonProps = (href: string) => ({
-    fontSize: "lg",
-    cursor: "pointer",
-    mb: "1",
-    py: "2",
-    pl: "2",
-    pr: "6",
-    w: "100%",
-    _hover: { bgColor: "gray.200", borderRadius: "lg" },
-    transitionDuration: "100ms",
-    className: router.route === href ? "active__sidebar" : null,
-  });
-
   const isLessThan700 = useMedia({ maxWidth: 700 });
-  const isLessThan400 = useMedia({ maxWidth: 400 });
 
-  return isLessThan400 ? (
-    // Return a sidebar but bottom version of it here
-    <></>
-  ) : (
+  return (
     <Box className="sidebar-parent">
       <ProSidebar
         collapsed={isLessThan700}
@@ -57,29 +43,55 @@ const ProSidebarSection = (props: Props) => {
             <MenuItem
               active={router.route === "/"}
               icon={<Home {...IconProps} />}
+              onClick={() => router.push("/")}
             >
               Home
             </MenuItem>
-            <MenuItem icon={<Search {...IconProps} />}>Search</MenuItem>
-            <MenuItem icon={<Icon as={MdLibraryBooks} {...IconProps} />}>
+            <MenuItem
+              active={router.route.startsWith("/search")}
+              icon={<Search {...IconProps} />}
+              onClick={() => router.push("/search")}
+            >
+              Search
+            </MenuItem>
+            <MenuItem
+              active={router.route.startsWith("/genre")}
+              icon={<Icon as={MdLibraryBooks} {...IconProps} />}
+              onClick={() => router.push("/genre")}
+            >
               Genres
             </MenuItem>
           </Menu>
           <Menu iconShape="round">
-            <MenuItem icon={<Icon as={BiBookAlt} {...IconProps} />}>
+            <MenuItem
+              active={router.route.startsWith("/future")}
+              icon={<Icon as={BiBookAlt} {...IconProps} />}
+              onClick={() => router.push("/future")}
+            >
               Want To Read
             </MenuItem>
-            <MenuItem icon={<Icon as={BsBookmark} {...IconProps} />}>
+            <MenuItem
+              active={router.route.startsWith("/current")}
+              icon={<Icon as={BsBookmark} {...IconProps} />}
+              onClick={() => router.push("/current")}
+            >
               Currently Reading
             </MenuItem>
-            <MenuItem icon={<Icon as={BiBook} {...IconProps} />}>
+            <MenuItem
+              active={router.route.startsWith("/past")}
+              icon={<Icon as={BiBook} {...IconProps} />}
+              onClick={() => router.push("/past")}
+            >
               Already Read
             </MenuItem>
           </Menu>
         </SidebarContent>
         <SidebarFooter>
           <Menu iconShape="round">
-            <MenuItem icon={<Icon as={FiLogIn} {...IconProps} />}>
+            <MenuItem
+              onClick={() => router.push("/signin")}
+              icon={<Login {...IconProps} />}
+            >
               Log In
             </MenuItem>
           </Menu>
