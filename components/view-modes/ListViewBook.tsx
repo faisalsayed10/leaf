@@ -12,7 +12,7 @@ import {
   MenuDivider
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { SearchItem } from "@util/types";
+import { Item } from "@util/types";
 import { sliceText } from "@util/helpers";
 import { FiMoreVertical } from "react-icons/fi";
 import { BiBookAlt, BiBook, BiCopy } from "react-icons/bi";
@@ -20,7 +20,7 @@ import { BsBookmark } from "react-icons/bs";
 import { MdPlaylistAdd } from "react-icons/md";
 
 interface Props {
-  book: SearchItem;
+  book: Item;
 }
 
 const ListViewBook: React.FC<Props> = ({ book }) => {

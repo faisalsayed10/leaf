@@ -9,7 +9,7 @@ import DefaultLoader from "@components/loader/DefaultLoader";
 import { fetcher } from "@lib/fetcher";
 import useManualSWR from "@lib/useManualSWR";
 import { sliceText } from "@util/helpers";
-import { SearchItem } from "@util/types";
+import { Item } from "@util/types";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
@@ -33,7 +33,7 @@ const BoxProps = {
 const BookPage: React.FC<Props> = () => {
   const router = useRouter();
   const id = router.query.book_id;
-  const { data, isValidating, error } = useManualSWR<SearchItem>(
+  const { data, isValidating, error } = useManualSWR<Item>(
     id ? `/api/book/${id}` : null,
     fetcher
   );

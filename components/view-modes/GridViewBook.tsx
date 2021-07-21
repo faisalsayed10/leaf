@@ -1,12 +1,12 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Text } from "@chakra-ui/layout";
 import { sliceText } from "@util/helpers";
-import { SearchItem } from "@util/types";
+import { Item } from "@util/types";
 import Link from "next/link";
 import React from "react";
 
 interface Props {
-  book: SearchItem;
+  book: Item;
 }
 
 const Book: React.FC<Props> = ({ book }) => {

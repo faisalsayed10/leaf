@@ -1,5 +1,5 @@
 import { SimpleGrid } from "@chakra-ui/layout";
-import { SearchItem, SearchResponse } from "@util/types";
+import { Item, SearchResponse } from "@util/types";
 import React, { useState } from "react";
 import GridViewBook from "../view-modes/GridViewBook";
 import ListViewBook from "../view-modes/ListViewBook";
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const SearchResults: React.FC<Props> = ({ results, loading, type, isSameQuery }) => {
-  const [localData, setLocalData] = useState<SearchItem[]>([]);
+  const [localData, setLocalData] = useState<Item[]>([]);
 
   useEffect(() => {
     if (!results) return;

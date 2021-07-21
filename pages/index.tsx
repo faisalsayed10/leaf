@@ -4,7 +4,7 @@ import {
 import DefaultLoader from "@components/loader/DefaultLoader";
 import GridViewBook from "@components/view-modes/GridViewBook";
 import { fetcher } from "@lib/fetcher";
-import { SearchItem } from "@util/types";
+import { Item } from "@util/types";
 import { useSession } from "next-auth/client";
 import React from "react";
 import useSWR, { cache } from "swr";
@@ -14,7 +14,7 @@ type Props = {};
 
 const HomePage: React.FC<Props> = (props) => {
   const [session, loading] = useSession();
-  const { data, error, isValidating } = useSWR<SearchItem[]>(
+  const { data, error, isValidating } = useSWR<Item[]>(
     "/api/feed",
     fetcher,
     {

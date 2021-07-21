@@ -1,10 +1,10 @@
 export type SearchResponse = {
   kind: string;
   totalItems: number;
-  items: SearchItem[];
+  items: Item[];
 };
 
-export type SearchItem = {
+export type Item = {
   kind: string;
   id: string;
   etag: string;
