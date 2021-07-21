@@ -30,12 +30,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       case "PUT":
         const { title, description } = req.body;
+
         const updatedList = await prisma.list.updateMany({
           where: { id, authorId: user.id },
-          data: { title, description, updatedAt: new Date().toDateString() },
+          data: { title, description },
         });
         return res.status(400).json(updatedList);
-        
+
       default:
         return res.status(405).end();
     }

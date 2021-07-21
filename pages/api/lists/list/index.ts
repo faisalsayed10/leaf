@@ -6,7 +6,7 @@ import { getSession } from "next-auth/client";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
   if (!session) return res.status(401).json({ message: "Unauthorized" });
-  const { title, description } = req.body;
+  const { title, description, book } = req.body;
   if (!title) return res.status(400).json({ message: "Title is required." });
 
   try {
@@ -14,16 +14,36 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       where: { email: session.user.email },
     });
 
-    await prisma.list.create({
+    const list = await prisma.list.create({
       data: {
         title,
         description: description || "",
-        updatedAt: new Date().toDateString(),
         authorId: user.id,
       },
     });
 
-    return res.status(200).json({ message: "List created successfully." });
+    if (book) {
+      await prisma.list.update({
+        where: { id: list.id },
+        data: {
+          books: {
+            connectOrCreate: {
+              where: { gbookId: book.id },
+              create: {
+                gbookId: book.id,
+                title: book.title,
+                authors: book.authors,
+                publishedDate: book.publishedDate,
+                previewLink: book.previewLink,
+                imageLinks: Object.values(book.imageLinks),
+              },
+            },
+          },
+        },
+      });
+    }
+
+    return res.status(200).json(list);
   } catch (err) {
     console.error(err);
     return res.status(400).json({ message: err.message });
