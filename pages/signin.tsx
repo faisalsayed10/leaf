@@ -38,7 +38,7 @@ const SignIn = ({ providers, csrfToken }) => {
 
   return (
     <Flex
-      bg="linear-gradient(to left, #8e9eab, #eef2f3)"
+      className="auth-image"
       w="full"
       h="100vh"
       alignItems="center"

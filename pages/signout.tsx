@@ -9,7 +9,7 @@ const Signout: React.FC = () => {
 
   return (
     <Flex
-      bg="linear-gradient(to left, #8e9eab, #eef2f3)"
+      className="auth-image"
       w="full"
       h="100vh"
       alignItems="center"
@@ -43,7 +43,11 @@ const Signout: React.FC = () => {
           Are you sure you want to sign out?
         </Text>
         {/* TODO: Fix this in prod */}
-        <Button onClick={() => signOut({ callbackUrl: "http://localhost:3000" })} colorScheme="red" mb={2}>
+        <Button
+          onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}
+          colorScheme="red"
+          mb={2}
+        >
           Yes, Sign Out
         </Button>
         <Button onClick={() => router.push("/")} colorScheme="gray" mb={8}>
