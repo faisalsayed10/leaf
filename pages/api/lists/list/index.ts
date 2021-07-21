@@ -18,30 +18,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       data: {
         title,
         description: description || "",
-        authorId: user.id,
-      },
-    });
-
-    if (book) {
-      await prisma.list.update({
-        where: { id: list.id },
-        data: {
-          books: {
-            connectOrCreate: {
-              where: { gbookId: book.id },
-              create: {
-                gbookId: book.id,
-                title: book.title,
-                authors: book.authors,
-                publishedDate: book.publishedDate,
-                previewLink: book.previewLink,
-                imageLinks: Object.values(book.imageLinks),
-              },
-            },
+        author: {
+          connect: {
+            id: user.id,
           },
         },
-      });
-    }
+        books: book
+          ? {
+              connectOrCreate: {
+                where: { gbookId: book.id },
+                create: {
+                  gbookId: book.id,
+                  title: book.title,
+                  authors: book.authors,
+                  publishedDate: book.publishedDate,
+                  previewLink: book.previewLink,
+                  imageLinks: Object.values(book.imageLinks),
+                },
+              },
+            }
+          : undefined,
+      },
+    });
 
     return res.status(200).json(list);
   } catch (err) {
