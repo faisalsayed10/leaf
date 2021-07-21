@@ -108,11 +108,12 @@ export async function getServerSideProps(context) {
   const csrfToken = await getCsrfToken(context);
 
   if (session && res && session.accessToken) {
-    res.writeHead(302, {
-      Location: "/",
-    });
-    res.end();
-    return;
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 
   return {
