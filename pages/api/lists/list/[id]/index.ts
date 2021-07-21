@@ -19,6 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       case "GET":
         const list = await prisma.list.findFirst({
           where: { id, authorId: user.id },
+          include: { books: true }
         });
         return res.status(200).json(list);
 

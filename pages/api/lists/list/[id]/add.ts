@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!list) return res.status(404).json({ message: "List not found" });
 
   try {
-    await prisma.list.update({
+    const updatedList = await prisma.list.update({
       where: { id },
       data: {
         books: {
@@ -38,7 +38,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           },
         },
       },
+      include: { books: true },
     });
+
+    return res.status(200).json(updatedList);
   } catch (err) {
     console.error(err);
     return res.status(400).json({ message: err.message });
