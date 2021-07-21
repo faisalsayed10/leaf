@@ -82,19 +82,10 @@ model List {
 model Book {
   id                  String   @id @default(uuid())
   gbookId             String   @unique @map(name: "gbook_id")
-  etag                String   @unique
   title               String
-  subtitle            String?
   authors             String[]
-  publisher           String
   publishedDate       String   @map(name: "published_date")
-  description         String
-  industryIdentifiers Json     @map(name: "industry_identifiers")
-  language            String
   previewLink         String   @map(name: "preview_link")
-  infoLink            String   @map(name: "info_link")
-  pageCount           String?  @map(name: "page_count")
-  categories          String[]
   imageLinks          String[] @map(name: "image_links")
   lists               List[]
 
