@@ -12,13 +12,13 @@ interface Props {
 const Book: React.FC<Props> = ({ book }) => {
   return (
     <Link href={`/book/${book.id}`}>
-      <Box maxW="140px" cursor="pointer">
+      <Box maxW="130px" cursor="pointer">
         <Image
           src={book.volumeInfo?.imageLinks?.thumbnail || ""}
           alt={sliceText(book.volumeInfo.title, 50)}
           fallbackSrc="/no-thumbnail.png"
-          minW="145px"
-          h="200px"
+          minW="130px"
+          h="180px"
           m="0 auto"
           mb="4"
         />

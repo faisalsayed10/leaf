@@ -28,7 +28,6 @@ const ListPage = () => {
 	);
 
 	useEffect(() => {
-		console.log(type);
 		if (type === "future") setListType("wantToRead");
 		else if (type === "current") setListType("currentlyReading");
 		else if (type === "past") setListType("alreadyRead");

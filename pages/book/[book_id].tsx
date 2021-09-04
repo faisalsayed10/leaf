@@ -81,7 +81,7 @@ const BookPage: React.FC<Props> = () => {
 					</Box>
 				</Flex>
 				<Box {...BoxProps}>
-					<AddToList />
+					<AddToList data={data} />
 				</Box>
 				<Box {...BoxProps}>
 					<Text px="4">
@@ -89,8 +89,8 @@ const BookPage: React.FC<Props> = () => {
 						{data?.volumeInfo.description ? (
 							<ReadMoreLess
 								charLimit={250}
-								readMoreText={"Read more ▼"}
-								readLessText={"Read less ▲"}
+								readMoreText={"Read more ⌄"}
+								readLessText={"Read less ⌃"}
 								readMoreClassName="readmoreless"
 								readLessClassName="readmoreless"
 							>
