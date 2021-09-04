@@ -1,5 +1,5 @@
 import { Text } from '@chakra-ui/layout';
-import { readableTitle, upperCaseTitle } from '@util/helpers';
+import { readableTitle, capitalize } from '@util/helpers';
 import { VolumeInfo } from '@util/types';
 import React from 'react'
 
@@ -12,7 +12,7 @@ const BookPageInfo: React.FC<Props> = ({ volumeInfo }) => {
     <>
       {volumeInfo?.language && (
         <Text>
-          <strong>Language:</strong> {upperCaseTitle(volumeInfo?.language)}
+          <strong>Language:</strong> {capitalize(volumeInfo?.language)}
         </Text>
       )}
       {volumeInfo?.pageCount && (

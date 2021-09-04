@@ -15,15 +15,18 @@ export function getRandom(arr: string[], n: number) {
   return result;
 }
 
-export function upperCaseTitle(title: string) {
-  return title
-    ?.split(" ")
-    ?.map((elem) => elem[0]?.toUpperCase() + elem.slice(1))
-    .join(" ");
+export function capitalize(word: string) {
+  return word.charAt(0).toUpperCase() + word.substring(1);
+}
+
+export function toCapitalizedWords(word: string) {
+	var text = word.match(/[A-Za-z][a-z]*/g) || [];
+
+	return text.map(capitalize).join(" ");
 }
 
 export function readableTitle(genre: string) {
-  return upperCaseTitle(genre?.replace(/__/gi, " & ").replace(/_/gi, " "));
+  return capitalize(genre?.replace(/__/gi, " & ").replace(/_/gi, " "));
 }
 
 export function sliceText(text: string, limit: number) {

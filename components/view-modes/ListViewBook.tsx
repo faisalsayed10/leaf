@@ -1,22 +1,14 @@
-import React from "react";
 import {
-  Heading,
-  Image,
-  Text,
-  Flex,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider
+  Flex, Heading, IconButton, Image, Menu,
+  MenuButton, MenuDivider, MenuItem, MenuList, Text
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { Item } from "@util/types";
 import { sliceText } from "@util/helpers";
-import { FiMoreVertical } from "react-icons/fi";
-import { BiBookAlt, BiBook, BiCopy } from "react-icons/bi";
+import { Item } from "@util/types";
+import Link from "next/link";
+import React from "react";
+import { BiCheck, BiCopy, BiHeart } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
+import { FiMoreVertical } from "react-icons/fi";
 import { MdPlaylistAdd } from "react-icons/md";
 
 interface Props {
@@ -61,9 +53,9 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
           icon={<FiMoreVertical />}
         />
         <MenuList>
-          <MenuItem icon={<BiBookAlt size="18" />}>Want To Read</MenuItem>
+          <MenuItem icon={<BiHeart size="18" />}>Want To Read</MenuItem>
           <MenuItem icon={<BsBookmark size="18" />}>Currently Reading</MenuItem>
-          <MenuItem icon={<BiBook size="18" />}>Already Read</MenuItem>
+          <MenuItem icon={<BiCheck size="18" />}>Already Read</MenuItem>
           <MenuDivider />
           <MenuItem icon={<MdPlaylistAdd size="18" />}>
             Add To Playlist

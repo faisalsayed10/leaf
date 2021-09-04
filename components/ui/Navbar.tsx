@@ -1,59 +1,41 @@
-import { Avatar } from "@chakra-ui/avatar";
 import { Flex } from "@chakra-ui/layout";
-import {
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuGroup,
-  MenuItem,
-  MenuList,
-} from "@chakra-ui/menu";
-import { Box, chakra, Heading } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import { useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-interface Props {
-  pageTitle: string;
-}
+interface Props {}
 
-const Navbar: React.FC<Props> = ({ pageTitle }) => {
-  const [session, loading] = useSession();
-  const router = useRouter();
+const Navbar: React.FC<Props> = () => {
+	const [session, loading] = useSession();
+	const router = useRouter();
 
-  const displayName = session?.user?.name || session?.user?.email.split("@")[0];
+	const displayName = session?.user?.name || session?.user?.email.split("@")[0];
 
-  return (
-    <Flex
-      bgColor="white"
-      alignItems="center"
-      justifyContent="space-between"
-      borderBottom="1px solid #E2E8F0"
-      pos="sticky"
-      top="5px"
-      py="3"
-      px="6"
-      zIndex="100"
-    >
-      <Link href="/">
-        <Heading
-          textTransform="uppercase"
-          fontWeight="bold"
-          letterSpacing="1px"
-          fontSize="24px"
-        >
-          Libook {pageTitle && "| "}
-          <chakra.span
-            fontSize="16px"
-            textTransform="uppercase"
-            fontWeight="medium"
-          >
-            {pageTitle}
-          </chakra.span>
-        </Heading>
-      </Link>
-      {/* {!loading && session ? (
+	return (
+		<Flex
+			bgColor="white"
+			alignItems="center"
+			justifyContent="space-between"
+			borderBottom="1px solid #E2E8F0"
+			pos="sticky"
+			top="5px"
+			py="3"
+			px="6"
+			zIndex="100"
+		>
+			<Link href="/">
+				<Heading
+					textTransform="uppercase"
+					fontWeight="bold"
+					letterSpacing="1px"
+					fontSize="24px"
+				>
+					Libook
+				</Heading>
+			</Link>
+			{/* {!loading && session ? (
         <Menu placement="bottom">
           <MenuButton
             as={Avatar}
@@ -90,8 +72,8 @@ const Navbar: React.FC<Props> = ({ pageTitle }) => {
       ) : (
         <></>
       )} */}
-    </Flex>
-  );
+		</Flex>
+	);
 };
 
 export default Navbar;
