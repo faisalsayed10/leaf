@@ -1,5 +1,6 @@
 import { ListType } from ".prisma/client";
 import prisma from "@lib/prisma";
+import { toCapitalizedWords } from "@util/helpers";
 import { ImageLinks } from "@util/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
@@ -25,13 +26,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		where: { email: session.user.email },
 	});
 
-	const list = await prisma.list.findFirst({
+	let list = await prisma.list.findFirst({
 		where: {
 			...(data.listId && { id: data.listId }),
 			...(!data.listId && data.listType ? { type: data.listType } : {}),
 			authorId: user.id,
 		},
 	});
+
+	if (!list && data?.listType && data.listType !== "normal") {
+		list = await prisma.list.create({
+			data: {
+				type: data.listType,
+				authorId: user.id,
+				name: toCapitalizedWords(data.listType),
+			}
+		})
+	}
 
 	if (!list) return res.status(404).json({ message: "List not found" });
 
