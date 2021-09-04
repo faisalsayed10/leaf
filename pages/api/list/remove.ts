@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@lib/prisma";
 import { getSession } from "next-auth/client";
-
-// POST /api/list/:id/remove (Remove book from a list)
+// TODO: Fix this route
+// POST /api/list/remove - Remove book from a list
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
   const id = req.query.id as string;

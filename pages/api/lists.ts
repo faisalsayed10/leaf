@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@lib/prisma";
 import { getSession } from "next-auth/client";
 
-// GET /api/lists
+// GET /api/lists - Get all lists of a user
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
   if (!session) return res.status(401).json({ message: "Unauthorized" });

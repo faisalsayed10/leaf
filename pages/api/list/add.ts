@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@lib/prisma";
 import { getSession } from "next-auth/client";
 import { VolumeInfo } from "@util/types";
-
-// POST /api/list/:id/add (Add book to a list)
+// TODO: Fix this route
+// POST /api/list/add - Add book to a list
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
   const id = req.query.id as string;

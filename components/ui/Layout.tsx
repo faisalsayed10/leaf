@@ -8,16 +8,15 @@ import Tabbar from "./Tabbar";
 
 type Props = {
   children: ReactNode;
-  pageTitle: string;
 };
 
-const Layout: React.FC<Props> = ({ children, pageTitle }) => {
+const Layout: React.FC<Props> = ({ children }) => {
   const isMoreThan400 = useMedia({ minWidth: 400 });
 
   return (
     <>
       <Box height="5px" bgColor="#2ff8bc" pos="sticky" top="0" zIndex="1000" />
-      <Navbar pageTitle={pageTitle} />
+      <Navbar />
       {isMoreThan400 ? (
         <Flex bgColor="#edf2f7">
           <ProSidebarSection />
