@@ -1,14 +1,24 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@lib/prisma";
-import { getSession } from "next-auth/client";
-import { VolumeInfo } from "@util/types";
 import { ListType } from ".prisma/client";
+import prisma from "@lib/prisma";
+import { ImageLinks } from "@util/types";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/client";
+
+interface Body {
+	listId?: string;
+	listType?: ListType;
+	gbookId: string;
+	title: string;
+	authors: string[];
+	publishedDate: string;
+	previewLink: string;
+	imageLinks: ImageLinks;
+}
 
 // POST /api/list/add - Add book to a list
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const session = await getSession({ req });
-	const { id, type } = req.query as { id?: string; type?: ListType };
-	const book: VolumeInfo & { id: string } = req.body;
+	const data = req.body as Body;
 	if (!session) return res.status(401).json({ message: "Unauthorized" });
 
 	const user = await prisma.user.findUnique({
@@ -17,8 +27,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const list = await prisma.list.findFirst({
 		where: {
-			...(id && { id }),
-			...(!id && type ? { type } : {}),
+			...(data.listId && { id: data.listId }),
+			...(!data.listId && data.listType ? { type: data.listType } : {}),
 			authorId: user.id,
 		},
 	});
@@ -27,18 +37,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
 		const updatedList = await prisma.list.update({
-			where: { id },
+			where: { id: list.id },
 			data: {
 				books: {
 					connectOrCreate: {
-						where: { gbookId: book.id },
+						where: { gbookId: data.gbookId },
 						create: {
-							gbookId: book.id,
-							title: book.title,
-							authors: book.authors,
-							publishedDate: book.publishedDate,
-							previewLink: book.previewLink,
-							imageLinks: Object.values(book.imageLinks),
+							gbookId: data.gbookId,
+							title: data.title,
+							authors: data.authors,
+							publishedDate: data.publishedDate,
+							previewLink: data.previewLink,
+							imageLinks: Object.values(data.imageLinks),
 						},
 					},
 				},
