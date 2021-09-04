@@ -1,6 +1,5 @@
-import { Flex, Image, Text, Button } from "@chakra-ui/react";
+import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import { signOut } from "next-auth/client";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -42,9 +41,8 @@ const Signout: React.FC = () => {
         >
           Are you sure you want to sign out?
         </Text>
-        {/* TODO: Fix this in prod */}
         <Button
-          onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}
+          onClick={() => signOut({ callbackUrl: process.env.DEPLOY_URL || "http://localhost:3000" })}
           colorScheme="red"
           mb={2}
         >

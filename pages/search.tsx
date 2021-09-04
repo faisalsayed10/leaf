@@ -3,29 +3,28 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionItem,
-  AccordionPanel,
+  AccordionPanel
 } from "@chakra-ui/accordion";
 import { Input } from "@chakra-ui/input";
-import { Box, Container, Flex, Center } from "@chakra-ui/layout";
+import { Box, Center, Container, Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/select";
-import Switch from "@components/ui/GridListSwitch";
-import Layout from "@components/ui/Layout";
 import SearchInput from "@components/search/SearchInput";
 import SearchResults from "@components/search/SearchResults";
+import Switch from "@components/ui/GridListSwitch";
+import { GENRE_SUGGESTIONS } from "@lib/constants";
 import { fetcher } from "@lib/fetcher";
 import useManualSWR from "@lib/useManualSWR";
 import { buildSearchURL, refillInputs } from "@util/helpers";
 import { SearchFormInputs, SearchResponse } from "@util/types";
+import Fuse from "fuse.js";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Autosuggest from "react-autosuggest";
 import { useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
 import _ from "underscore";
-import { GENRE_SUGGESTIONS } from "@lib/constants";
-import Autosuggest from "react-autosuggest";
-import Fuse from "fuse.js";
 
 interface Props {}
 
@@ -109,7 +108,6 @@ const Search: React.FC<Props> = () => {
       <Head>
         <title>Libook — Search</title>
       </Head>
-      <Layout pageTitle="Search">
         <Container my="4" maxW="container.sm">
           <Box as="form" pos="relative">
             <SearchInput value={query} setValue={setQuery} />
@@ -217,7 +215,6 @@ const Search: React.FC<Props> = () => {
             </Center>
           )}
         </Container>
-      </Layout>
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { Container, Flex, Text, Wrap, WrapItem } from "@chakra-ui/layout";
-import Layout from "@components/ui/Layout";
 import { GENRES } from "@lib/constants";
 import { readableTitle } from "@util/helpers";
 import Head from "next/head";
@@ -15,7 +14,6 @@ const genres: React.FC<Props> = ({}) => {
       <Head>
         <title>All Genres</title>
       </Head>
-      <Layout pageTitle="Genres">
         <Container
           maxW={["container.sm", "container.sm", "container.md"]}
           my={4}
@@ -46,7 +44,6 @@ const genres: React.FC<Props> = ({}) => {
             })}
           </Wrap>
         </Container>
-      </Layout>
     </>
   );
 };
