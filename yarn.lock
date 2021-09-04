@@ -12112,6 +12112,13 @@ raw-body@2.4.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-alphabet-list@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/react-alphabet-list/-/react-alphabet-list-0.1.8.tgz#76b6e23239b85eafef39cd05ab4c2c356bc6398d"
+  integrity sha512-mSQIiaOEVdEKNcDaJjoAFvfKdTw2G5thsZocb7DYVRUYe94FHOSY7U7MrFITcyif7xkgGcysd1wNQRVKeJbsMw==
+  dependencies:
+    react "^16.9.0"
+
 react-app-polyfill@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-1.0.6.tgz#890f8d7f2842ce6073f030b117de9130a5f385f0"
@@ -12416,7 +12423,7 @@ react-themeable@^1.1.0:
   dependencies:
     object-assign "^3.0.0"
 
-react@^16.12.0, react@^16.2.0:
+react@^16.12.0, react@^16.2.0, react@^16.9.0:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
   integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
