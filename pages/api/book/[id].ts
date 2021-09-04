@@ -3,7 +3,7 @@ import { Item } from "@util/types";
 import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-// GET /api/book/id
+// GET /api/book/:id - Get book info by id
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const id = req.query.id;
   const { data } = await axios.get<Item>(

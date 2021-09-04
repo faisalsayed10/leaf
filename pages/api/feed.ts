@@ -5,7 +5,7 @@ import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { shuffle } from "underscore";
 
-// GET /api/feed
+// GET /api/feed - Get the user's feed
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const randomGenres = getRandom(GENRES, 5);
   const data: Item[] = [];
