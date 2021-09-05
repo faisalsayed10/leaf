@@ -86,7 +86,7 @@ model Book {
   authors             String[]
   publishedDate       String   @map(name: "published_date")
   previewLink         String   @map(name: "preview_link")
-  imageLinks          String[] @map(name: "image_links")
+  imageLinks          Json @map(name: "image_links")
   lists               List[]
 
   @@map("books")

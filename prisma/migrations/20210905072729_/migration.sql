@@ -3,7 +3,7 @@ CREATE TYPE "ListType" AS ENUM ('normal', 'wantToRead', 'currentlyReading', 'alr
 
 -- CreateTable
 CREATE TABLE "users" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" TEXT,
     "email" TEXT,
     "email_verified" TIMESTAMP(3),
@@ -61,10 +61,10 @@ CREATE TABLE "lists" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "title" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "type" "ListType" NOT NULL DEFAULT E'normal',
     "description" TEXT NOT NULL DEFAULT E'',
-    "authorId" TEXT NOT NULL,
+    "authorId" INTEGER NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -73,20 +73,11 @@ CREATE TABLE "lists" (
 CREATE TABLE "books" (
     "id" TEXT NOT NULL,
     "gbook_id" TEXT NOT NULL,
-    "etag" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "subtitle" TEXT,
     "authors" TEXT[],
-    "publisher" TEXT NOT NULL,
     "published_date" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "industry_identifiers" JSONB NOT NULL,
-    "language" TEXT NOT NULL,
     "preview_link" TEXT NOT NULL,
-    "info_link" TEXT NOT NULL,
-    "page_count" TEXT,
-    "categories" TEXT[],
-    "image_links" TEXT[],
+    "image_links" JSONB NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -123,9 +114,6 @@ CREATE UNIQUE INDEX "verification_requests.token_unique" ON "verification_reques
 
 -- CreateIndex
 CREATE UNIQUE INDEX "books.gbook_id_unique" ON "books"("gbook_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "books.etag_unique" ON "books"("etag");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_BookToList_AB_unique" ON "_BookToList"("A", "B");
