@@ -38,12 +38,14 @@ const BookPage: React.FC<Props> = () => {
 	);
 
 	if (error) console.error(error);
-	if (isValidating) return <DefaultLoader />;
+	if (isValidating && !data) return <DefaultLoader />;
 
 	return (
 		<>
 			<Head>
-				<title>Libook — {data?.volumeInfo.title}</title>
+				<title>
+					Libook {data?.volumeInfo.title && `— ${data?.volumeInfo.title}`}
+				</title>
 			</Head>
 			<Container mt="8">
 				<Flex {...BoxProps} justify="space-evenly" align="center">

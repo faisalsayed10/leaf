@@ -7,7 +7,7 @@ const Unauthorized = () => {
   const router = useRouter();
 
   return (
-		<Flex align="center" justify="center" minH="90vh">
+		<Flex align="center" justify="center" minH="90vh" maxW="750px" m="0 auto">
 			<Flex
 				bgColor="#fff"
 				border="1px solid #E2E8F0"

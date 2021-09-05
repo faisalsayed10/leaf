@@ -62,7 +62,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 								authors: book.authors,
 								publishedDate: book.publishedDate,
 								previewLink: book.previewLink,
-								imageLinks: Object.values(book.imageLinks),
+								imageLinks: book.imageLinks,
 							},
 						},
 					},

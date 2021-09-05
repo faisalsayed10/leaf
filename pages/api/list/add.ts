@@ -59,7 +59,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 							authors: data.authors,
 							publishedDate: data.publishedDate,
 							previewLink: data.previewLink,
-							imageLinks: Object.values(data.imageLinks),
+							imageLinks: data.imageLinks,
 						},
 					},
 				},
