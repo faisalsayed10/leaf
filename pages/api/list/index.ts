@@ -7,7 +7,7 @@ interface Body {
 	name: string;
 	description: string;
 	type: ListType;
-	book: Book;
+	book: Omit<Book, "id">;
 }
 
 // GET /api/list - Get a list
@@ -55,9 +55,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 					},
 					books: book && {
 						connectOrCreate: {
-							where: { gbookId: book.id },
+							where: { gbookId: book.gbookId },
 							create: {
-								gbookId: book.id,
+								gbookId: book.gbookId,
 								title: book.title,
 								authors: book.authors,
 								publishedDate: book.publishedDate,
