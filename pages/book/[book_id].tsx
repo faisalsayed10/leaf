@@ -23,10 +23,6 @@ const BoxProps = {
 	background: "rgba(255,255,255,0.25)",
 	boxShadow: "10px 5px 40px -10px rgba(0,0,0,0.2)",
 	borderRadius: "5px",
-	style: {
-		backdropFilter: "blur(5px)",
-		WebkitBackdropFilter: "blur(5px)",
-	},
 };
 
 const BookPage: React.FC<Props> = () => {
