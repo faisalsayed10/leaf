@@ -1,16 +1,23 @@
-import { ListType } from ".prisma/client";
+import { List, ListType } from ".prisma/client";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Flex, Text } from "@chakra-ui/layout";
-import { useToast } from "@chakra-ui/toast";
-import AuthModal from "@components/ui/AuthModal";
+import { Box, Flex, Text } from "@chakra-ui/layout";
+import {
+	Menu,
+	MenuButton, MenuDivider, MenuItem,
+	MenuList
+} from "@chakra-ui/react";
+import AuthModal from "@components/modals/AuthModal";
+import CreateListModal from "@components/modals/CreateListModal";
 import { toCapitalizedWords } from "@util/helpers";
 import { Item } from "@util/types";
 import axios from "axios";
 import { useSession } from "next-auth/client";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { GrAdd } from "react-icons/gr";
 import { MdPlaylistAdd } from "react-icons/md";
+import useSWR from "swr";
 
 interface Props {
 	data: Item;
@@ -19,14 +26,22 @@ interface Props {
 const AddToList: React.FC<Props> = ({ data }) => {
 	const [loading, setLoading] = useState(false);
 	const [session, isSessionLoading] = useSession();
-	const toast = useToast();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const router = useRouter();
+	const {
+		isOpen: isOpenCreateList,
+		onOpen: onOpenCreateList,
+		onClose: onCloseCreateList,
+	} = useDisclosure();
+	const {
+		data: lists,
+		error,
+		isValidating,
+	} = useSWR<List[]>(session ? "/api/lists" : null);
 
 	const addBookToList = async (listId?: string, listType?: ListType) => {
 		try {
 			setLoading(true);
-			const res = await axios.post("/api/list/add", {
+			const res = axios.post<List>("/api/list/add", {
 				listId,
 				listType,
 				gbookId: data.id,
@@ -37,22 +52,19 @@ const AddToList: React.FC<Props> = ({ data }) => {
 				imageLinks: data.volumeInfo.imageLinks,
 			});
 
-			if (res.status === 200) {
-				toast({
-					title: `Added to ${toCapitalizedWords(listType)}`,
-					duration: 2000,
-					isClosable: true,
-					status: "success",
-				});
-			} else {
-				toast({
-					title: "Error adding to list",
-					description: res.data.message,
-					duration: 2000,
-					isClosable: true,
-					status: "error",
-				});
-			}
+			toast.promise(
+				res,
+				{
+					loading: "Creating your list ⏳",
+					success: `Added to ${toCapitalizedWords(listType)}`,
+					error: `Aw man! An error occurred while adding. Maybe, try again later? 😭`,
+				},
+				{
+					style: {
+						minWidth: "250px",
+					},
+				}
+			);
 		} catch (err) {
 			console.error(err);
 		} finally {
@@ -74,37 +86,90 @@ const AddToList: React.FC<Props> = ({ data }) => {
 			>
 				<Button
 					onClick={() => {
-            if (isSessionLoading) return;
-            session?.user ? addBookToList(null, "wantToRead") : onOpen();
-          }}
+						if (isSessionLoading) return;
+						session?.user ? addBookToList(null, "wantToRead") : onOpen();
+					}}
 					disabled={loading}
 				>
 					Want To Read
 				</Button>
 				<Button
 					onClick={() => {
-            if (isSessionLoading) return;
-            session?.user ? addBookToList(null, "currentlyReading") : onOpen();
-          }}
+						if (isSessionLoading) return;
+						session?.user ? addBookToList(null, "currentlyReading") : onOpen();
+					}}
 					disabled={loading}
 				>
 					Currently Reading
 				</Button>
 				<Button
 					onClick={() => {
-            if (isSessionLoading) return;
-            session?.user ? addBookToList(null, "alreadyRead") : onOpen();
-          }}
+						if (isSessionLoading) return;
+						session?.user ? addBookToList(null, "alreadyRead") : onOpen();
+					}}
 					disabled={loading}
 				>
 					Already Read
 				</Button>
-				<IconButton
-					aria-label="Add to playlist"
-					icon={<MdPlaylistAdd size="24px" />}
-				/>
+				<Box>
+					<Menu>
+						<MenuButton
+							borderRadius="md"
+							as={IconButton}
+							aria-label="Add to playlist"
+							icon={<MdPlaylistAdd size="24px" />}
+						/>
+						<MenuList>
+							{error && !isValidating && !data ? (
+								<MenuItem>Error loading your lists</MenuItem>
+							) : lists?.length > 0 ? (
+								<>
+									{lists.map((list) => (
+										<MenuItem key={list.id} icon={<MdPlaylistAdd />}>
+											{list.name}
+										</MenuItem>
+									))}
+									<MenuDivider />
+									<MenuItem onClick={onOpenCreateList} icon={<GrAdd />}>
+										Create a new list
+									</MenuItem>
+								</>
+							) : (
+								<>
+									<MenuItem isDisabled>No lists found</MenuItem>
+									{isSessionLoading ? (
+										<>
+											<MenuDivider />
+											<MenuItem isDisabled>Just a second...</MenuItem>
+										</>
+									) : session?.user ? (
+										<>
+											<MenuDivider />
+											<MenuItem onClick={onOpenCreateList} icon={<GrAdd />}>
+												Create a new list
+											</MenuItem>
+										</>
+									) : null}
+								</>
+							)}
+						</MenuList>
+					</Menu>
+				</Box>
 			</Flex>
 			<AuthModal onClose={onClose} onOpen={onOpen} isOpen={isOpen} />
+			<CreateListModal
+				onClose={onCloseCreateList}
+				onOpen={onOpenCreateList}
+				isOpen={isOpenCreateList}
+				book={{
+					gbookId: data?.id,
+					title: data?.volumeInfo?.title,
+					authors: data?.volumeInfo?.authors,
+					publishedDate: data?.volumeInfo?.publishedDate,
+					previewLink: data?.volumeInfo?.previewLink,
+					imageLinks: data?.volumeInfo?.imageLinks,
+				}}
+			/>
 		</>
 	);
 };
