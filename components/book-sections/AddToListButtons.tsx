@@ -1,11 +1,14 @@
 import { List, ListType } from ".prisma/client";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
+import { Icon } from "@chakra-ui/icon";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import {
 	Menu,
-	MenuButton, MenuDivider, MenuItem,
-	MenuList
+	MenuButton,
+	MenuDivider,
+	MenuItem,
+	MenuList,
 } from "@chakra-ui/react";
 import AuthModal from "@components/modals/AuthModal";
 import CreateListModal from "@components/modals/CreateListModal";
@@ -117,7 +120,7 @@ const AddToList: React.FC<Props> = ({ data }) => {
 							borderRadius="md"
 							as={IconButton}
 							aria-label="Add to playlist"
-							icon={<MdPlaylistAdd size="24px" />}
+							icon={<Icon as={MdPlaylistAdd} boxSize={5} />}
 						/>
 						<MenuList>
 							{error && !isValidating && !data ? (
@@ -125,12 +128,18 @@ const AddToList: React.FC<Props> = ({ data }) => {
 							) : lists?.length > 0 ? (
 								<>
 									{lists.map((list) => (
-										<MenuItem key={list.id} icon={<MdPlaylistAdd />}>
+										<MenuItem
+											key={list.id}
+											icon={<Icon as={MdPlaylistAdd} boxSize={5} />}
+										>
 											{list.name}
 										</MenuItem>
 									))}
 									<MenuDivider />
-									<MenuItem onClick={onOpenCreateList} icon={<GrAdd />}>
+									<MenuItem
+										onClick={onOpenCreateList}
+										icon={<Icon as={GrAdd} boxSize={5} />}
+									>
 										Create a new list
 									</MenuItem>
 								</>

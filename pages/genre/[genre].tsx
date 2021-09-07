@@ -29,9 +29,13 @@ const Genre: React.FC<Props> = () => {
 	return (
 		<>
 			<Head>
-				<title>{readableTitle(genre)}</title>
+				<title>Libook {genre ? `- ${readableTitle(genre)}` : ""}</title>
 			</Head>
-			<Container maxW="container.sm" my="4" px="4">
+			<Container
+				maxW={["container.sm", "container.sm", "container.md"]}
+				my="4"
+				px="4"
+			>
 				<Flex align="center" justify="space-between">
 					<Text as="span" display="inline" fontSize="lg">
 						{data?.totalItems} results
@@ -42,10 +46,11 @@ const Genre: React.FC<Props> = () => {
 					/>
 				</Flex>
 				<SimpleGrid
-					columns={checked ? 4 : 1}
-					spacing={6}
-					placeItems="center"
+					columns={checked ? 1 : null}
 					mt="6"
+					minChildWidth={checked ? "140px" : null}
+					gap={[1, 2, 3]}
+					placeItems="center"
 				>
 					{data?.items
 						?.filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
