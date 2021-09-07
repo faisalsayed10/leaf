@@ -1,21 +1,22 @@
-import {
-  Box,
-  Icon
-} from "@chakra-ui/react";
+import { List } from ".prisma/client";
+import { Box, Icon, useDisclosure } from "@chakra-ui/react";
+import CreateListModal from "@components/modals/CreateListModal";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import React from "react";
 import { BiCheck, BiHeart, BiUser } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
-import { MdLibraryBooks } from "react-icons/md";
+import { GrAdd } from "react-icons/gr";
+import { MdLibraryBooks, MdPlaylistAdd } from "react-icons/md";
 import {
-  Menu,
-  MenuItem,
-  ProSidebar,
-  SidebarContent,
-  SidebarFooter
+	Menu,
+	MenuItem,
+	ProSidebar,
+	SidebarContent,
+	SidebarFooter,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
+import useSWR from "swr";
 import useMedia from "use-media";
 import Home from "../icons/Home";
 import Login from "../icons/Login";
@@ -31,6 +32,12 @@ const ProSidebarSection = (props: Props) => {
 	const [session, loading] = useSession();
 	const router = useRouter();
 	const isLessThan700 = useMedia({ maxWidth: 700 });
+	const { data, error, isValidating } = useSWR<List[]>(
+		session?.user ? "/api/lists" : null
+	);
+	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	if (error) console.error(error);
 
 	return (
 		<Box className="sidebar-parent">
@@ -90,13 +97,32 @@ const ProSidebarSection = (props: Props) => {
 							Already Read
 						</MenuItem>
 					</Menu>
+					<Menu>
+						{data?.length > 0 ? (
+							<MenuItem
+								onClick={() => router.push("/lists")}
+								icon={<Icon as={MdPlaylistAdd} {...IconProps} />}
+							>
+								Your Lists
+							</MenuItem>
+						) : (
+							<MenuItem
+								onClick={onOpen}
+								icon={<Icon as={GrAdd} {...IconProps} />}
+							>
+								Create a List
+							</MenuItem>
+						)}
+					</Menu>
 				</SidebarContent>
 				<SidebarFooter>
 					<Menu iconShape="round">
-						{!loading && session ? (
+						{!loading && session?.user ? (
 							<MenuItem icon={<Icon as={BiUser} {...IconProps} />}>
 								{session.user.name}
 							</MenuItem>
+						) : loading ? (
+							<MenuItem>Just a Second...</MenuItem>
 						) : (
 							<MenuItem
 								onClick={() => router.push("/signin")}
@@ -108,6 +134,7 @@ const ProSidebarSection = (props: Props) => {
 					</Menu>
 				</SidebarFooter>
 			</ProSidebar>
+			<CreateListModal onClose={onClose} onOpen={onOpen} isOpen={isOpen} />
 		</Box>
 	);
 };
