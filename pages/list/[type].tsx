@@ -1,23 +1,16 @@
-import { useRouter } from "next/router";
 import { Book, List, ListType } from ".prisma/client";
-import Image from "next/image";
-import { Container, Flex, Heading, Text } from "@chakra-ui/layout";
+import { Container, Flex, SimpleGrid, Text } from "@chakra-ui/layout";
 import DefaultLoader from "@components/loader/DefaultLoader";
+import GridListSwitch from "@components/ui/GridListSwitch";
+import NoBooksFound from "@components/ui/NoBooksFound";
 import Unauthorized from "@components/ui/Unauthorized";
+import GridViewBook from "@components/view-modes/GridViewBook";
+import ListViewBook from "@components/view-modes/ListViewBook";
+import { toCapitalizedWords } from "@util/helpers";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { toCapitalizedWords } from "@util/helpers";
-
-const BoxProps = {
-	background: "rgba(255,255,255,0.25)",
-	boxShadow: "10px 5px 40px -10px rgba(0,0,0,0.2)",
-	borderRadius: "5px",
-	style: {
-		backdropFilter: "blur(5px)",
-		WebkitBackdropFilter: "blur(5px)",
-	},
-};
 
 const ListPage = () => {
 	const router = useRouter();
@@ -26,6 +19,7 @@ const ListPage = () => {
 	const { data, error, isValidating } = useSWR<List & { books: Book[] }>(
 		listType ? `/api/list?type=${listType}` : null
 	);
+	const [checked, setChecked] = useState(true);
 
 	useEffect(() => {
 		if (type === "future") setListType("wantToRead");
@@ -53,46 +47,42 @@ const ListPage = () => {
 			</>
 		);
 
+	if (!data || !data?.books) return <NoBooksFound />;
+
 	return (
 		<>
 			<Head>
 				<title>{listType && `Libook — ${toCapitalizedWords(listType)}`}</title>
 			</Head>
-			<Container maxW={["container.sm", "container.sm", "container.md"]} my={4}>
-				<Flex minH="85vh" alignItems="center" justifyContent="center">
-					<Flex
-						{...BoxProps}
-						justify="space-evenly"
-						align="center"
-						flexDir="column"
-						mx={6}
-						p={8}
-					>
-						{(!data || !data?.books) && (
-							<>
-								<Heading as="h3" fontSize="lg" my={3}>
-									No Books Found
-								</Heading>
-								<Text px="4">
-									Hmm... Apparently it seems that you have no books in this list
-									🧐
-								</Text>
-								<Text px="4" mb={3}>
-									Head over to the Homepage and start adding some books 📚
-								</Text>
-								<Image
-									src="/no-data.svg"
-									width="256px"
-									height="250px"
-									priority
-								/>
-							</>
-						)}
-						{data?.books?.map((book) => (
-							<p>{book.title}</p>
-						))}
-					</Flex>
+			<Container
+				maxW={["container.sm", "container.sm", "container.md"]}
+				my={4}
+				px={4}
+			>
+				<Flex align="center" justify="space-between">
+					<Text as="span" display="inline" fontSize="lg">
+						{data?.books?.length} results
+					</Text>
+					<GridListSwitch
+						checked={checked}
+						handleChange={(bool) => setChecked(bool)}
+					/>
 				</Flex>
+				<SimpleGrid
+					columns={checked ? 1 : null}
+					mt="6"
+					minChildWidth={checked ? "140px" : null}
+					gap={[1, 2, 3]}
+					placeItems={data?.books?.length > 4 ? "center" : undefined}
+				>
+					{data?.books?.map((book) => {
+						return checked ? (
+							<GridViewBook key={book.id} book={book} />
+						) : (
+							<ListViewBook key={book.id} book={book} />
+						);
+					})}
+				</SimpleGrid>
 			</Container>
 		</>
 	);
