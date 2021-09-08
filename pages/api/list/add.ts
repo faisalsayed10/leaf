@@ -10,6 +10,7 @@ interface Body {
 	listType?: ListType;
 	gbookId: string;
 	title: string;
+	description?: string;
 	authors: string[];
 	publishedDate: string;
 	previewLink: string;
@@ -56,6 +57,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 						create: {
 							gbookId: data.gbookId,
 							title: data.title,
+							description: data.description,
 							authors: data.authors,
 							publishedDate: data.publishedDate,
 							previewLink: data.previewLink,

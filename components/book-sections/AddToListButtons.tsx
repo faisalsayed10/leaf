@@ -49,6 +49,7 @@ const AddToList: React.FC<Props> = ({ data }) => {
 				listType,
 				gbookId: data.id,
 				title: data.volumeInfo.title,
+				description: data.volumeInfo.description,
 				authors: data.volumeInfo.authors,
 				publishedDate: data.volumeInfo.publishedDate,
 				previewLink: data.volumeInfo.previewLink,
@@ -173,6 +174,7 @@ const AddToList: React.FC<Props> = ({ data }) => {
 				book={{
 					gbookId: data?.id,
 					title: data?.volumeInfo?.title,
+					description: data?.volumeInfo?.description,
 					authors: data?.volumeInfo?.authors,
 					publishedDate: data?.volumeInfo?.publishedDate,
 					previewLink: data?.volumeInfo?.previewLink,

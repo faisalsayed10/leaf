@@ -80,14 +80,15 @@ model List {
 }
 
 model Book {
-  id                  String   @id @default(uuid())
-  gbookId             String   @unique @map(name: "gbook_id")
-  title               String
-  authors             String[]
-  publishedDate       String   @map(name: "published_date")
-  previewLink         String   @map(name: "preview_link")
-  imageLinks          Json @map(name: "image_links")
-  lists               List[]
+  id            String   @id @default(uuid())
+  gbookId       String   @unique @map(name: "gbook_id")
+  title         String
+  description   String   @default("")
+  authors       String[]
+  publishedDate String   @map(name: "published_date")
+  previewLink   String   @map(name: "preview_link")
+  imageLinks    Json     @map(name: "image_links")
+  lists         List[]
 
   @@map("books")
 }

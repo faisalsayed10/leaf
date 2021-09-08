@@ -8,11 +8,6 @@ interface Body {
 	listId?: string;
 	listType?: ListType;
 	gbookId: string;
-	title: string;
-	authors: string[];
-	publishedDate: string;
-	previewLink: string;
-	imageLinks: ImageLinks;
 }
 
 // POST /api/list/remove - Remove book from a list
