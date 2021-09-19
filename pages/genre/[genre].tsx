@@ -4,7 +4,6 @@ import DefaultLoader from "@components/loader/DefaultLoader";
 import GridListSwitch from "@components/ui/GridListSwitch";
 import GridViewBook from "@components/view-modes/GridViewBook";
 import ListViewBook from "@components/view-modes/ListViewBook";
-import { fetcher } from "@lib/fetcher";
 import useManualSWR from "@lib/useManualSWR";
 import { readableTitle } from "@util/helpers";
 import { SearchResponse } from "@util/types";
@@ -20,7 +19,6 @@ const Genre: React.FC<Props> = () => {
 	const [checked, setChecked] = useState(true);
 	const { data, isValidating, error } = useManualSWR<SearchResponse>(
 		genre ? `/api/genre/${genre}` : null,
-		fetcher
 	);
 
 	if (error) console.error(error);

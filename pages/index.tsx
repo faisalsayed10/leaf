@@ -1,18 +1,18 @@
 import { Container, SimpleGrid } from "@chakra-ui/react";
 import DefaultLoader from "@components/loader/DefaultLoader";
 import GridViewBook from "@components/view-modes/GridViewBook";
-import { fetcher } from "@lib/fetcher";
 import { Item } from "@util/types";
 import React from "react";
-import useSWR, { cache } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 type Props = {};
 
 const HomePage: React.FC<Props> = (props) => {
-	const { data, error, isValidating } = useSWR<Item[]>("/api/feed", fetcher, {
+	const { cache } = useSWRConfig();
+	const { data, error, isValidating } = useSWR<Item[]>("/api/feed", {
 		revalidateOnFocus: false,
 		revalidateOnReconnect: false,
-		revalidateOnMount: !cache.has("/api/feed"),
+		revalidateOnMount: !cache.get("/api/feed"),
 	});
 
 	if (error) return <div>failed to load</div>;

@@ -1,13 +1,14 @@
-import useSWR, { cache, SWRConfiguration } from "swr";
+import useSWR, { SWRConfiguration, useSWRConfig } from "swr";
 
-function useManualSWR<Type>(key: string, fetcher, options?: SWRConfiguration) {
+function useManualSWR<Type>(key: string, options?: SWRConfiguration) {
+  const { cache } = useSWRConfig();
   const cachedData: Type = cache.get(key);
   const {
     data: fetchData,
     mutate,
     error,
     isValidating,
-  } = useSWR<Type>(!cachedData ? key : null, fetcher, {
+  } = useSWR<Type>(!cachedData ? key : null, {
     ...options,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

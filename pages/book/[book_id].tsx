@@ -5,7 +5,6 @@ import BookPageInfo from "@components/book-sections/BookPageInfo";
 import BuyOptions from "@components/book-sections/BuyOptions";
 import Categories from "@components/book-sections/Categories";
 import DefaultLoader from "@components/loader/DefaultLoader";
-import { fetcher } from "@lib/fetcher";
 import useManualSWR from "@lib/useManualSWR";
 import { sliceText } from "@util/helpers";
 import { Item } from "@util/types";
@@ -30,7 +29,6 @@ const BookPage: React.FC<Props> = () => {
 	const id = router.query.book_id;
 	const { data, isValidating, error } = useManualSWR<Item>(
 		id ? `/api/book/${id}` : null,
-		fetcher
 	);
 
 	if (error) console.error(error);

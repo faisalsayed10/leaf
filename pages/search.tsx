@@ -13,7 +13,6 @@ import SearchInput from "@components/search/SearchInput";
 import SearchResults from "@components/search/SearchResults";
 import Switch from "@components/ui/GridListSwitch";
 import { GENRE_SUGGESTIONS } from "@lib/constants";
-import { fetcher } from "@lib/fetcher";
 import useManualSWR from "@lib/useManualSWR";
 import { buildSearchURL, refillInputs } from "@util/helpers";
 import { SearchFormInputs, SearchResponse } from "@util/types";
@@ -46,7 +45,6 @@ const Search: React.FC<Props> = () => {
   const [url, setUrl] = useState("");
   const { data, isValidating, error } = useManualSWR<SearchResponse>(
     url ? `/api/search/${url}` : null,
-    fetcher
   );
 
   if (error) console.error(error);

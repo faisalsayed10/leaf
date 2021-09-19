@@ -6,6 +6,8 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "@styles/index.css";
 import Layout from "@components/ui/Layout";
 import { Toaster } from "react-hot-toast";
+import { SWRConfig } from "swr";
+import { fetcher } from "@lib/fetcher";
 
 export default function App({ Component, pageProps, router }) {
 	const LayoutComponent = /(\/signin)|(\/signout)|(\/verify)/.test(router.pathname)
@@ -16,10 +18,12 @@ export default function App({ Component, pageProps, router }) {
 		<Provider session={pageProps.session}>
 			<ChakraProvider theme={theme}>
 				<CSSReset />
-				<LayoutComponent>
-					<Component {...pageProps} />
-					<Toaster position="top-right" toastOptions={{ duration: 5000 }} />
-				</LayoutComponent>
+				<SWRConfig value={{ fetcher }}>
+					<LayoutComponent>
+						<Component {...pageProps} />
+						<Toaster position="top-right" toastOptions={{ duration: 5000 }} />
+					</LayoutComponent>
+				</SWRConfig>
 			</ChakraProvider>
 		</Provider>
 	);
