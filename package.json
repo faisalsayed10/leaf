@@ -19,6 +19,7 @@
     "@prisma/client": "^2.26.0",
     "axios": "^0.21.1",
     "boring-avatars": "^1.5.8",
+    "copy-to-clipboard": "^3.3.1",
     "framer-motion": "^4",
     "fuse.js": "^6.4.6",
     "next": "^10.0.0",

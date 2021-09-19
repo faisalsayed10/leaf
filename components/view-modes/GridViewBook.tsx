@@ -1,7 +1,7 @@
 import { Book } from ".prisma/client";
 import { Image } from "@chakra-ui/image";
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import MoreOptionsMenu from "@components/ui/MoreOptionsMenu";
+import MoreOptionsMenu from "@components/menus/MoreOptionsMenu";
 import { sliceText } from "@util/helpers";
 import { Item } from "@util/types";
 import Link from "next/link";
@@ -29,7 +29,7 @@ const GridViewBook: React.FC<Props> = ({ book }) => {
 						{(book as Item).volumeInfo.title}
 					</Text>
 				</Link>
-				<MoreOptionsMenu />
+				<MoreOptionsMenu data={book} />
 			</Flex>
 		</Box>
 	) : (
@@ -50,7 +50,7 @@ const GridViewBook: React.FC<Props> = ({ book }) => {
 						{(book as Book).title}
 					</Text>
 				</Link>
-				<MoreOptionsMenu />
+				<MoreOptionsMenu data={book} />
 			</Flex>
 		</Box>
 	);

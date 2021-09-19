@@ -1,6 +1,5 @@
 import { ListType } from ".prisma/client";
 import prisma from "@lib/prisma";
-import { ImageLinks } from "@util/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 
