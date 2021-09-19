@@ -1,15 +1,8 @@
 import { List, ListType } from ".prisma/client";
-import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
-import { Icon } from "@chakra-ui/icon";
+import { Button, ButtonGroup } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import {
-	Menu,
-	MenuButton,
-	MenuDivider,
-	MenuItem,
-	MenuList,
-} from "@chakra-ui/react";
+import ListMenu from "@components/menus/ListMenu";
 import AuthModal from "@components/modals/AuthModal";
 import CreateListModal from "@components/modals/CreateListModal";
 import { toCapitalizedWords } from "@util/helpers";
@@ -18,9 +11,6 @@ import axios from "axios";
 import { useSession } from "next-auth/client";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { GrAdd } from "react-icons/gr";
-import { MdPlaylistAdd } from "react-icons/md";
-import useSWR from "swr";
 
 interface Props {
 	data: Item;
@@ -35,11 +25,6 @@ const AddToList: React.FC<Props> = ({ data }) => {
 		onOpen: onOpenCreateList,
 		onClose: onCloseCreateList,
 	} = useDisclosure();
-	const {
-		data: lists,
-		error,
-		isValidating,
-	} = useSWR<List[]>(session ? "/api/lists" : null);
 
 	const addBookToList = async (listId?: string, listType?: ListType) => {
 		try {
@@ -116,54 +101,7 @@ const AddToList: React.FC<Props> = ({ data }) => {
 					Already Read
 				</Button>
 				<Box>
-					<Menu>
-						<MenuButton
-							borderRadius="md"
-							as={IconButton}
-							aria-label="Add to playlist"
-							icon={<Icon as={MdPlaylistAdd} boxSize={5} />}
-						/>
-						<MenuList>
-							{error && !isValidating && !data ? (
-								<MenuItem>Error loading your lists</MenuItem>
-							) : lists?.length > 0 ? (
-								<>
-									{lists.map((list) => (
-										<MenuItem
-											key={list.id}
-											icon={<Icon as={MdPlaylistAdd} boxSize={5} />}
-										>
-											{list.name}
-										</MenuItem>
-									))}
-									<MenuDivider />
-									<MenuItem
-										onClick={onOpenCreateList}
-										icon={<Icon as={GrAdd} boxSize={5} />}
-									>
-										Create a new list
-									</MenuItem>
-								</>
-							) : (
-								<>
-									<MenuItem isDisabled>No lists found</MenuItem>
-									{isSessionLoading ? (
-										<>
-											<MenuDivider />
-											<MenuItem isDisabled>Just a second...</MenuItem>
-										</>
-									) : session?.user ? (
-										<>
-											<MenuDivider />
-											<MenuItem onClick={onOpenCreateList} icon={<GrAdd />}>
-												Create a new list
-											</MenuItem>
-										</>
-									) : null}
-								</>
-							)}
-						</MenuList>
-					</Menu>
+					<ListMenu onOpen={onOpenCreateList} data={data} />
 				</Box>
 			</Flex>
 			<AuthModal onClose={onClose} onOpen={onOpen} isOpen={isOpen} />
