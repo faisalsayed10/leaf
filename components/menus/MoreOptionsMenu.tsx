@@ -1,11 +1,11 @@
 import { IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList
+	Menu,
+	MenuButton,
+	MenuDivider,
+	MenuItem,
+	MenuList
 } from "@chakra-ui/menu";
 import AuthModal from "@components/modals/AuthModal";
 import CreateListModal from "@components/modals/CreateListModal";
@@ -22,6 +22,7 @@ import { BiCheck, BiCopy, BiHeart } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { CgRemoveR } from "react-icons/cg";
 import { FiMoreVertical } from "react-icons/fi";
+import { useSWRConfig } from "swr";
 import ListMenu from "./ListMenu";
 
 interface Props {
@@ -39,6 +40,7 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 		onOpen: onOpenCreateList,
 		onClose: onCloseCreateList,
 	} = useDisclosure();
+	const { mutate } = useSWRConfig();
 
 	useEffect(() => {
 		setBookData({
@@ -87,6 +89,11 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 	};
 
 	const removeBookFromList = async () => {
+		if (!bookData) {
+			console.log("No book data");
+			return;
+		}
+
 		const listName = router.asPath.split("/")[2];
 		let listType: ListType;
 		let listId: string;
@@ -94,16 +101,35 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 		switch (listName) {
 			case "future":
 				listType = "wantToRead";
+				break;
 			case "current":
 				listType = "currentlyReading";
+				break;
 			case "past":
 				listType = "alreadyRead";
+				break;
 			default:
 				listType = "normal";
 				listId = listName;
 		}
 
-		// const res = axios.post<List>("/api/list/remove", {});
+		const key = listId
+			? `/api/list?id=${listId}`
+			: `/api/list?type=${listType}`;
+
+		const { data } = await axios.get<List & { books: Book[] }>(key);
+
+		mutate(key, data.books.filter(book => book.gbookId != bookData.gbookId), false);
+
+		await axios.post<List>("/api/list/remove", {
+			listId,
+			listType,
+			gbookId: bookData.gbookId,
+		});
+
+		mutate(key);
+
+		toast.success(`Book removed successfully!`);
 	};
 
 	return (
