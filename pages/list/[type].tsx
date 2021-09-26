@@ -1,5 +1,5 @@
 import { Book, List, ListType } from ".prisma/client";
-import { Container, Flex, SimpleGrid, Text } from "@chakra-ui/layout";
+import { Container, Flex, Text, Wrap } from "@chakra-ui/layout";
 import DefaultLoader from "@components/loader/DefaultLoader";
 import GridListSwitch from "@components/ui/GridListSwitch";
 import NoBooksFound from "@components/ui/NoBooksFound";
@@ -16,10 +16,18 @@ const ListPage = () => {
 	const router = useRouter();
 	const type = router.query.type;
 	const [listType, setListType] = useState<ListType>();
+	const [loaded, setLoaded] = useState<boolean>(false);
 	const { data, error, isValidating } = useSWR<List & { books: Book[] }>(
 		listType ? `/api/list?type=${listType}` : null
 	);
 	const [checked, setChecked] = useState(true);
+
+	useEffect(() => {
+		if (loaded) return;
+		if (isValidating) {
+			setLoaded(true);
+		}
+	}, [isValidating]);
 
 	useEffect(() => {
 		if (type === "future") setListType("wantToRead");
@@ -47,7 +55,7 @@ const ListPage = () => {
 			</>
 		);
 
-	if (!data || !data?.books) return <NoBooksFound />;
+	if (loaded && (!data || data?.books?.length < 1)) return <NoBooksFound />;
 
 	return (
 		<>
@@ -55,25 +63,26 @@ const ListPage = () => {
 				<title>{listType && `Libook — ${toCapitalizedWords(listType)}`}</title>
 			</Head>
 			<Container
-				maxW={["container.sm", "container.sm", "container.md"]}
-				my={4}
-				px={4}
+				maxW={["container.sm", "container.sm", "container.lg"]}
+				minH="100vh"
+				py={4}
+				px={8}
 			>
 				<Flex align="center" justify="space-between">
 					<Text as="span" display="inline" fontSize="lg">
 						{data?.books?.length} results
 					</Text>
-					<GridListSwitch
-						checked={checked}
-						handleChange={(bool) => setChecked(bool)}
-					/>
+					<GridListSwitch checked={checked} handleChange={setChecked} />
 				</Flex>
-				<SimpleGrid
-					columns={checked ? 1 : null}
+				<Wrap
+					spacing="6"
+					align="center"
+					// columns={checked ? 1 : null}
 					mt="6"
-					minChildWidth={checked ? "140px" : null}
-					gap={[1, 2, 3]}
-					placeItems={data?.books?.length > 4 ? "center" : undefined}
+					// minChildWidth={checked ? "140px" : null}
+					// gap={[1, 2, 6]}
+					// rowGap="6"
+					// placeItems={data?.books?.length > 4 ? "center" : "normal"}
 				>
 					{data?.books?.map((book) => {
 						return checked ? (
@@ -82,7 +91,7 @@ const ListPage = () => {
 							<ListViewBook key={book.id} book={book} />
 						);
 					})}
-				</SimpleGrid>
+				</Wrap>
 			</Container>
 		</>
 	);

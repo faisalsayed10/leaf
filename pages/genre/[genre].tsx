@@ -18,7 +18,7 @@ const Genre: React.FC<Props> = () => {
 	const genre = router.query.genre as string;
 	const [checked, setChecked] = useState(true);
 	const { data, isValidating, error } = useManualSWR<SearchResponse>(
-		genre ? `/api/genre/${genre}` : null,
+		genre ? `/api/genre/${genre}` : null
 	);
 
 	if (error) console.error(error);
@@ -38,10 +38,7 @@ const Genre: React.FC<Props> = () => {
 					<Text as="span" display="inline" fontSize="lg">
 						{data?.totalItems} results
 					</Text>
-					<GridListSwitch
-						checked={checked}
-						handleChange={(bool) => setChecked(bool)}
-					/>
+					<GridListSwitch checked={checked} handleChange={setChecked} />
 				</Flex>
 				<SimpleGrid
 					columns={checked ? 1 : null}
