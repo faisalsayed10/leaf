@@ -101,7 +101,11 @@ const AddToList: React.FC<Props> = ({ data }) => {
           Already Read
         </Button>
         <Box>
-          <ListMenu onOpen={onOpenCreateList} data={data} addBookToList={addBookToList} />
+          <ListMenu
+            onOpen={onOpenCreateList}
+            data={data}
+            addBookToList={addBookToList}
+          />
         </Box>
       </Flex>
       <AuthModal onClose={onClose} onOpen={onOpen} isOpen={isOpen} />

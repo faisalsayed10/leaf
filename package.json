@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "build": "yarn migrate:deploy && next build",
+    "start": "next start",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:status": "prisma migrate status"
   },
   "keywords": [],
   "author": "",
