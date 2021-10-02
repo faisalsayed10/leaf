@@ -8,7 +8,7 @@
     "build": "yarn migrate:deploy && next build",
     "start": "next start",
     "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy",
+    "migrate:deploy": "prisma generate && prisma migrate deploy",
     "migrate:status": "prisma migrate status"
   },
   "keywords": [],
