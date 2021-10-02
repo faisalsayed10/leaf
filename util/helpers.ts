@@ -20,9 +20,9 @@ export function capitalize(word: string) {
 }
 
 export function toCapitalizedWords(word: string) {
-	var text = word.match(/[A-Za-z][a-z]*/g) || [];
+  var text = word.match(/[A-Za-z][a-z]*/g) || [];
 
-	return text.map(capitalize).join(" ");
+  return text.map(capitalize).join(" ");
 }
 
 export function readableTitle(genre: string) {
@@ -64,7 +64,10 @@ export function refillInputs(
   }
 }
 
-export function buildSearchURL(url: string, inputs: SearchFormInputs & { subject: string }) {
+export function buildSearchURL(
+  url: string,
+  inputs: SearchFormInputs & { subject: string }
+) {
   const { author, publisher, sort, filter, isbn, subject } = inputs;
 
   if (author.trim() !== "") {

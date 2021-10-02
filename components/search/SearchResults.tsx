@@ -13,7 +13,12 @@ interface Props {
   isSameQuery: boolean;
 }
 
-const SearchResults: React.FC<Props> = ({ results, loading, type, isSameQuery }) => {
+const SearchResults: React.FC<Props> = ({
+  results,
+  loading,
+  type,
+  isSameQuery,
+}) => {
   const [localData, setLocalData] = useState<Item[]>([]);
 
   useEffect(() => {
@@ -25,7 +30,7 @@ const SearchResults: React.FC<Props> = ({ results, loading, type, isSameQuery })
     const allItems = localData.concat(results?.items);
     setLocalData(allItems);
   }, [results]);
-  
+
   if (loading && localData?.length < 1) return <DefaultLoader />;
   if ((results && !results.items) || results?.items.length < 1)
     return (

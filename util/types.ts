@@ -30,7 +30,7 @@ export type VolumeInfo = {
   allowAnonLogging: boolean;
   contentVersion: string;
   panelizationSummary: object;
-  imageLinks: ImageLinks
+  imageLinks: ImageLinks;
   language: string;
   previewLink: string;
   infoLink: string;
@@ -62,12 +62,12 @@ export type AccessInfo = {
 };
 
 export type ImageLinks = {
-  thumbnail: string
-  extraLarge?: string
-  large?: string
-  medium?: string
-  small?: string
-}
+  thumbnail: string;
+  extraLarge?: string;
+  large?: string;
+  medium?: string;
+  small?: string;
+};
 
 export type SearchFormInputs = {
   author: string;
@@ -78,7 +78,7 @@ export type SearchFormInputs = {
 };
 
 export type ListsWithBooks = (List & {
-	books: Book[];
+  books: Book[];
 })[];
 
 export type ListWithBooks = List & { books: Book[] };

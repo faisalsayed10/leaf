@@ -50,7 +50,6 @@ Now, seed the database with the sample data in [`prisma/seed.ts`](./prisma/seed.
 npx prisma db seed --preview-feature
 ```
 
-
 ### 3. Start the app
 
 ```
@@ -112,7 +111,7 @@ You can also access the REST API of the API server directly. It is running on th
 - `/api/publish/:id`: Publish a post by its `id`
 
 ### `DELETE`
-  
+
 - `/api/post/:id`: Delete a post by its `id`
 
 ## Evolving the app
@@ -142,8 +141,8 @@ model Post {
 }
 
 model User {
-  id      Int      @default(autoincrement()) @id 
-  name    String? 
+  id      Int      @default(autoincrement()) @id
+  name    String?
   email   String   @unique
   posts   Post[]
 + profile Profile?
@@ -211,17 +210,15 @@ const userWithUpdatedProfile = await prisma.user.update({
 });
 ```
 
-
 ### 3. Build new UI features in React
 
 Once you have added a new endpoint to the API (e.g. `/api/profile` with `/POST`, `/PUT` and `GET` operations), you can start building a new UI component in React. It could e.g. be called `profile.tsx` and would be located in the `pages` directory.
 
 In the application code, you can access the new endpoint via `fetch` operations and populate the UI with the data you receive from the API calls.
 
-
 ## Switch to another database (e.g. PostgreSQL, MySQL, SQL Server)
 
-If you want to try this example with another database than SQLite, you can adjust the the database connection in [`prisma/schema.prisma`](./prisma/schema.prisma) by reconfiguring the `datasource` block. 
+If you want to try this example with another database than SQLite, you can adjust the the database connection in [`prisma/schema.prisma`](./prisma/schema.prisma) by reconfiguring the `datasource` block.
 
 Learn more about the different connection configurations in the [docs](https://www.prisma.io/docs/reference/database-reference/connection-urls).
 

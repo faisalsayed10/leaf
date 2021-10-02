@@ -25,8 +25,8 @@ export default NextAuth({
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
   pages: {
-    signIn: '/signin',
-    signOut: '/signout',
-    verifyRequest: '/verify',
+    signIn: "/signin",
+    signOut: "/signout",
+    verifyRequest: "/verify",
   },
 });

@@ -42,7 +42,11 @@ const Signout: React.FC = () => {
           Are you sure you want to sign out?
         </Text>
         <Button
-          onClick={() => signOut({ callbackUrl: process.env.DEPLOY_URL || "http://localhost:3000" })}
+          onClick={() =>
+            signOut({
+              callbackUrl: process.env.DEPLOY_URL || "http://localhost:3000",
+            })
+          }
           colorScheme="red"
           mb={2}
         >

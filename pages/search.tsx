@@ -3,7 +3,7 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionItem,
-  AccordionPanel
+  AccordionPanel,
 } from "@chakra-ui/accordion";
 import { Input } from "@chakra-ui/input";
 import { Box, Center, Container, Flex } from "@chakra-ui/layout";
@@ -44,7 +44,7 @@ const Search: React.FC<Props> = () => {
 
   const [url, setUrl] = useState("");
   const { data, isValidating, error } = useManualSWR<SearchResponse>(
-    url ? `/api/search/${url}` : null,
+    url ? `/api/search/${url}` : null
   );
 
   if (error) console.error(error);
@@ -76,7 +76,7 @@ const Search: React.FC<Props> = () => {
     isbn,
     filter,
     sort,
-    startIndex
+    startIndex,
   ]);
 
   const fetchData = _.debounce(async () => {
@@ -102,119 +102,119 @@ const Search: React.FC<Props> = () => {
   }
 
   return (
-		<>
-			<Head>
-				<title>Libook — Search</title>
-			</Head>
-			<Container my="4" maxW="container.sm">
-				<Box as="form" pos="relative">
-					<SearchInput value={query} setValue={setQuery} />
-					<Accordion allowMultiple mt={2}>
-						<AccordionItem>
-							<h2>
-								<AccordionButton>
-									<Box flex="1" textAlign="left">
-										Advanced Fields:
-									</Box>
-									<AccordionIcon />
-								</AccordionButton>
-							</h2>
-							<AccordionPanel>
-								<Box>
-									<Input
-										{...register("author")}
-										variant="flushed"
-										placeholder="Author"
-									/>
-									<Input
-										{...register("publisher")}
-										variant="flushed"
-										placeholder="Publisher"
-									/>
-									<Autosuggest
-										suggestions={suggestions}
-										highlightFirstSuggestion={true}
-										onSuggestionsClearRequested={() => setSuggestions([])}
-										onSuggestionsFetchRequested={({ value }) => {
-											setSuggestionValue(value);
-											setSuggestions(getSuggestions(value));
-										}}
-										getSuggestionValue={(suggestion) => suggestion.name}
-										renderSuggestion={(suggestion) => (
-											<span>{suggestion.name}</span>
-										)}
-										inputProps={{
-											placeholder: "Genre",
-											value: suggestionValue,
-											onChange: (_, { newValue }) => {
-												setSuggestionValue(newValue);
-											},
-											className: "chakra-input genre-input",
-										}}
-									/>
-									<Input
-										{...register("isbn")}
-										variant="flushed"
-										placeholder="ISBN"
-									/>
-								</Box>
-							</AccordionPanel>
-						</AccordionItem>
-					</Accordion>
-					<Flex justify="space-between" align="center" my={2}>
-						<Select
-							icon={<MdArrowDropDown />}
-							placeholder="Filter By:"
-							cursor="pointer"
-							{...register("filter")}
-						>
-							<option value="&printType=books">Books</option>
-							<option value="&printType=magazines">Magazines</option>
-							<option value="&filter=ebooks">Ebooks</option>
-							<option value="&filter=free-ebooks">Free Ebooks</option>
-							<option value="&filter=paid-ebooks">Paid Ebooks</option>
-						</Select>
-						<Select
-							{...register("sort")}
-							icon={<MdArrowDropDown />}
-							placeholder="Sort By:"
-							cursor="pointer"
-						>
-							<option value="&orderBy=relevance">Relevance</option>
-							<option value="&orderBy=newest">Newest</option>
-						</Select>
-					</Flex>
-					<Box pos="absolute" right="0">
-						<Switch
-							checked={checked}
-							handleChange={(bool) => setChecked(bool)}
-						/>
-					</Box>
-				</Box>
-				<SearchResults
-					results={data}
-					loading={isValidating}
-					type={checked ? "GRID" : "LIST"}
-					isSameQuery={isSameQuery}
-				/>
-				{data?.items?.length > 0 && (
-					<Center my="6">
-						<Button
-							onClick={() => {
-								setIsSameQuery(true);
-								setStartIndex((p) => p + 40);
-							}}
-							variant="unstyled"
-							width="60%"
-							bgColor="#5befbd"
-						>
-							Load More
-						</Button>
-					</Center>
-				)}
-			</Container>
-		</>
-	);
+    <>
+      <Head>
+        <title>Libook — Search</title>
+      </Head>
+      <Container my="4" maxW="container.sm">
+        <Box as="form" pos="relative">
+          <SearchInput value={query} setValue={setQuery} />
+          <Accordion allowMultiple mt={2}>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    Advanced Fields:
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel>
+                <Box>
+                  <Input
+                    {...register("author")}
+                    variant="flushed"
+                    placeholder="Author"
+                  />
+                  <Input
+                    {...register("publisher")}
+                    variant="flushed"
+                    placeholder="Publisher"
+                  />
+                  <Autosuggest
+                    suggestions={suggestions}
+                    highlightFirstSuggestion={true}
+                    onSuggestionsClearRequested={() => setSuggestions([])}
+                    onSuggestionsFetchRequested={({ value }) => {
+                      setSuggestionValue(value);
+                      setSuggestions(getSuggestions(value));
+                    }}
+                    getSuggestionValue={(suggestion) => suggestion.name}
+                    renderSuggestion={(suggestion) => (
+                      <span>{suggestion.name}</span>
+                    )}
+                    inputProps={{
+                      placeholder: "Genre",
+                      value: suggestionValue,
+                      onChange: (_, { newValue }) => {
+                        setSuggestionValue(newValue);
+                      },
+                      className: "chakra-input genre-input",
+                    }}
+                  />
+                  <Input
+                    {...register("isbn")}
+                    variant="flushed"
+                    placeholder="ISBN"
+                  />
+                </Box>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+          <Flex justify="space-between" align="center" my={2}>
+            <Select
+              icon={<MdArrowDropDown />}
+              placeholder="Filter By:"
+              cursor="pointer"
+              {...register("filter")}
+            >
+              <option value="&printType=books">Books</option>
+              <option value="&printType=magazines">Magazines</option>
+              <option value="&filter=ebooks">Ebooks</option>
+              <option value="&filter=free-ebooks">Free Ebooks</option>
+              <option value="&filter=paid-ebooks">Paid Ebooks</option>
+            </Select>
+            <Select
+              {...register("sort")}
+              icon={<MdArrowDropDown />}
+              placeholder="Sort By:"
+              cursor="pointer"
+            >
+              <option value="&orderBy=relevance">Relevance</option>
+              <option value="&orderBy=newest">Newest</option>
+            </Select>
+          </Flex>
+          <Box pos="absolute" right="0">
+            <Switch
+              checked={checked}
+              handleChange={(bool) => setChecked(bool)}
+            />
+          </Box>
+        </Box>
+        <SearchResults
+          results={data}
+          loading={isValidating}
+          type={checked ? "GRID" : "LIST"}
+          isSameQuery={isSameQuery}
+        />
+        {data?.items?.length > 0 && (
+          <Center my="6">
+            <Button
+              onClick={() => {
+                setIsSameQuery(true);
+                setStartIndex((p) => p + 40);
+              }}
+              variant="unstyled"
+              width="60%"
+              bgColor="#5befbd"
+            >
+              Load More
+            </Button>
+          </Center>
+        )}
+      </Container>
+    </>
+  );
 };
 
 export default Search;

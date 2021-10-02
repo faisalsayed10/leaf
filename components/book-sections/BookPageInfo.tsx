@@ -1,10 +1,10 @@
-import { Text } from '@chakra-ui/layout';
-import { readableTitle, capitalize } from '@util/helpers';
-import { VolumeInfo } from '@util/types';
-import React from 'react'
+import { Text } from "@chakra-ui/layout";
+import { readableTitle, capitalize } from "@util/helpers";
+import { VolumeInfo } from "@util/types";
+import React from "react";
 
 interface Props {
-  volumeInfo: VolumeInfo
+  volumeInfo: VolumeInfo;
 }
 
 const BookPageInfo: React.FC<Props> = ({ volumeInfo }) => {
@@ -40,4 +40,4 @@ const BookPageInfo: React.FC<Props> = ({ volumeInfo }) => {
   );
 };
 
-export default BookPageInfo
+export default BookPageInfo;

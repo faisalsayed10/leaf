@@ -10,21 +10,23 @@ import { SWRConfig } from "swr";
 import { fetcher } from "@lib/fetcher";
 
 export default function App({ Component, pageProps, router }) {
-	const LayoutComponent = /(\/signin)|(\/signout)|(\/verify)/.test(router.pathname)
-		? Fragment
-		: Layout;
+  const LayoutComponent = /(\/signin)|(\/signout)|(\/verify)/.test(
+    router.pathname
+  )
+    ? Fragment
+    : Layout;
 
-	return (
-		<Provider session={pageProps.session}>
-			<ChakraProvider theme={theme}>
-				<CSSReset />
-				<SWRConfig value={{ fetcher }}>
-					<LayoutComponent>
-						<Component {...pageProps} />
-						<Toaster position="top-right" toastOptions={{ duration: 5000 }} />
-					</LayoutComponent>
-				</SWRConfig>
-			</ChakraProvider>
-		</Provider>
-	);
+  return (
+    <Provider session={pageProps.session}>
+      <ChakraProvider theme={theme}>
+        <CSSReset />
+        <SWRConfig value={{ fetcher }}>
+          <LayoutComponent>
+            <Component {...pageProps} />
+            <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
+          </LayoutComponent>
+        </SWRConfig>
+      </ChakraProvider>
+    </Provider>
+  );
 }

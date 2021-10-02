@@ -8,34 +8,34 @@ import React from "react";
 interface Props {}
 
 const Navbar: React.FC<Props> = () => {
-	const [session, loading] = useSession();
-	const router = useRouter();
+  const [session, loading] = useSession();
+  const router = useRouter();
 
-	const displayName = session?.user?.name || session?.user?.email.split("@")[0];
+  const displayName = session?.user?.name || session?.user?.email.split("@")[0];
 
-	return (
-		<Flex
-			bgColor="white"
-			alignItems="center"
-			justifyContent="space-between"
-			borderBottom="1px solid #E2E8F0"
-			pos="sticky"
-			top="5px"
-			py="3"
-			px="6"
-			zIndex="100"
-		>
-			<Link href="/">
-				<Heading
-					textTransform="uppercase"
-					fontWeight="bold"
-					letterSpacing="1px"
-					fontSize="24px"
-				>
-					Libook
-				</Heading>
-			</Link>
-			{/* {!loading && session ? (
+  return (
+    <Flex
+      bgColor="white"
+      alignItems="center"
+      justifyContent="space-between"
+      borderBottom="1px solid #E2E8F0"
+      pos="sticky"
+      top="5px"
+      py="3"
+      px="6"
+      zIndex="100"
+    >
+      <Link href="/">
+        <Heading
+          textTransform="uppercase"
+          fontWeight="bold"
+          letterSpacing="1px"
+          fontSize="24px"
+        >
+          Libook
+        </Heading>
+      </Link>
+      {/* {!loading && session ? (
         <Menu placement="bottom">
           <MenuButton
             as={Avatar}
@@ -72,8 +72,8 @@ const Navbar: React.FC<Props> = () => {
       ) : (
         <></>
       )} */}
-		</Flex>
-	);
+    </Flex>
+  );
 };
 
 export default Navbar;

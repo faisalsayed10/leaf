@@ -12,11 +12,11 @@ function useManualSWR<Type>(key: string, options?: SWRConfiguration) {
     ...options,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    shouldRetryOnError: false
+    shouldRetryOnError: false,
   });
 
   const data = fetchData || cachedData;
   return { data, mutate, isValidating, error };
-};
+}
 
 export default useManualSWR;
