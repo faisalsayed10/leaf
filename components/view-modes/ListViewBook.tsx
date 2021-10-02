@@ -41,7 +41,7 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
           </Flex>
         </Flex>
       </Link>
-      <MoreOptionsMenu />
+      <MoreOptionsMenu data={book} />
     </Flex>
   ) : (
     <Flex justify="space-between" width="100%" mb="2">
@@ -74,7 +74,7 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
           </Flex>
         </Flex>
       </Link>
-      <MoreOptionsMenu />
+      <MoreOptionsMenu data={book} />
     </Flex>
   );
 };

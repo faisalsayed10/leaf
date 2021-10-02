@@ -134,7 +134,7 @@ const ProSidebarSection = (props: Props) => {
           </Menu>
         </SidebarFooter>
       </ProSidebar>
-      <CreateListModal onClose={onClose} onOpen={onOpen} isOpen={isOpen} />
+      <CreateListModal onClose={onClose} isOpen={isOpen} />
     </Box>
   );
 };
