@@ -7,11 +7,11 @@ import { shuffle } from "underscore";
 
 // GET /api/feed - Get the user's feed
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const randomGenres = getRandom(GENRES, 5);
+  const randomGenres = getRandom(GENRES, 3);
   const data: Item[] = [];
 
   for (const genre of randomGenres) {
-    const url = `${BASE_URL}/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=10`;
+    const url = `${BASE_URL}/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=15`;
     const response = await axios.get<SearchResponse>(url);
     if (response.data.items && response.data.items.length > 0) {
       data.push(...response.data.items);

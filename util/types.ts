@@ -1,3 +1,5 @@
+import { Book, List } from "@prisma/client";
+
 export type SearchResponse = {
   kind: string;
   totalItems: number;
@@ -74,3 +76,9 @@ export type SearchFormInputs = {
   filter: string;
   sort: string;
 };
+
+export type ListsWithBooks = (List & {
+	books: Book[];
+})[];
+
+export type ListWithBooks = List & { books: Book[] };

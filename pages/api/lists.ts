@@ -9,11 +9,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
 		const user = await prisma.user.findUnique({
-			where: { email: session.user.email },
+			where: { email: session.user.email }
 		});
 
 		const lists = await prisma.list.findMany({
 			where: { authorId: user.id, type: "normal" },
+			include: { books: true }
 		});
 
 		return res.status(200).json(lists);
