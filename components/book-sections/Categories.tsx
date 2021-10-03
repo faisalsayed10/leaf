@@ -27,7 +27,7 @@ const Categories: React.FC<Props> = ({ categories }) => {
       </Text>
       <Wrap spacing={3} align="center" justify="start" mx="4">
         {uniqueCategories.map((genre) => (
-          <Link href={`/genre/${genre}`} key={genre}>
+          <Link href={`/genre/${genre}`} key={genre} passHref>
             <Button
               as={WrapItem}
               leftIcon={<MdLibraryBooks size={24} />}

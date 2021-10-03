@@ -1,0 +1,13 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        "allowArrowFunction": true,
+        "allowAnonymousFunction": true
+      }
+    ],
+    "react-hooks/exhaustive-deps": "off"
+  }
+}

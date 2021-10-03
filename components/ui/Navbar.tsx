@@ -11,7 +11,7 @@ const Navbar: React.FC<Props> = () => {
   const [session, loading] = useSession();
   const router = useRouter();
 
-  const displayName = session?.user?.name || session?.user?.email.split("@")[0];
+  // const displayName = session?.user?.name || session?.user?.email.split("@")[0];
 
   return (
     <Flex
@@ -25,7 +25,7 @@ const Navbar: React.FC<Props> = () => {
       px="6"
       zIndex="100"
     >
-      <Link href="/">
+      <Link href="/" passHref>
         <Heading
           textTransform="uppercase"
           fontWeight="bold"

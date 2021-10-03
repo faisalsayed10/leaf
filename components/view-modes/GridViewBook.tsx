@@ -14,7 +14,7 @@ interface Props {
 const GridViewBook: React.FC<Props> = ({ book }) => {
   return (book as Item).volumeInfo !== undefined ? (
     <Box maxW="140px" cursor="pointer">
-      <Link href={`/book/${book.id}`}>
+      <Link href={`/book/${book.id}`} passHref>
         <Image
           src={(book as Item).volumeInfo?.imageLinks?.thumbnail || ""}
           alt={sliceText((book as Item).volumeInfo.title, 50)}
@@ -24,7 +24,7 @@ const GridViewBook: React.FC<Props> = ({ book }) => {
         />
       </Link>
       <Flex align="center" justifyContent="space-between" w="full">
-        <Link href={`/book/${book.id}`}>
+        <Link href={`/book/${book.id}`} passHref>
           <Text isTruncated={true} fontSize="sm" textAlign="center">
             {(book as Item).volumeInfo.title}
           </Text>
@@ -34,7 +34,7 @@ const GridViewBook: React.FC<Props> = ({ book }) => {
     </Box>
   ) : (
     <Box maxW="140px" cursor="pointer">
-      <Link href={`/book/${(book as Book).gbookId}`}>
+      <Link href={`/book/${(book as Book).gbookId}`} passHref>
         <Image
           // @ts-ignore
           src={(book as Book)?.imageLinks?.thumbnail || ""}
@@ -45,7 +45,7 @@ const GridViewBook: React.FC<Props> = ({ book }) => {
         />
       </Link>
       <Flex align="center" justifyContent="space-between" w="full">
-        <Link href={`/book/${book.id}`}>
+        <Link href={`/book/${book.id}`} passHref>
           <Text isTruncated={true} fontSize="sm" textAlign="left">
             {(book as Book).title}
           </Text>

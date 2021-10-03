@@ -27,7 +27,7 @@ const ListPage = () => {
     if (isValidating) {
       setLoaded(true);
     }
-  }, [isValidating]);
+  }, [isValidating, loaded]);
 
   useEffect(() => {
     if (type === "future") setListType("wantToRead");

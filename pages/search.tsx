@@ -55,7 +55,7 @@ const Search: React.FC<Props> = () => {
 
     setUrl(url);
     refillInputs(url, setQuery, setValue, setSuggestionValue);
-  }, []);
+  }, [router.asPath]);
 
   useEffect(() => {
     setIsSameQuery(false);

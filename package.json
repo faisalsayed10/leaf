@@ -9,7 +9,8 @@
     "start": "next start",
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma generate && prisma migrate deploy",
-    "migrate:status": "prisma migrate status"
+    "migrate:status": "prisma migrate status",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -19,13 +20,14 @@
     "@chakra-ui/react": "^1.6.7",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@prisma/client": "^2.26.0",
+    "@prisma/client": "3.1.1",
     "axios": "^0.21.1",
     "boring-avatars": "^1.5.8",
     "copy-to-clipboard": "^3.3.1",
+    "eslint": "7.32.0",
     "framer-motion": "^4",
     "fuse.js": "^6.4.6",
-    "next": "^10.0.0",
+    "next": "latest",
     "next-auth": "^3.27.0",
     "react": "^17.0.0",
     "react-autosuggest": "^10.1.0",
@@ -52,7 +54,8 @@
     "@types/react-autosuggest": "^10.1.4",
     "@types/underscore": "^1.11.2",
     "css-loader": "^5.2.6",
-    "prisma": "2.21.2",
+    "eslint-config-next": "11.1.2",
+    "prisma": "3.1.1",
     "typescript": "4.2.4"
   }
 }

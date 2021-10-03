@@ -1,16 +1,14 @@
-import { List } from ".prisma/client";
-import { Container, SimpleGrid, Wrap } from "@chakra-ui/layout";
+import { Container, SimpleGrid } from "@chakra-ui/layout";
 import ListCard from "@components/cards/ListCard";
 import DefaultLoader from "@components/loader/DefaultLoader";
 import NoBooksFound from "@components/ui/NoBooksFound";
 import Unauthorized from "@components/ui/Unauthorized";
 import { ListsWithBooks } from "@util/types";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
-const lists = () => {
+const Lists: React.FC = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const { data, error, isValidating } = useSWR<ListsWithBooks>(`/api/lists`);
 
@@ -19,7 +17,7 @@ const lists = () => {
     if (isValidating) {
       setLoaded(true);
     }
-  }, [isValidating]);
+  }, [isValidating, loaded]);
 
   if (isValidating && !data)
     return (
@@ -68,4 +66,4 @@ const lists = () => {
   );
 };
 
-export default lists;
+export default Lists;

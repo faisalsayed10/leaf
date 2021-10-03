@@ -11,7 +11,6 @@ const Login = (props) => (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="#2c3e50"
-    fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"
     {...props}

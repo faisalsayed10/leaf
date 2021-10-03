@@ -13,7 +13,7 @@ interface Props {
 const ListViewBook: React.FC<Props> = ({ book }) => {
   return (book as Item).volumeInfo !== undefined ? (
     <Flex justify="space-between" width="100%" mb="2">
-      <Link href={`/book/${book.id}`}>
+      <Link href={`/book/${book.id}`} passHref>
         <Flex cursor="pointer">
           <Image
             src={(book as Item).volumeInfo?.imageLinks?.thumbnail || ""}
@@ -45,7 +45,7 @@ const ListViewBook: React.FC<Props> = ({ book }) => {
     </Flex>
   ) : (
     <Flex justify="space-between" width="100%" mb="2">
-      <Link href={`/book/${(book as Book).gbookId}`}>
+      <Link href={`/book/${(book as Book).gbookId}`} passHref>
         <Flex cursor="pointer">
           <Image
             // @ts-ignore
