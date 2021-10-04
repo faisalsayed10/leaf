@@ -1,84 +1,84 @@
 import { Book, List } from "@prisma/client";
 
 export type SearchResponse = {
-  kind: string;
-  totalItems: number;
-  items: Item[];
+	kind: string;
+	totalItems: number;
+	items: Item[];
 };
 
 export type Item = {
-  kind: string;
-  id: string;
-  etag: string;
-  selfLink: string;
-  volumeInfo: VolumeInfo;
-  saleInfo: SaleInfo;
-  accessInfo: AccessInfo;
+	kind: string;
+	id: string;
+	etag: string;
+	selfLink: string;
+	volumeInfo: VolumeInfo;
+	saleInfo: SaleInfo;
+	accessInfo: AccessInfo;
 };
 
 export type VolumeInfo = {
-  title: string;
-  subtitle: string;
-  authors: string[];
-  publisher: string;
-  publishedDate: string;
-  description: string;
-  industryIdentifiers: { type: string; identifier: string }[];
-  readingModes: object;
-  printType: string;
-  maturityRating: string;
-  allowAnonLogging: boolean;
-  contentVersion: string;
-  panelizationSummary: object;
-  imageLinks: ImageLinks;
-  language: string;
-  previewLink: string;
-  infoLink: string;
-  canonicalVolumeLink: string;
-  pageCount?: string;
-  categories?: string[];
+	title: string;
+	subtitle: string;
+	authors: string[];
+	publisher: string;
+	publishedDate: string;
+	description: string;
+	industryIdentifiers: { type: string; identifier: string }[];
+	readingModes: object;
+	printType: string;
+	maturityRating: string;
+	allowAnonLogging: boolean;
+	contentVersion: string;
+	panelizationSummary: object;
+	imageLinks: ImageLinks;
+	language: string;
+	previewLink: string;
+	infoLink: string;
+	canonicalVolumeLink: string;
+	pageCount?: string;
+	categories?: string[];
 };
 export type SaleInfo = {
-  country: string;
-  saleability: string;
-  isEbook: boolean;
-  listPrice: { amount: number; currencyCode: string };
-  retailPrice: { amount: number; currencyCode: string };
-  buyLink: string;
-  offers: any[];
+	country: string;
+	saleability: string;
+	isEbook: boolean;
+	listPrice: { amount: number; currencyCode: string };
+	retailPrice: { amount: number; currencyCode: string };
+	buyLink: string;
+	offers: any[];
 };
 
 export type AccessInfo = {
-  country: string;
-  viewability: string;
-  embeddable: boolean;
-  publicDomain: boolean;
-  textToSpeechPermission: string;
-  epub: { isAvailable: boolean; acsTokenLink?: string };
-  pdf: { isAvailable: boolean; acsTokenLink?: string };
-  webReaderLink: string;
-  accessViewStatus: string;
-  quoteSharingAllowed: boolean;
+	country: string;
+	viewability: string;
+	embeddable: boolean;
+	publicDomain: boolean;
+	textToSpeechPermission: string;
+	epub: { isAvailable: boolean; acsTokenLink?: string };
+	pdf: { isAvailable: boolean; acsTokenLink?: string };
+	webReaderLink: string;
+	accessViewStatus: string;
+	quoteSharingAllowed: boolean;
 };
 
 export type ImageLinks = {
-  thumbnail: string;
-  extraLarge?: string;
-  large?: string;
-  medium?: string;
-  small?: string;
+	thumbnail: string;
+	extraLarge?: string;
+	large?: string;
+	medium?: string;
+	small?: string;
 };
 
 export type SearchFormInputs = {
-  author: string;
-  publisher: string;
-  isbn: string;
-  filter: string;
-  sort: string;
+	author: string;
+	publisher: string;
+	isbn: string;
+	filter: string;
+	sort: string;
 };
 
 export type ListsWithBooks = (List & {
-  books: Book[];
+	books: Book[];
 })[];
 
 export type ListWithBooks = List & { books: Book[] };

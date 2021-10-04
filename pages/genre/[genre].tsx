@@ -14,52 +14,47 @@ import React, { useState } from "react";
 interface Props {}
 
 const Genre: React.FC<Props> = () => {
-  const router = useRouter();
-  const genre = router.query.genre as string;
-  const [checked, setChecked] = useState(true);
-  const { data, isValidating, error } = useManualSWR<SearchResponse>(
-    genre ? `/api/genre/${genre}` : null
-  );
+	const router = useRouter();
+	const genre = router.query.genre as string;
+	const [checked, setChecked] = useState(true);
+	const { data, isValidating, error } = useManualSWR<SearchResponse>(
+		genre ? `/api/genre/${genre}` : null
+	);
 
-  if (error) console.error(error);
-  if (isValidating) return <DefaultLoader />;
+	if (error) console.error(error);
+	if (isValidating) return <DefaultLoader />;
 
-  return (
-    <>
-      <Head>
-        <title>Libook {genre ? `- ${readableTitle(genre)}` : ""}</title>
-      </Head>
-      <Container
-        maxW={["container.sm", "container.sm", "container.md"]}
-        my="4"
-        px="4"
-      >
-        <Flex align="center" justify="space-between">
-          <Text as="span" display="inline" fontSize="lg">
-            {data?.totalItems} results
-          </Text>
-          <GridListSwitch checked={checked} handleChange={setChecked} />
-        </Flex>
-        <SimpleGrid
-          columns={checked ? 1 : null}
-          mt="6"
-          minChildWidth={checked ? "140px" : null}
-          gap={[1, 2, 3]}
-          placeItems="center"
-        >
-          {data?.items
-            ?.filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
-            ?.map((book) => {
-              return checked ? (
-                <GridViewBook key={book.etag} book={book} />
-              ) : (
-                <ListViewBook key={book.etag} book={book} />
-              );
-            })}
-        </SimpleGrid>
-      </Container>
-    </>
-  );
+	return (
+		<>
+			<Head>
+				<title>Libook {genre ? `- ${readableTitle(genre)}` : ""}</title>
+			</Head>
+			<Container maxW={["container.sm", "container.sm", "container.md"]} my="4" px="4">
+				<Flex align="center" justify="space-between">
+					<Text as="span" display="inline" fontSize="lg">
+						{data?.totalItems} results
+					</Text>
+					<GridListSwitch checked={checked} handleChange={setChecked} />
+				</Flex>
+				<SimpleGrid
+					columns={checked ? 1 : null}
+					mt="6"
+					minChildWidth={checked ? "140px" : null}
+					gap={[1, 2, 3]}
+					placeItems="center">
+					{data?.items
+						?.filter((item) => item.volumeInfo.hasOwnProperty("imageLinks"))
+						?.map((book) => {
+							return checked ? (
+								<GridViewBook key={book.etag} book={book} />
+							) : (
+								<ListViewBook key={book.etag} book={book} />
+							);
+						})}
+				</SimpleGrid>
+			</Container>
+		</>
+	);
 };
 
 export default Genre;
