@@ -95,7 +95,7 @@ const Search: React.FC<Props> = () => {
 	return (
 		<>
 			<Head>
-				<title>Libook — Search</title>
+				<title>Leaf — Search</title>
 			</Head>
 			<Container my="4" maxW="container.sm">
 				<Box as="form" pos="relative">

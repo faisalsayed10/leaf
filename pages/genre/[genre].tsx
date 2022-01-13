@@ -27,7 +27,7 @@ const Genre: React.FC<Props> = () => {
 	return (
 		<>
 			<Head>
-				<title>Libook {genre ? `- ${readableTitle(genre)}` : ""}</title>
+				<title>Leaf {genre ? `- ${readableTitle(genre)}` : ""}</title>
 			</Head>
 			<Container maxW={["container.sm", "container.sm", "container.md"]} my="4" px="4">
 				<Flex align="center" justify="space-between">

@@ -12,7 +12,7 @@ const genres: React.FC<Props> = ({}) => {
 	return (
 		<>
 			<Head>
-				<title>Libook — Genres</title>
+				<title>Leaf — Genres</title>
 			</Head>
 			<Container maxW={["container.sm", "container.sm", "container.md"]} my={4}>
 				{Object.entries(groupedGenres).map(([key, value]) => {

@@ -17,7 +17,7 @@ const Verify: React.FC = () => {
 				w="450px">
 				<Image
 					src="/libook_logo_white.png"
-					alt="Libook™ logo"
+					alt="Leaf™ logo"
 					maxW="250px"
 					display="block"
 					m="0 auto"

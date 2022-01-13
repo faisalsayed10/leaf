@@ -30,7 +30,7 @@ const Lists: React.FC = () => {
 		return (
 			<>
 				<Head>
-					<title>Libook — Your Lists</title>
+					<title>Leaf — Your Lists</title>
 				</Head>
 				<Unauthorized />
 			</>
@@ -41,7 +41,7 @@ const Lists: React.FC = () => {
 	return (
 		<>
 			<Head>
-				<title>Libook — Your Lists</title>
+				<title>Leaf — Your Lists</title>
 			</Head>
 			<Container maxW={["container.sm", "container.sm", "container.lg"]} minH="100vh" py={4} px={8}>
 				<SimpleGrid

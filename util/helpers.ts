@@ -19,9 +19,9 @@ export function capitalize(word: string) {
 }
 
 export function toCapitalizedWords(word: string) {
-	var text = word.match(/[A-Za-z][a-z]*/g) || [];
+	var text = word?.match(/[A-Za-z][a-z]*/g) || [];
 
-	return text.map(capitalize).join(" ");
+	return text?.map(capitalize).join(" ");
 }
 
 export function readableTitle(genre: string) {

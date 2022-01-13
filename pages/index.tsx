@@ -30,7 +30,8 @@ const HomePage: React.FC<Props> = (props) => {
 			rowGap="6"
 			py="4"
 			mx={["2", "5", "8"]}
-			placeItems="center">
+			placeItems="center"
+		>
 			{data?.map((book) => (
 				<GridViewBook key={book.id} book={book} />
 			))}

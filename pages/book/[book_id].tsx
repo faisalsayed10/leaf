@@ -35,7 +35,7 @@ const BookPage: React.FC<Props> = () => {
 	return (
 		<>
 			<Head>
-				<title>Libook {data?.volumeInfo.title && `— ${data?.volumeInfo.title}`}</title>
+				<title>Leaf {data?.volumeInfo.title && `— ${data?.volumeInfo.title}`}</title>
 			</Head>
 			<Container mt="8">
 				<Flex {...BoxProps} justify="space-evenly" align="center">

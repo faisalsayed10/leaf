@@ -17,7 +17,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 	return (
 		<>
 			<Head>
-				<title>Libook</title>
+				<title>Leaf</title>
 			</Head>
 			<Box height="5px" bgColor="#2ff8bc" pos="sticky" top="0" zIndex="100" />
 			<Navbar />

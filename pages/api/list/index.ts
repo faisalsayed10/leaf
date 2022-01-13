@@ -1,4 +1,4 @@
-import { Book, ListType } from ".prisma/client";
+import { Book, ListType } from "@prisma/client";
 import prisma from "@lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
