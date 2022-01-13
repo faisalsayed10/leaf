@@ -1,9 +1,9 @@
 import { SimpleGrid } from "@chakra-ui/layout";
-import { RotateSpinner } from "react-spinners-kit";
+import { PulseSpinner } from "react-spinners-kit";
 
 const DefaultLoader = () => (
 	<SimpleGrid placeItems="center" h="60vh">
-		<RotateSpinner size={60} color="#5befbd" />
+		<PulseSpinner size={60} color="#000" />
 	</SimpleGrid>
 );
 
