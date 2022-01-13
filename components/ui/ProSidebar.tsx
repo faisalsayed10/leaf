@@ -40,25 +40,29 @@ const ProSidebarSection = (props: Props) => {
 					top: "57px",
 					height: "calc(100vh - 57px)",
 					zIndex: 10
-				}}>
+				}}
+			>
 				<SidebarContent>
 					<Menu iconShape="round">
 						<MenuItem
 							active={router.route === "/"}
 							icon={<Home {...IconProps} />}
-							onClick={() => router.push("/")}>
+							onClick={() => router.push("/")}
+						>
 							Home
 						</MenuItem>
 						<MenuItem
 							active={router.route.startsWith("/search")}
 							icon={<Search {...IconProps} />}
-							onClick={() => router.push("/search")}>
+							onClick={() => router.push("/search")}
+						>
 							Search
 						</MenuItem>
 						<MenuItem
 							active={router.route.startsWith("/genre")}
 							icon={<Icon as={MdLibraryBooks} {...IconProps} />}
-							onClick={() => router.push("/genre")}>
+							onClick={() => router.push("/genre")}
+						>
 							Genres
 						</MenuItem>
 					</Menu>
@@ -66,27 +70,32 @@ const ProSidebarSection = (props: Props) => {
 						<MenuItem
 							active={router.asPath.startsWith("/list/future")}
 							icon={<Icon as={BiHeart} {...IconProps} />}
-							onClick={() => router.push("/list/future")}>
+							onClick={() => router.push("/list/future")}
+						>
 							Want To Read
 						</MenuItem>
 						<MenuItem
 							active={router.asPath.startsWith("/list/current")}
 							icon={<Icon as={BsBookmark} {...IconProps} />}
-							onClick={() => router.push("/list/current")}>
+							onClick={() => router.push("/list/current")}
+						>
 							Currently Reading
 						</MenuItem>
 						<MenuItem
 							active={router.asPath.startsWith("/list/past")}
 							icon={<Icon as={BiCheck} {...IconProps} />}
-							onClick={() => router.push("/list/past")}>
+							onClick={() => router.push("/list/past")}
+						>
 							Already Read
 						</MenuItem>
 					</Menu>
 					<Menu>
 						{data?.length > 0 ? (
 							<MenuItem
+								active={router.route.startsWith("/lists")}
 								onClick={() => router.push("/lists")}
-								icon={<Icon as={MdPlaylistAdd} {...IconProps} />}>
+								icon={<Icon as={MdPlaylistAdd} {...IconProps} />}
+							>
 								Your Lists
 							</MenuItem>
 						) : (

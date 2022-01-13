@@ -102,7 +102,7 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 				listId = listName;
 		}
 
-		const key = listId ? `/api/list?id=${listId}` : `/api/list?type=${listType}`;
+		const key = listId ? `/api/list?type=normal&id=${listId}` : `/api/list?type=${listType}`;
 
 		const { data } = await axios.get<List & { books: Book[] }>(key);
 

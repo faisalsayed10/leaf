@@ -18,7 +18,11 @@ const ListPage = () => {
 	const [listType, setListType] = useState<ListType>();
 	const [loaded, setLoaded] = useState<boolean>(false);
 	const { data, error, isValidating } = useSWR<List & { books: Book[] }>(
-		listType ? `/api/list?type=${listType}` : null
+		listType === "normal"
+			? `/api/list?type=${listType}&id=${type}`
+			: listType
+			? `/api/list?type=${listType}`
+			: null,
 	);
 	const [checked, setChecked] = useState(true);
 
@@ -43,11 +47,11 @@ const ListPage = () => {
 			</Container>
 		);
 
-	if ((data as any)?.message === "Unauthorized")
+	if (error?.response.data.message === "Unauthorized")
 		return (
 			<>
 				<Head>
-					<title>{listType && `Libook — ${toCapitalizedWords(listType)}`}</title>
+					<title>{listType && `Leaf — ${toCapitalizedWords(data?.name)}`}</title>
 				</Head>
 				<Unauthorized />
 			</>
@@ -58,13 +62,14 @@ const ListPage = () => {
 	return (
 		<>
 			<Head>
-				<title>{listType && `Libook — ${toCapitalizedWords(listType)}`}</title>
+				<title>{listType && `Leaf — ${toCapitalizedWords(data?.name)}`}</title>
 			</Head>
 			<Container
 				maxW={["container.sm", "container.sm", "container.lg"]}
 				minH="100vh"
 				py={4}
-				px={{ base: 3, lg: 8 }}>
+				px={{ base: 3, lg: 8 }}
+			>
 				<Flex align="center" justify="space-between">
 					<Text as="span" display="inline" fontSize="lg">
 						{data?.books?.length} results
@@ -72,11 +77,12 @@ const ListPage = () => {
 					<GridListSwitch checked={checked} handleChange={setChecked} />
 				</Flex>
 				<SimpleGrid
-					columns={{ base: 2, sm: 3, md: 4, lg: 5 }}
+					columns={checked ? { base: 2, sm: 3, md: 4, lg: 5 } : null}
 					spacingX={{ base: 3, lg: 5 }}
-					spacingY={10}
+					spacingY={5}
 					mt={6}
-					placeItems={data?.books?.length > 4 ? "center" : "normal"}>
+					placeItems={data?.books?.length > 4 ? "center" : "normal"}
+				>
 					{data?.books?.map((book) => {
 						return checked ? (
 							<GridViewBook key={book.id} book={book} />
