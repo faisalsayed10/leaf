@@ -3,19 +3,14 @@ import DefaultLoader from "@components/loader/DefaultLoader";
 import GridViewBook from "@components/view-modes/GridViewBook";
 import { Item } from "@util/types";
 import React from "react";
-import useSWR, { useSWRConfig } from "swr";
+import useSWRImmutable from "swr/immutable";
 
 type Props = {};
 
 const HomePage: React.FC<Props> = (props) => {
-	const { cache } = useSWRConfig();
-	const { data, error, isValidating } = useSWR<Item[]>("/api/feed", {
-		revalidateOnFocus: false,
-		revalidateOnReconnect: false,
-		revalidateOnMount: !cache.get("/api/feed")
-	});
+	const { data, error, isValidating } = useSWRImmutable<Item[]>("/api/feed");
 
-	if (error) return <div>failed to load</div>;
+	if (error) return <h3>failed to load</h3>;
 	if (isValidating)
 		return (
 			<Container py="4" maxW="container.sm" h="100vh">

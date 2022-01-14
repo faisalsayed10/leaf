@@ -11,7 +11,7 @@ html {
 
 body {
 	background: transparent;
-	min-height: 100vh;
+	min-height: 100vh !important;
 }
 
 .active__sidebar {
@@ -172,7 +172,7 @@ body {
 
 .sidebar-parent .pro-sidebar-inner .pro-sidebar-layout .active {
 	background-color: rgb(235, 235, 235);
-	border-left: 5px solid #2ff8bc;
+	border-left: 5px solid var(--chakra-colors-blue-400);
 }
 
 .pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:hover {

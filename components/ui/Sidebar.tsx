@@ -16,17 +16,15 @@ import Home from "../icons/Home";
 import Login from "../icons/Login";
 import Search from "../icons/Search";
 
-interface Props {}
-
 const IconProps = {
 	boxSize: 5
 };
 
-const ProSidebarSection = (props: Props) => {
+const ProSidebarSection = () => {
 	const [session, loading] = useSession();
 	const router = useRouter();
 	const isLessThan700 = useMedia({ maxWidth: 700 });
-	const { data, error, isValidating } = useSWR<List[]>(session?.user ? "/api/lists" : null);
+	const { data, error } = useSWR<List[]>(session?.user ? "/api/lists" : null);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	if (error) console.error(error);

@@ -14,7 +14,7 @@ const genres: React.FC<Props> = ({}) => {
 			<Head>
 				<title>Leaf — Genres</title>
 			</Head>
-			<Container maxW={["container.sm", "container.sm", "container.md"]} my={4}>
+			<Container maxW={["container.sm", "container.sm", "container.md"]} py={4}>
 				{Object.entries(groupedGenres).map(([key, value]) => {
 					return (
 						<Fragment key={key}>

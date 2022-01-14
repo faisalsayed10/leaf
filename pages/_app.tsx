@@ -17,7 +17,7 @@ export default function App({ Component, pageProps, router }) {
 	return (
 		<Provider session={pageProps.session}>
 			<ChakraProvider theme={theme}>
-				<CSSReset />
+				{/* <CSSReset /> */}
 				<SWRConfig value={{ fetcher, revalidateOnFocus: false }}>
 					<LayoutComponent>
 						<Component {...pageProps} />

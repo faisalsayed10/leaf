@@ -97,7 +97,7 @@ const Search: React.FC<Props> = () => {
 			<Head>
 				<title>Leaf — Search</title>
 			</Head>
-			<Container my="4" maxW="container.sm">
+			<Container py="4" maxW="container.sm">
 				<Box as="form" pos="relative">
 					<SearchInput value={query} setValue={setQuery} />
 					<Accordion allowMultiple mt={2}>
@@ -143,7 +143,8 @@ const Search: React.FC<Props> = () => {
 							icon={<MdArrowDropDown />}
 							placeholder="Filter By:"
 							cursor="pointer"
-							{...register("filter")}>
+							{...register("filter")}
+						>
 							<option value="&printType=books">Books</option>
 							<option value="&printType=magazines">Magazines</option>
 							<option value="&filter=ebooks">Ebooks</option>
@@ -154,7 +155,8 @@ const Search: React.FC<Props> = () => {
 							{...register("sort")}
 							icon={<MdArrowDropDown />}
 							placeholder="Sort By:"
-							cursor="pointer">
+							cursor="pointer"
+						>
 							<option value="&orderBy=relevance">Relevance</option>
 							<option value="&orderBy=newest">Newest</option>
 						</Select>
@@ -176,9 +178,10 @@ const Search: React.FC<Props> = () => {
 								setIsSameQuery(true);
 								setStartIndex((p) => p + 40);
 							}}
-							variant="unstyled"
+							variant="solid"
 							width="60%"
-							bgColor="#5befbd">
+							colorScheme="blue"
+						>
 							Load More
 						</Button>
 					</Center>

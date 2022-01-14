@@ -3,7 +3,7 @@ import { PulseSpinner } from "react-spinners-kit";
 
 const DefaultLoader = () => (
 	<SimpleGrid placeItems="center" h="60vh">
-		<PulseSpinner size={60} color="#000" />
+		<PulseSpinner size={60} color="#4299e1" />
 	</SimpleGrid>
 );
 
