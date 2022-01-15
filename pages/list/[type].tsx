@@ -68,7 +68,7 @@ const ListPage = () => {
 				maxW={["container.sm", "container.sm", "container.lg"]}
 				minH="100vh"
 				py={4}
-				px={{ base: 3, lg: 8 }}
+				px={{ base: 1, lg: 8 }}
 			>
 				<Flex align="center" justify="space-between">
 					<Text as="span" display="inline" fontSize="lg">

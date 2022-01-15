@@ -4,7 +4,7 @@ import { Box, Flex, Text } from "@chakra-ui/layout";
 import MoreOptionsMenu from "@components/menus/MoreOptionsMenu";
 import { sliceText } from "@util/helpers";
 import { Item } from "@util/types";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface Props {
@@ -12,44 +12,41 @@ interface Props {
 }
 
 const GridViewBook: React.FC<Props> = ({ book }) => {
+	const router = useRouter();
 	return (book as Item).volumeInfo !== undefined ? (
-		<Box maxW="140px" cursor="pointer">
-			<Link href={`/book/${book.id}`} passHref>
-				<Image
-					src={(book as Item).volumeInfo?.imageLinks?.thumbnail || ""}
-					alt={sliceText((book as Item).volumeInfo.title, 50)}
-					fallbackSrc="/no-thumbnail.png"
-					minW="130px"
-					h="180px"
-				/>
-			</Link>
+		<Box maxW="130px" cursor="pointer" onClick={() => router.push(`/book/${book.id}`)}>
+			<Image
+				src={(book as Item).volumeInfo?.imageLinks?.thumbnail || ""}
+				alt={sliceText((book as Item).volumeInfo.title, 50)}
+				fallbackSrc="/no-thumbnail.png"
+				minW="130px"
+				h="180px"
+			/>
 			<Flex align="center" justifyContent="space-between" w="full">
-				<Link href={`/book/${book.id}`} passHref>
-					<Text isTruncated={true} fontSize="sm" textAlign="center">
-						{(book as Item).volumeInfo.title}
-					</Text>
-				</Link>
+				<Text isTruncated={true} fontSize="sm" textAlign="center">
+					{(book as Item).volumeInfo.title}
+				</Text>
 				<MoreOptionsMenu data={book} />
 			</Flex>
 		</Box>
 	) : (
-		<Box maxW="140px" cursor="pointer">
-			<Link href={`/book/${(book as Book).gbookId}`} passHref>
-				<Image
-					// @ts-ignore
-					src={(book as Book)?.imageLinks?.thumbnail || ""}
-					alt={sliceText((book as Book).title, 50)}
-					fallbackSrc="/no-thumbnail.png"
-					minW="130px"
-					h="180px"
-				/>
-			</Link>
+		<Box
+			maxW="130px"
+			cursor="pointer"
+			onClick={() => router.push(`/book/${(book as Book).gbookId}`)}
+		>
+			<Image
+				// @ts-ignore
+				src={(book as Book)?.imageLinks?.thumbnail || ""}
+				alt={sliceText((book as Book).title, 50)}
+				fallbackSrc="/no-thumbnail.png"
+				minW="130px"
+				h="180px"
+			/>
 			<Flex align="center" justifyContent="space-between" w="full">
-				<Link href={`/book/${book.id}`} passHref>
-					<Text isTruncated={true} fontSize="sm" textAlign="left">
-						{(book as Book).title}
-					</Text>
-				</Link>
+				<Text isTruncated={true} fontSize="sm" textAlign="left">
+					{(book as Book).title}
+				</Text>
 				<MoreOptionsMenu data={book} />
 			</Flex>
 		</Box>

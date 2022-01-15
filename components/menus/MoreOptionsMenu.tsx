@@ -126,7 +126,12 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 	return (
 		<>
 			<Menu>
-				<MenuButton as={IconButton} aria-label="more-options" icon={<FiMoreVertical />} />
+				<MenuButton
+					as={IconButton}
+					aria-label="more-options"
+					icon={<FiMoreVertical />}
+					onClick={(e) => e.stopPropagation()}
+				/>
 				<MenuList>
 					<MenuItem
 						icon={<BiHeart size="18" />}
@@ -134,7 +139,8 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 							if (isSessionLoading) return;
 							session?.user ? addBookToList(null, "wantToRead") : onOpen();
 						}}
-						disabled={loading}>
+						disabled={loading}
+					>
 						Want To Read
 					</MenuItem>
 					<MenuItem
@@ -143,7 +149,8 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 							if (isSessionLoading) return;
 							session?.user ? addBookToList(null, "currentlyReading") : onOpen();
 						}}
-						disabled={loading}>
+						disabled={loading}
+					>
 						Currently Reading
 					</MenuItem>
 					<MenuItem
@@ -152,7 +159,8 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 							if (isSessionLoading) return;
 							session?.user ? addBookToList(null, "alreadyRead") : onOpen();
 						}}
-						disabled={loading}>
+						disabled={loading}
+					>
 						Already Read
 					</MenuItem>
 					<MenuDivider />
@@ -171,7 +179,8 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 									`book/${(data as Book)?.gbookId || data?.id}`
 							);
 							toast("Copied to Clipboard!", { icon: "✅" });
-						}}>
+						}}
+					>
 						Copy Link
 					</MenuItem>
 					{router.route.startsWith("/list") && (

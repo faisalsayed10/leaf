@@ -35,7 +35,7 @@ const SearchResults: React.FC<Props> = ({ results, loading, type, isSameQuery })
 
 	return (
 		<SimpleGrid
-			columns={type === "GRID" ? { base: 2, sm: 3, md: 4, lg: 5 } : null}
+			columns={type === "GRID" ? { base: 2, sm: 3, md: 4, lg: 4 } : null}
 			spacingX={{ base: 3, lg: 5 }}
 			spacingY={5}
 			mt={12}

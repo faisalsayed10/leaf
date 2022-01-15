@@ -18,8 +18,8 @@ const HomePage = () => {
 
 	return (
 		<SimpleGrid
-			minChildWidth="140px"
-			gap={[1, 2, 6]}
+			columns={{ base: 2, sm: 3, md: 4, lg: 5 }}
+			gap={[1, 2, 3]}
 			rowGap="6"
 			py="4"
 			mx={["2", "5", "8"]}
