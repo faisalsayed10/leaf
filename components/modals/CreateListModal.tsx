@@ -13,17 +13,21 @@ import {
 	ModalOverlay
 } from "@chakra-ui/modal";
 import axios from "axios";
+import { useSession } from "next-auth/client";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useSWRConfig } from "swr";
 
 interface Props {
+	isEdit?: boolean;
+	listId?: string;
 	isOpen: boolean;
 	onClose: () => void;
 	book?: Omit<Book, "id">;
 }
 
-const CreateListModal: React.FC<Props> = ({ isOpen, onClose, book }) => {
+const CreateListModal: React.FC<Props> = ({ isOpen, onClose, book, isEdit, listId }) => {
+	const [session, loading] = useSession();
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
 	const { mutate } = useSWRConfig();
@@ -51,11 +55,38 @@ const CreateListModal: React.FC<Props> = ({ isOpen, onClose, book }) => {
 							: `Successfully created new list: ${data.name}`,
 					error: `Aw man! Something went wrong and your list wasn't created 😭`
 				},
+				{ style: { minWidth: "250px" } }
+			);
+
+			mutate(`/api/lists`);
+			onClose();
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const editList = async () => {
+		try {
+			if (!listId) return;
+			if (name.trim() === "") return toast.error("Name field is required.");
+
+			const { data: lists } = await axios.get<List[]>("/api/lists");
+			const res = axios.put<List>("/api/list", {
+				id: listId,
+				name,
+				description
+			});
+
+			mutate(`/api/lists`, [...lists, (await res).data], false);
+
+			toast.promise(
+				res,
 				{
-					style: {
-						minWidth: "250px"
-					}
-				}
+					loading: "Saving details ⏳",
+					success: `List details saved successfully!`,
+					error: `Aw man! Something went wrong 😭`
+				},
+				{ style: { minWidth: "250px" } }
 			);
 
 			mutate(`/api/lists`);
@@ -69,7 +100,7 @@ const CreateListModal: React.FC<Props> = ({ isOpen, onClose, book }) => {
 		<Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
 			<ModalContent>
-				<ModalHeader>Create A List</ModalHeader>
+				<ModalHeader>{isEdit ? "Edit Details" : "Create A List"}</ModalHeader>
 				<ModalCloseButton />
 				<ModalBody as="form">
 					<Flex align="start" flexDir="column" justify="center">
@@ -103,8 +134,8 @@ const CreateListModal: React.FC<Props> = ({ isOpen, onClose, book }) => {
 					<Button variant="ghost" mr={3} onClick={onClose}>
 						Close
 					</Button>
-					<Button colorScheme="blue" onClick={createList}>
-						Create ✨
+					<Button colorScheme="blue" onClick={isEdit ? editList : createList} disabled={!session}>
+						{isEdit ? "Save ✨" : "Create ✨"}
 					</Button>
 				</ModalFooter>
 			</ModalContent>
