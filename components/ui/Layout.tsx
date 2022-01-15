@@ -20,10 +20,10 @@ const Layout: React.FC<Props> = ({ children }) => {
 				<title>Leaf</title>
 			</Head>
 			<Flex flexDir="column" justifyContent="space-between" minH="100vh">
-				<div>
-					<Box height="5px" bgColor="blue.400" pos="sticky" top="0" zIndex="100" />
+				<Box pos="sticky" top="0" zIndex="100">
+					<Box height="5px" bgColor="blue.400" />
 					<Navbar />
-				</div>
+				</Box>
 				{isMoreThan400 ? (
 					<Flex bgColor="#edf2f7">
 						<ProSidebarSection />

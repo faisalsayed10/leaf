@@ -83,12 +83,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			});
 			return res.status(200).json(updatedList);
 		} else if (req.method === "DELETE") {
-			const { id, type } = req.query as { id?: string; type?: ListType };
+			const { id } = req.query as { id?: string; type?: ListType };
 
 			await prisma.list.deleteMany({
 				where: {
 					...(id && { id }),
-					...(!id && type ? { type } : {}),
 					authorId: user.id
 				}
 			});

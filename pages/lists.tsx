@@ -43,9 +43,9 @@ const Lists: React.FC = () => {
 			<Head>
 				<title>Leaf — Your Lists</title>
 			</Head>
-			<Container maxW={["container.sm", "container.sm", "container.lg"]} minH="100vh" py={4} px={8}>
+			<Container maxW={["container.sm", "container.sm", "container.lg"]} minH="100vh" py={4} px={4}>
 				<SimpleGrid
-					columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+					columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
 					spacingX={{ base: 6, lg: 8 }}
 					spacingY={2}
 					mt={6}

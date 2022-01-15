@@ -16,11 +16,8 @@ const Navbar: React.FC<Props> = () => {
 			alignItems="center"
 			justifyContent="space-between"
 			borderBottom="1px solid #E2E8F0"
-			pos="sticky"
-			top="5px"
 			py="3"
 			px="6"
-			zIndex="100"
 		>
 			<Link href="/" passHref>
 				<Heading textTransform="uppercase" fontWeight="bold" letterSpacing="1px" fontSize="24px">
