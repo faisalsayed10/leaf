@@ -25,11 +25,7 @@ import { useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
 import _ from "underscore";
 
-interface Props {}
-
-// &langRestrict= two-letter ISO-639-1 code (en, fr)
-
-const Search: React.FC<Props> = () => {
+const Search = () => {
 	const [query, setQuery] = useState("");
 	const [checked, setChecked] = useState(true);
 	const [startIndex, setStartIndex] = useState(0);

@@ -1,5 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@lib/prisma";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 
 // GET /api/lists - Get all lists of a user

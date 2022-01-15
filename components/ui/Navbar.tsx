@@ -5,9 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { BiLogOut } from "react-icons/bi";
 
-interface Props {}
-
-const Navbar: React.FC<Props> = () => {
+const Navbar = () => {
 	const [session, loading] = useSession();
 
 	return (

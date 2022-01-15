@@ -1,16 +1,16 @@
-import React from "react";
+import { Button } from "@chakra-ui/button";
+import { Text } from "@chakra-ui/layout";
 import {
 	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalFooter,
 	ModalBody,
-	ModalCloseButton
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay
 } from "@chakra-ui/modal";
-import { Text } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/button";
 import { useRouter } from "next/router";
+import React from "react";
 
 interface Props {
 	isOpen: boolean;

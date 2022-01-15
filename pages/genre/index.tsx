@@ -1,14 +1,12 @@
 import { Container, Flex, Heading, Text, Wrap, WrapItem } from "@chakra-ui/layout";
-import { GENRES, groupedGenres } from "@lib/constants";
+import { groupedGenres } from "@lib/constants";
 import { readableTitle } from "@util/helpers";
 import Head from "next/head";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import { MdLibraryBooks } from "react-icons/md";
 
-interface Props {}
-
-const genres: React.FC<Props> = ({}) => {
+const Genres = () => {
 	return (
 		<>
 			<Head>
@@ -49,4 +47,4 @@ const genres: React.FC<Props> = ({}) => {
 	);
 };
 
-export default genres;
+export default Genres;

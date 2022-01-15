@@ -1,6 +1,6 @@
 import React from "react";
+import { HiViewGrid, HiViewList } from "react-icons/hi";
 import ReactSwitch from "react-switch";
-import { HiViewList, HiViewGrid } from "react-icons/hi";
 
 interface Props {
 	checked: boolean;

@@ -5,9 +5,7 @@ import { Item } from "@util/types";
 import React from "react";
 import useSWRImmutable from "swr/immutable";
 
-type Props = {};
-
-const HomePage: React.FC<Props> = (props) => {
+const HomePage = () => {
 	const { data, error, isValidating } = useSWRImmutable<Item[]>("/api/feed");
 
 	if (error) return <h3>failed to load</h3>;

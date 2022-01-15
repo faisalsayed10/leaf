@@ -1,5 +1,5 @@
 import { Text } from "@chakra-ui/layout";
-import { readableTitle, capitalize } from "@util/helpers";
+import { capitalize, readableTitle } from "@util/helpers";
 import { VolumeInfo } from "@util/types";
 import React from "react";
 

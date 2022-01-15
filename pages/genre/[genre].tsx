@@ -11,9 +11,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-interface Props {}
-
-const Genre: React.FC<Props> = () => {
+const Genre = () => {
 	const router = useRouter();
 	const genre = router.query.genre as string;
 	const [checked, setChecked] = useState(true);

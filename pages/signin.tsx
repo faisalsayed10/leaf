@@ -1,9 +1,9 @@
-import React from "react";
-import { signIn, getSession, getProviders, getCsrfToken } from "next-auth/client";
-import { Box, Flex, Text, Button, Input, chakra, Image, Icon } from "@chakra-ui/react";
-import { FaGoogle } from "react-icons/fa";
+import { Box, Button, chakra, Flex, Icon, Image, Input, Text } from "@chakra-ui/react";
+import { getCsrfToken, getProviders, getSession, signIn } from "next-auth/client";
 import { useRouter } from "next/router";
+import React from "react";
 import { BsLightningFill } from "react-icons/bs";
+import { FaGoogle } from "react-icons/fa";
 
 const errors = {
 	Signin: "Try signing with a different account.",

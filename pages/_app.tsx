@@ -1,4 +1,4 @@
-import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "@components/ui/Layout";
 import { fetcher } from "@lib/fetcher";
 import theme from "@lib/theme";

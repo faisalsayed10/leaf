@@ -14,8 +14,6 @@ import React from "react";
 import ReadMoreLess from "react-read-more-read-less";
 import striptags from "striptags";
 
-interface Props {}
-
 const BoxProps = {
 	py: "3",
 	mb: "5",
@@ -24,7 +22,7 @@ const BoxProps = {
 	borderRadius: "5px"
 };
 
-const BookPage: React.FC<Props> = () => {
+const BookPage = () => {
 	const router = useRouter();
 	const id = router.query.book_id;
 	const { data, isValidating, error } = useManualSWR<Item>(id ? `/api/book/${id}` : null);

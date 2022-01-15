@@ -1,11 +1,11 @@
 import { Flex } from "@chakra-ui/layout";
 import { Box } from "@chakra-ui/react";
+import Head from "next/head";
 import React, { ReactNode } from "react";
 import useMedia from "use-media";
 import Navbar from "./Navbar";
 import ProSidebarSection from "./Sidebar";
 import Tabbar from "./Tabbar";
-import Head from "next/head";
 
 type Props = {
 	children: ReactNode;

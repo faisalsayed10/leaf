@@ -1,5 +1,4 @@
 import Icon from "@chakra-ui/icon";
-import React from "react";
 
 const Login = (props) => (
 	<Icon
