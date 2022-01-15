@@ -3,14 +3,14 @@ import ListCard from "@components/cards/ListCard";
 import DefaultLoader from "@components/loader/DefaultLoader";
 import NoBooksFound from "@components/ui/NoBooksFound";
 import Unauthorized from "@components/ui/Unauthorized";
-import { ListsWithBooks } from "@util/types";
+import { ListWithBooks } from "@util/types";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 const Lists: React.FC = () => {
 	const [loaded, setLoaded] = useState<boolean>(false);
-	const { data, error, isValidating } = useSWR<ListsWithBooks>(`/api/lists`);
+	const { data, isValidating } = useSWR<ListWithBooks[]>(`/api/lists`);
 
 	useEffect(() => {
 		if (loaded) return;

@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const data: Item[] = [];
 
 	for (const genre of randomGenres) {
-		const url = `${BASE_URL}/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=15`;
+		const url = `${BASE_URL}/volumes?q=subject:${genre}&key=${process.env.GOOGLE_BOOKS_API_KEY}&maxResults=20`;
 		const response = await axios.get<SearchResponse>(url);
 		if (response.data.items && response.data.items.length > 0) {
 			data.push(...response.data.items);

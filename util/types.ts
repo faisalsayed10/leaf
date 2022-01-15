@@ -77,8 +77,4 @@ export type SearchFormInputs = {
 	sort: string;
 };
 
-export type ListsWithBooks = (List & {
-	books: Book[];
-})[];
-
 export type ListWithBooks = List & { books: Book[] };
