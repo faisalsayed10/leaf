@@ -47,7 +47,7 @@ const Lists: React.FC = () => {
 				<SimpleGrid
 					columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
 					spacingX={{ base: 6, lg: 8 }}
-					spacingY={10}
+					spacingY={2}
 					mt={6}
 					placeItems={data?.length > 4 ? "center" : "normal"}>
 					{data?.map((list) => (

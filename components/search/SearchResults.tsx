@@ -35,7 +35,13 @@ const SearchResults: React.FC<Props> = ({ results, loading, type, isSameQuery })
 		);
 
 	return (
-		<SimpleGrid columns={type === "GRID" ? 4 : 1} spacing={6} placeItems="center" mt="12">
+		<SimpleGrid
+			columns={type === "GRID" ? { base: 2, sm: 3, md: 4, lg: 5 } : null}
+			spacingX={{ base: 3, lg: 5 }}
+			spacingY={5}
+			mt={12}
+			placeItems={localData?.length > 4 ? "center" : "normal"}
+		>
 			{localData?.map((book) =>
 				type === "GRID" ? (
 					<GridViewBook key={book.etag} book={book} />

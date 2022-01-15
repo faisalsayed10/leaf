@@ -79,7 +79,6 @@ const ListPage = () => {
 				<SimpleGrid
 					columns={checked ? { base: 2, sm: 3, md: 4, lg: 5 } : null}
 					spacingX={{ base: 3, lg: 5 }}
-					spacingY={5}
 					mt={6}
 					placeItems={data?.books?.length > 4 ? "center" : "normal"}
 				>
