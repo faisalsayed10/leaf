@@ -32,14 +32,9 @@ const SignIn = ({ providers, csrfToken }) => {
 				rounded="lg"
 				shadow="lg"
 				bg="white"
-				w="450px">
-				<Image
-					src="/libook_logo_white.png"
-					alt="Leaf™ logo"
-					maxW="250px"
-					display="block"
-					m="0 auto"
-				/>
+				w="450px"
+			>
+				<Image src="/leaf-logo.png" alt="Leaf™ logo" maxW="250px" display="block" m="0 auto" />
 				<Text fontWeight="bold" align="center" color="gray.700">
 					Create an account or log in
 				</Text>
@@ -103,7 +98,8 @@ const SignInError = ({ error }) => {
 			shadow="md"
 			rounded="lg"
 			overflow="hidden"
-			mb={8}>
+			mb={8}
+		>
 			<Flex justifyContent="center" alignItems="center" w={12} bg="red.500">
 				<Icon as={BsLightningFill} color="white" boxSize={6} />
 			</Flex>
