@@ -132,7 +132,7 @@ const MoreOptionsMenu: React.FC<Props> = ({ data }) => {
 					icon={<FiMoreVertical />}
 					onClick={(e) => e.stopPropagation()}
 				/>
-				<MenuList>
+				<MenuList onClick={(e) => e.stopPropagation()}>
 					<MenuItem
 						icon={<BiHeart size="18" />}
 						onClick={() => {
